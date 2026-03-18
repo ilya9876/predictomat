@@ -59,7 +59,7 @@
       "snapshots": [
         { "date": "2026-03-02", "crowd_probability_percent": 57, "my_probability_percent": 59 },
 		{ "date": "2026-03-03", "crowd_probability_percent": 55, "my_probability_percent": 38 },
-		{ "date": "2026-03-04", "crowd_probability_percent": 60, "my_probability_percent": 62 },
+		{ "date": "2026-03-04", "crowd_probability_percent": 62, "my_probability_percent": 60 },
 		{ "date": "2026-03-05", "crowd_probability_percent": 61, "my_probability_percent": 35 },
 		{ "date": "2026-03-06", "crowd_probability_percent": 59, "my_probability_percent": 40 },
 		{ "date": "2026-03-07", "crowd_probability_percent": 56, "my_probability_percent": 32 },
