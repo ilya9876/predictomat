@@ -206,7 +206,7 @@ function createMarketCard(market) {
       ${createStat('Current gap', `${formatPercent(currentGap)} pp`)}
       ${createStat('Peak divergence', `${formatPercent(peakGap)} pp`)}
       ${createStat('Peak date', escapeHtml(peakDate))}
-      ${createStat('Early lead', escapeHtml(earlyLead))}
+      ${createStat('Early lead', escapeHtml(earlyLead), earlyLead === 'confirmed' ? 'stat-early-lead-confirmed' : '')}
     </div>
 
     <div class="chart-shell">
@@ -216,7 +216,7 @@ function createMarketCard(market) {
       </div>
       <canvas aria-label="Probability chart for ${escapeAttribute(market.title)}"></canvas>
       <div class="chart-inspector is-idle" role="status" aria-live="polite">
-        <span class="inspector-item inspector-date">${prefersHover ? 'Hover a point to inspect exact values.' : 'Tap a point to inspect exact values.'}</span>
+        <span class="inspector-item inspector-date">${prefersHover ? 'Hover a point to inspect' : 'Tap a point to inspect exact values.'}</span>
         <span class="inspector-item inspector-crowd">Crowd: —</span>
         <span class="inspector-item inspector-mine">Mine: —</span>
         <span class="inspector-item inspector-gap">Gap: —</span>
@@ -227,9 +227,10 @@ function createMarketCard(market) {
   return article;
 }
 
-function createStat(label, value) {
+function createStat(label, value, modifierClass = '') {
+  const className = ['stat', modifierClass].filter(Boolean).join(' ');
   return `
-    <div class="stat">
+    <div class="${className}">
       <span class="stat-label">${label}</span>
       <span class="stat-value">${value}</span>
     </div>
@@ -466,7 +467,7 @@ function updateInspector(inspector, points, activeIndex) {
 
   if (activeIndex === null || !points[activeIndex]) {
     inspector.classList.add('is-idle');
-    dateEl.textContent = prefersHover ? 'Hover a point to inspect exact values.' : 'Tap a point to inspect exact values.';
+    dateEl.textContent = prefersHover ? 'Hover a point to inspect' : 'Tap a point to inspect exact values.';
     crowdEl.textContent = 'Crowd: —';
     mineEl.textContent = 'Mine: —';
     gapEl.textContent = 'Gap: —';

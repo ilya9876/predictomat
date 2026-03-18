@@ -238,6 +238,16 @@ a {
   font-weight: 700;
 }
 
+.stat-early-lead-confirmed {
+  background: #dff6e6;
+  border-color: #7bc491;
+}
+
+.stat-early-lead-confirmed .stat-label,
+.stat-early-lead-confirmed .stat-value {
+  color: #165b2b;
+}
+
 .chart-shell {
   border: 2px solid var(--border);
   background: #fff;
