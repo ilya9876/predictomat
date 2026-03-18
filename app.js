@@ -3,6 +3,12 @@ const state = {
   data: null,
 };
 
+const touchInspectorState = {
+  activeShell: null,
+  clearActive: null,
+  outsideListenerBound: false,
+};
+
 const elements = {
   lastUpdated: document.getElementById('last-updated'),
   marketList: document.getElementById('market-list'),
@@ -32,6 +38,8 @@ async function init() {
 }
 
 function bindEvents() {
+  bindTouchInspectorOutsideHandler();
+
   elements.activeTab.addEventListener('click', () => {
     if (state.view !== 'active') {
       state.view = 'active';
@@ -64,6 +72,7 @@ function renderPage() {
 }
 
 function renderLoadError() {
+  resetTouchInspectorState();
   elements.marketList.innerHTML = '';
   const box = document.createElement('section');
   box.className = 'empty-state';
@@ -145,6 +154,7 @@ function getRepricingProcess(market) {
 }
 
 function renderMarkets(markets) {
+  resetTouchInspectorState();
   elements.marketList.innerHTML = '';
 
   if (markets.length === 0) {
@@ -160,9 +170,10 @@ function renderMarkets(markets) {
   for (const market of markets) {
     const card = createMarketCard(market);
     elements.marketList.appendChild(card);
+    const chartShell = card.querySelector('.chart-shell');
     const canvas = card.querySelector('canvas');
     const inspector = card.querySelector('.chart-inspector');
-    renderMarketChart(canvas, market.snapshots, inspector);
+    renderMarketChart(chartShell, canvas, market.snapshots, inspector);
   }
 }
 
@@ -220,7 +231,7 @@ function createStat(label, value) {
   `;
 }
 
-function renderMarketChart(canvas, snapshots, inspector) {
+function renderMarketChart(chartShell, canvas, snapshots, inspector) {
   const context = canvas.getContext('2d');
   const dpr = window.devicePixelRatio || 1;
   const cssWidth = Math.max(canvas.clientWidth, 280);
@@ -255,11 +266,27 @@ function renderMarketChart(canvas, snapshots, inspector) {
     drawAxisLabels(context, chartModel.points, width, height, padding, plotWidth);
   };
 
-  const setActiveIndex = (nextIndex) => {
-    if (activeIndex === nextIndex) return;
+  const applyActiveIndex = (nextIndex) => {
     activeIndex = nextIndex;
     redraw();
     updateInspector(inspector, chartModel.points, activeIndex);
+  };
+
+  const setActiveIndex = (nextIndex) => {
+    if (activeIndex === nextIndex) return;
+
+    if (!prefersHover && nextIndex !== null) {
+      activateTouchInspector(chartShell, () => {
+        if (activeIndex === null) return;
+        applyActiveIndex(null);
+      });
+    }
+
+    applyActiveIndex(nextIndex);
+
+    if (!prefersHover && nextIndex === null) {
+      deactivateTouchInspector(chartShell);
+    }
   };
 
   const handlePointerMove = (event) => {
@@ -284,7 +311,7 @@ function renderMarketChart(canvas, snapshots, inspector) {
       return;
     }
 
-    if (event.pointerType === 'touch' && activeIndex === nextIndex) {
+    if ((event.pointerType === 'touch' || !prefersHover) && activeIndex === nextIndex) {
       setActiveIndex(null);
       return;
     }
@@ -298,6 +325,49 @@ function renderMarketChart(canvas, snapshots, inspector) {
 
   redraw();
   updateInspector(inspector, chartModel.points, null);
+}
+
+function bindTouchInspectorOutsideHandler() {
+  if (touchInspectorState.outsideListenerBound) return;
+
+  document.addEventListener('pointerdown', (event) => {
+    if (prefersHover || !touchInspectorState.activeShell) return;
+    if (touchInspectorState.activeShell.contains(event.target)) return;
+
+    deactivateTouchInspector();
+  });
+
+  touchInspectorState.outsideListenerBound = true;
+}
+
+function resetTouchInspectorState() {
+  touchInspectorState.activeShell = null;
+  touchInspectorState.clearActive = null;
+}
+
+function activateTouchInspector(chartShell, clearActive) {
+  if (!chartShell || prefersHover) return;
+
+  if (touchInspectorState.activeShell && touchInspectorState.activeShell !== chartShell && typeof touchInspectorState.clearActive === 'function') {
+    const previousClearActive = touchInspectorState.clearActive;
+    resetTouchInspectorState();
+    previousClearActive();
+  }
+
+  touchInspectorState.activeShell = chartShell;
+  touchInspectorState.clearActive = clearActive;
+}
+
+function deactivateTouchInspector(chartShell = null) {
+  if (!touchInspectorState.activeShell) return;
+  if (chartShell && touchInspectorState.activeShell !== chartShell) return;
+
+  const clearActive = touchInspectorState.clearActive;
+  resetTouchInspectorState();
+
+  if (typeof clearActive === 'function') {
+    clearActive();
+  }
 }
 
 function createChartModel(snapshots, padding, plotWidth, plotHeight) {
@@ -419,25 +489,27 @@ function getNearestPointIndex(canvas, points, event, threshold) {
 
   const rect = canvas.getBoundingClientRect();
   const pointerX = event.clientX - rect.left;
-  const plotLeft = points[0].x;
-  const plotRight = points[points.length - 1].x;
+  const pointerY = event.clientY - rect.top;
 
-  if (pointerX < plotLeft - threshold || pointerX > plotRight + threshold) {
-    return null;
-  }
+  let nearestIndex = null;
+  let nearestDistance = Number.POSITIVE_INFINITY;
 
-  let nearestIndex = 0;
-  let nearestDistance = Math.abs(points[0].x - pointerX);
+  for (const point of points) {
+    const crowdDistance = getDistance(pointerX, pointerY, point.x, point.crowdY);
+    const mineDistance = getDistance(pointerX, pointerY, point.x, point.mineY);
+    const distance = Math.min(crowdDistance, mineDistance);
 
-  for (let index = 1; index < points.length; index += 1) {
-    const distance = Math.abs(points[index].x - pointerX);
     if (distance < nearestDistance) {
       nearestDistance = distance;
-      nearestIndex = index;
+      nearestIndex = point.index;
     }
   }
 
   return nearestDistance <= threshold ? nearestIndex : null;
+}
+
+function getDistance(x1, y1, x2, y2) {
+  return Math.hypot(x2 - x1, y2 - y1);
 }
 
 function updateInspector(inspector, points, activeIndex) {
