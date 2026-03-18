@@ -3,12 +3,6 @@ const state = {
   data: null,
 };
 
-const touchInspectorState = {
-  activeShell: null,
-  clearActive: null,
-  outsideListenerBound: false,
-};
-
 const elements = {
   lastUpdated: document.getElementById('last-updated'),
   marketList: document.getElementById('market-list'),
@@ -17,6 +11,8 @@ const elements = {
 };
 
 const prefersHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+const EARLY_LEAD_MIN_GAP_PP = 10;
+const EARLY_LEAD_CONVERGENCE_TOLERANCE_PP = 3;
 
 init();
 
@@ -38,8 +34,6 @@ async function init() {
 }
 
 function bindEvents() {
-  bindTouchInspectorOutsideHandler();
-
   elements.activeTab.addEventListener('click', () => {
     if (state.view !== 'active') {
       state.view = 'active';
@@ -72,7 +66,6 @@ function renderPage() {
 }
 
 function renderLoadError() {
-  resetTouchInspectorState();
   elements.marketList.innerHTML = '';
   const box = document.createElement('section');
   box.className = 'empty-state';
@@ -140,21 +133,34 @@ function getPeakInfo(market) {
   };
 }
 
-function getRepricingProcess(market) {
-  const currentGap = getCurrentGap(market);
-  const { peakGap } = getPeakInfo(market);
+function getEarlyLeadStatus(market) {
+  const snapshots = market.snapshots || [];
 
-  if (peakGap === 0) return 'flat';
+  for (let index = 0; index < snapshots.length - 1; index += 1) {
+    const snapshot = snapshots[index];
+    const crowd = Number(snapshot.crowd_probability_percent);
+    const mine = Number(snapshot.my_probability_percent);
+    const gap = Math.abs(mine - crowd);
 
-  const ratio = currentGap / peakGap;
+    if (gap < EARLY_LEAD_MIN_GAP_PP) continue;
 
-  if (ratio <= 0.7) return 'narrowing';
-  if (ratio < 0.9) return 'flat';
-  return 'widening';
+    let bestFutureDistance = Number.POSITIVE_INFINITY;
+
+    for (let futureIndex = index + 1; futureIndex < snapshots.length; futureIndex += 1) {
+      const futureCrowd = Number(snapshots[futureIndex].crowd_probability_percent);
+      const distanceToMyEarlierView = Math.abs(futureCrowd - mine);
+      bestFutureDistance = Math.min(bestFutureDistance, distanceToMyEarlierView);
+    }
+
+    if (bestFutureDistance <= EARLY_LEAD_CONVERGENCE_TOLERANCE_PP) {
+      return 'confirmed';
+    }
+  }
+
+  return 'not yet';
 }
 
 function renderMarkets(markets) {
-  resetTouchInspectorState();
   elements.marketList.innerHTML = '';
 
   if (markets.length === 0) {
@@ -170,10 +176,9 @@ function renderMarkets(markets) {
   for (const market of markets) {
     const card = createMarketCard(market);
     elements.marketList.appendChild(card);
-    const chartShell = card.querySelector('.chart-shell');
     const canvas = card.querySelector('canvas');
     const inspector = card.querySelector('.chart-inspector');
-    renderMarketChart(chartShell, canvas, market.snapshots, inspector);
+    renderMarketChart(canvas, market.snapshots, inspector);
   }
 }
 
@@ -181,7 +186,7 @@ function createMarketCard(market) {
   const latest = getLatestSnapshot(market);
   const currentGap = getCurrentGap(market);
   const { peakGap, peakDate } = getPeakInfo(market);
-  const repricing = getRepricingProcess(market);
+  const earlyLead = getEarlyLeadStatus(market);
   const snapshotCount = market.snapshots.length;
 
   const article = document.createElement('article');
@@ -201,7 +206,7 @@ function createMarketCard(market) {
       ${createStat('Current gap', `${formatPercent(currentGap)} pp`)}
       ${createStat('Peak divergence', `${formatPercent(peakGap)} pp`)}
       ${createStat('Peak date', escapeHtml(peakDate))}
-      ${createStat('Repricing', escapeHtml(repricing))}
+      ${createStat('Early lead', escapeHtml(earlyLead))}
     </div>
 
     <div class="chart-shell">
@@ -211,7 +216,7 @@ function createMarketCard(market) {
       </div>
       <canvas aria-label="Probability chart for ${escapeAttribute(market.title)}"></canvas>
       <div class="chart-inspector is-idle" role="status" aria-live="polite">
-        <span class="inspector-item inspector-date">${prefersHover ? 'Hover a point to inspect' : 'Tap a point to inspect exact values.'}</span>
+        <span class="inspector-item inspector-date">${prefersHover ? 'Hover a point to inspect exact values.' : 'Tap a point to inspect exact values.'}</span>
         <span class="inspector-item inspector-crowd">Crowd: —</span>
         <span class="inspector-item inspector-mine">Mine: —</span>
         <span class="inspector-item inspector-gap">Gap: —</span>
@@ -231,7 +236,7 @@ function createStat(label, value) {
   `;
 }
 
-function renderMarketChart(chartShell, canvas, snapshots, inspector) {
+function renderMarketChart(canvas, snapshots, inspector) {
   const context = canvas.getContext('2d');
   const dpr = window.devicePixelRatio || 1;
   const cssWidth = Math.max(canvas.clientWidth, 280);
@@ -266,27 +271,11 @@ function renderMarketChart(chartShell, canvas, snapshots, inspector) {
     drawAxisLabels(context, chartModel.points, width, height, padding, plotWidth);
   };
 
-  const applyActiveIndex = (nextIndex) => {
+  const setActiveIndex = (nextIndex) => {
+    if (activeIndex === nextIndex) return;
     activeIndex = nextIndex;
     redraw();
     updateInspector(inspector, chartModel.points, activeIndex);
-  };
-
-  const setActiveIndex = (nextIndex) => {
-    if (activeIndex === nextIndex) return;
-
-    if (!prefersHover && nextIndex !== null) {
-      activateTouchInspector(chartShell, () => {
-        if (activeIndex === null) return;
-        applyActiveIndex(null);
-      });
-    }
-
-    applyActiveIndex(nextIndex);
-
-    if (!prefersHover && nextIndex === null) {
-      deactivateTouchInspector(chartShell);
-    }
   };
 
   const handlePointerMove = (event) => {
@@ -311,7 +300,7 @@ function renderMarketChart(chartShell, canvas, snapshots, inspector) {
       return;
     }
 
-    if ((event.pointerType === 'touch' || !prefersHover) && activeIndex === nextIndex) {
+    if (event.pointerType === 'touch' && activeIndex === nextIndex) {
       setActiveIndex(null);
       return;
     }
@@ -325,49 +314,6 @@ function renderMarketChart(chartShell, canvas, snapshots, inspector) {
 
   redraw();
   updateInspector(inspector, chartModel.points, null);
-}
-
-function bindTouchInspectorOutsideHandler() {
-  if (touchInspectorState.outsideListenerBound) return;
-
-  document.addEventListener('pointerdown', (event) => {
-    if (prefersHover || !touchInspectorState.activeShell) return;
-    if (touchInspectorState.activeShell.contains(event.target)) return;
-
-    deactivateTouchInspector();
-  });
-
-  touchInspectorState.outsideListenerBound = true;
-}
-
-function resetTouchInspectorState() {
-  touchInspectorState.activeShell = null;
-  touchInspectorState.clearActive = null;
-}
-
-function activateTouchInspector(chartShell, clearActive) {
-  if (!chartShell || prefersHover) return;
-
-  if (touchInspectorState.activeShell && touchInspectorState.activeShell !== chartShell && typeof touchInspectorState.clearActive === 'function') {
-    const previousClearActive = touchInspectorState.clearActive;
-    resetTouchInspectorState();
-    previousClearActive();
-  }
-
-  touchInspectorState.activeShell = chartShell;
-  touchInspectorState.clearActive = clearActive;
-}
-
-function deactivateTouchInspector(chartShell = null) {
-  if (!touchInspectorState.activeShell) return;
-  if (chartShell && touchInspectorState.activeShell !== chartShell) return;
-
-  const clearActive = touchInspectorState.clearActive;
-  resetTouchInspectorState();
-
-  if (typeof clearActive === 'function') {
-    clearActive();
-  }
 }
 
 function createChartModel(snapshots, padding, plotWidth, plotHeight) {
@@ -489,27 +435,25 @@ function getNearestPointIndex(canvas, points, event, threshold) {
 
   const rect = canvas.getBoundingClientRect();
   const pointerX = event.clientX - rect.left;
-  const pointerY = event.clientY - rect.top;
+  const plotLeft = points[0].x;
+  const plotRight = points[points.length - 1].x;
 
-  let nearestIndex = null;
-  let nearestDistance = Number.POSITIVE_INFINITY;
+  if (pointerX < plotLeft - threshold || pointerX > plotRight + threshold) {
+    return null;
+  }
 
-  for (const point of points) {
-    const crowdDistance = getDistance(pointerX, pointerY, point.x, point.crowdY);
-    const mineDistance = getDistance(pointerX, pointerY, point.x, point.mineY);
-    const distance = Math.min(crowdDistance, mineDistance);
+  let nearestIndex = 0;
+  let nearestDistance = Math.abs(points[0].x - pointerX);
 
+  for (let index = 1; index < points.length; index += 1) {
+    const distance = Math.abs(points[index].x - pointerX);
     if (distance < nearestDistance) {
       nearestDistance = distance;
-      nearestIndex = point.index;
+      nearestIndex = index;
     }
   }
 
   return nearestDistance <= threshold ? nearestIndex : null;
-}
-
-function getDistance(x1, y1, x2, y2) {
-  return Math.hypot(x2 - x1, y2 - y1);
 }
 
 function updateInspector(inspector, points, activeIndex) {
@@ -522,7 +466,7 @@ function updateInspector(inspector, points, activeIndex) {
 
   if (activeIndex === null || !points[activeIndex]) {
     inspector.classList.add('is-idle');
-    dateEl.textContent = prefersHover ? 'Hover a point to inspect' : 'Tap a point to inspect exact values.';
+    dateEl.textContent = prefersHover ? 'Hover a point to inspect exact values.' : 'Tap a point to inspect exact values.';
     crowdEl.textContent = 'Crowd: —';
     mineEl.textContent = 'Mine: —';
     gapEl.textContent = 'Gap: —';
