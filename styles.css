@@ -280,6 +280,32 @@ a {
   height: 250px;
 }
 
+.chart-inspector {
+  margin-top: var(--space-2);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-2);
+}
+
+.inspector-item {
+  display: block;
+  border: 2px solid var(--border);
+  background: var(--surface-2);
+  padding: 10px 12px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  min-height: 48px;
+}
+
+.inspector-date {
+  grid-column: 1 / -1;
+}
+
+.chart-inspector.is-idle .inspector-item {
+  color: var(--muted);
+  font-weight: 600;
+}
+
 .empty-state {
   padding: var(--space-4);
 }
@@ -302,6 +328,12 @@ a {
   font-size: 0.92rem;
 }
 
+@media (hover: hover) and (pointer: fine) {
+  .chart-shell canvas {
+    cursor: crosshair;
+  }
+}
+
 @media (min-width: 720px) {
   .site-header {
     flex-direction: row;
@@ -311,5 +343,13 @@ a {
 
   .market-stats {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .chart-inspector {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .inspector-date {
+    grid-column: auto;
   }
 }

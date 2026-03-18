@@ -10,6 +10,8 @@ const elements = {
   archivedTab: document.getElementById('archived-tab'),
 };
 
+const prefersHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
 init();
 
 async function init() {
@@ -159,7 +161,8 @@ function renderMarkets(markets) {
     const card = createMarketCard(market);
     elements.marketList.appendChild(card);
     const canvas = card.querySelector('canvas');
-    renderMarketChart(canvas, market.snapshots);
+    const inspector = card.querySelector('.chart-inspector');
+    renderMarketChart(canvas, market.snapshots, inspector);
   }
 }
 
@@ -196,6 +199,12 @@ function createMarketCard(market) {
         <span class="legend-item"><span class="legend-swatch mine"></span> Mine</span>
       </div>
       <canvas aria-label="Probability chart for ${escapeAttribute(market.title)}"></canvas>
+      <div class="chart-inspector is-idle" role="status" aria-live="polite">
+        <span class="inspector-item inspector-date">${prefersHover ? 'Hover a point to inspect exact values.' : 'Tap a point to inspect exact values.'}</span>
+        <span class="inspector-item inspector-crowd">Crowd: —</span>
+        <span class="inspector-item inspector-mine">Mine: —</span>
+        <span class="inspector-item inspector-gap">Gap: —</span>
+      </div>
     </div>
   `;
 
@@ -211,7 +220,7 @@ function createStat(label, value) {
   `;
 }
 
-function renderMarketChart(canvas, snapshots) {
+function renderMarketChart(canvas, snapshots, inspector) {
   const context = canvas.getContext('2d');
   const dpr = window.devicePixelRatio || 1;
   const cssWidth = Math.max(canvas.clientWidth, 280);
@@ -221,6 +230,7 @@ function renderMarketChart(canvas, snapshots) {
   canvas.height = cssHeight * dpr;
   context.setTransform(1, 0, 0, 1, 0, 0);
   context.scale(dpr, dpr);
+  canvas.style.touchAction = 'manipulation';
 
   const width = cssWidth;
   const height = cssHeight;
@@ -228,12 +238,87 @@ function renderMarketChart(canvas, snapshots) {
   const plotWidth = width - padding.left - padding.right;
   const plotHeight = height - padding.top - padding.bottom;
 
-  context.clearRect(0, 0, width, height);
+  const chartModel = createChartModel(snapshots, padding, plotWidth, plotHeight);
+  let activeIndex = null;
 
-  drawGrid(context, padding, plotWidth, plotHeight);
-  drawSeries(context, snapshots, 'crowd_probability_percent', '#2c6fd6', padding, plotWidth, plotHeight);
-  drawSeries(context, snapshots, 'my_probability_percent', '#c14b4b', padding, plotWidth, plotHeight);
-  drawAxisLabels(context, snapshots, width, height, padding, plotWidth, plotHeight);
+  const redraw = () => {
+    context.clearRect(0, 0, width, height);
+    drawGrid(context, padding, plotWidth, plotHeight);
+    if (activeIndex !== null) {
+      drawActiveGuide(context, chartModel.points[activeIndex], padding, plotHeight);
+    }
+    drawSeries(context, chartModel.points, 'crowdY', '#2c6fd6');
+    drawSeries(context, chartModel.points, 'mineY', '#c14b4b');
+    if (activeIndex !== null) {
+      drawActivePoints(context, chartModel.points[activeIndex]);
+    }
+    drawAxisLabels(context, chartModel.points, width, height, padding, plotWidth);
+  };
+
+  const setActiveIndex = (nextIndex) => {
+    if (activeIndex === nextIndex) return;
+    activeIndex = nextIndex;
+    redraw();
+    updateInspector(inspector, chartModel.points, activeIndex);
+  };
+
+  const handlePointerMove = (event) => {
+    if (event.pointerType === 'touch' || !prefersHover) return;
+    const nextIndex = getNearestPointIndex(canvas, chartModel.points, event, 18);
+    setActiveIndex(nextIndex);
+  };
+
+  const handlePointerLeave = () => {
+    if (!prefersHover) return;
+    setActiveIndex(null);
+  };
+
+  const handlePointerDown = (event) => {
+    const threshold = event.pointerType === 'touch' ? 28 : 18;
+    const nextIndex = getNearestPointIndex(canvas, chartModel.points, event, threshold);
+
+    if (nextIndex === null) {
+      if (event.pointerType === 'touch' || !prefersHover) {
+        setActiveIndex(null);
+      }
+      return;
+    }
+
+    if (event.pointerType === 'touch' && activeIndex === nextIndex) {
+      setActiveIndex(null);
+      return;
+    }
+
+    setActiveIndex(nextIndex);
+  };
+
+  canvas.addEventListener('pointermove', handlePointerMove);
+  canvas.addEventListener('pointerleave', handlePointerLeave);
+  canvas.addEventListener('pointerdown', handlePointerDown);
+
+  redraw();
+  updateInspector(inspector, chartModel.points, null);
+}
+
+function createChartModel(snapshots, padding, plotWidth, plotHeight) {
+  const points = snapshots.map((snapshot, index) => {
+    const x = getX(index, snapshots.length, padding.left, plotWidth);
+    const crowd = Number(snapshot.crowd_probability_percent);
+    const mine = Number(snapshot.my_probability_percent);
+
+    return {
+      index,
+      date: snapshot.date,
+      crowd,
+      mine,
+      gap: roundOneDecimal(Math.abs(mine - crowd)),
+      x,
+      crowdY: padding.top + plotHeight - (crowd / 100) * plotHeight,
+      mineY: padding.top + plotHeight - (mine / 100) * plotHeight,
+    };
+  });
+
+  return { points };
 }
 
 function drawGrid(ctx, padding, plotWidth, plotHeight) {
@@ -254,56 +339,130 @@ function drawGrid(ctx, padding, plotWidth, plotHeight) {
   });
 }
 
-function drawSeries(ctx, snapshots, key, color, padding, plotWidth, plotHeight) {
-  if (!snapshots.length) return;
+function drawSeries(ctx, points, yKey, color) {
+  if (!points.length) return;
 
   ctx.strokeStyle = color;
   ctx.lineWidth = 2.4;
   ctx.beginPath();
 
-  snapshots.forEach((snapshot, index) => {
-    const x = getX(index, snapshots.length, padding.left, plotWidth);
-    const y = padding.top + plotHeight - (Number(snapshot[key]) / 100) * plotHeight;
-
+  points.forEach((point, index) => {
     if (index === 0) {
-      ctx.moveTo(x, y);
+      ctx.moveTo(point.x, point[yKey]);
     } else {
-      ctx.lineTo(x, y);
+      ctx.lineTo(point.x, point[yKey]);
     }
   });
 
   ctx.stroke();
 
-  snapshots.forEach((snapshot, index) => {
-    const x = getX(index, snapshots.length, padding.left, plotWidth);
-    const y = padding.top + plotHeight - (Number(snapshot[key]) / 100) * plotHeight;
-
+  points.forEach((point) => {
     ctx.fillStyle = '#fff';
     ctx.strokeStyle = color;
     ctx.lineWidth = 2;
     ctx.beginPath();
-    ctx.arc(x, y, 3.5, 0, Math.PI * 2);
+    ctx.arc(point.x, point[yKey], 3.5, 0, Math.PI * 2);
     ctx.fill();
     ctx.stroke();
   });
 }
 
-function drawAxisLabels(ctx, snapshots, width, height, padding, plotWidth) {
-  if (!snapshots.length) return;
+function drawActiveGuide(ctx, point, padding, plotHeight) {
+  ctx.save();
+  ctx.strokeStyle = 'rgba(40, 35, 29, 0.32)';
+  ctx.lineWidth = 1;
+  ctx.setLineDash([5, 4]);
+  ctx.beginPath();
+  ctx.moveTo(point.x, padding.top);
+  ctx.lineTo(point.x, padding.top + plotHeight);
+  ctx.stroke();
+  ctx.restore();
+}
 
-  const labelIndexes = [0, Math.floor((snapshots.length - 1) / 2), snapshots.length - 1]
+function drawActivePoints(ctx, point) {
+  const configs = [
+    { y: point.crowdY, color: '#2c6fd6' },
+    { y: point.mineY, color: '#c14b4b' },
+  ];
+
+  configs.forEach(({ y, color }) => {
+    ctx.fillStyle = '#fff';
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.arc(point.x, y, 5.5, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.stroke();
+  });
+}
+
+function drawAxisLabels(ctx, points, width, height, padding, plotWidth) {
+  if (!points.length) return;
+
+  const labelIndexes = [0, Math.floor((points.length - 1) / 2), points.length - 1]
     .filter((value, index, array) => array.indexOf(value) === index);
 
   ctx.fillStyle = '#6a6156';
   ctx.font = '12px Trebuchet MS, Arial, sans-serif';
 
   labelIndexes.forEach((index) => {
-    const label = formatDateLabel(snapshots[index].date);
-    const x = getX(index, snapshots.length, padding.left, plotWidth);
+    const label = formatDateLabel(points[index].date);
+    const x = getX(index, points.length, padding.left, plotWidth);
     const metrics = ctx.measureText(label);
     const clampedX = clamp(x - metrics.width / 2, 0, width - metrics.width);
     ctx.fillText(label, clampedX, height - 8);
   });
+}
+
+function getNearestPointIndex(canvas, points, event, threshold) {
+  if (!points.length) return null;
+
+  const rect = canvas.getBoundingClientRect();
+  const pointerX = event.clientX - rect.left;
+  const plotLeft = points[0].x;
+  const plotRight = points[points.length - 1].x;
+
+  if (pointerX < plotLeft - threshold || pointerX > plotRight + threshold) {
+    return null;
+  }
+
+  let nearestIndex = 0;
+  let nearestDistance = Math.abs(points[0].x - pointerX);
+
+  for (let index = 1; index < points.length; index += 1) {
+    const distance = Math.abs(points[index].x - pointerX);
+    if (distance < nearestDistance) {
+      nearestDistance = distance;
+      nearestIndex = index;
+    }
+  }
+
+  return nearestDistance <= threshold ? nearestIndex : null;
+}
+
+function updateInspector(inspector, points, activeIndex) {
+  if (!inspector) return;
+
+  const dateEl = inspector.querySelector('.inspector-date');
+  const crowdEl = inspector.querySelector('.inspector-crowd');
+  const mineEl = inspector.querySelector('.inspector-mine');
+  const gapEl = inspector.querySelector('.inspector-gap');
+
+  if (activeIndex === null || !points[activeIndex]) {
+    inspector.classList.add('is-idle');
+    dateEl.textContent = prefersHover ? 'Hover a point to inspect exact values.' : 'Tap a point to inspect exact values.';
+    crowdEl.textContent = 'Crowd: —';
+    mineEl.textContent = 'Mine: —';
+    gapEl.textContent = 'Gap: —';
+    return;
+  }
+
+  const point = points[activeIndex];
+  inspector.classList.remove('is-idle');
+  dateEl.textContent = formatFullDate(point.date);
+  crowdEl.textContent = `Crowd: ${formatPercent(point.crowd)}%`;
+  mineEl.textContent = `Mine: ${formatPercent(point.mine)}%`;
+  gapEl.textContent = `Gap: ${formatPercent(point.gap)} pp`;
 }
 
 function getX(index, totalPoints, left, plotWidth) {
@@ -336,6 +495,17 @@ function formatDateLabel(value) {
   return new Intl.DateTimeFormat('en-GB', {
     day: '2-digit',
     month: 'short',
+  }).format(date);
+}
+
+function formatFullDate(value) {
+  const date = new Date(`${value}T00:00:00`);
+  if (Number.isNaN(date.getTime())) return value;
+
+  return new Intl.DateTimeFormat('en-GB', {
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric',
   }).format(date);
 }
 
