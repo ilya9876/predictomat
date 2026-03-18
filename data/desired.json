@@ -1,0 +1,52 @@
+{
+  "last_updated": "2026-03-17T08:10:00+01:00",
+  "markets": [
+    {
+      "track_id": "viking-therapeutics",
+      "title": "Will Viking Therapeutics be acquired before 2027?",
+      "polymarket_url": "https://polymarket.com/event/which-companies-will-be-acquired-before-2027",
+      "status": "active",
+      "snapshots": [
+        { "date": "2026-03-10", "crowd_probability_percent": 51, "my_probability_percent": 39 },
+        { "date": "2026-03-11", "crowd_probability_percent": 49, "my_probability_percent": 38 },
+        { "date": "2026-03-12", "crowd_probability_percent": 47, "my_probability_percent": 37 },
+        { "date": "2026-03-13", "crowd_probability_percent": 46, "my_probability_percent": 37 },
+        { "date": "2026-03-14", "crowd_probability_percent": 45, "my_probability_percent": 37 },
+        { "date": "2026-03-15", "crowd_probability_percent": 43, "my_probability_percent": 36 },
+        { "date": "2026-03-16", "crowd_probability_percent": 45, "my_probability_percent": 37 },
+        { "date": "2026-03-17", "crowd_probability_percent": 44, "my_probability_percent": 38 }
+      ]
+    },
+    {
+      "track_id": "democratic-presidential-nominee-2028-michelle-obama",
+      "title": "Will Michelle Obama be the Democratic presidential nominee in 2028?",
+      "polymarket_url": "https://polymarket.com/event/democratic-presidential-nominee-2028",
+      "status": "active",
+      "snapshots": [
+        { "date": "2026-03-10", "crowd_probability_percent": 13, "my_probability_percent": 7 },
+        { "date": "2026-03-11", "crowd_probability_percent": 14, "my_probability_percent": 7 },
+        { "date": "2026-03-12", "crowd_probability_percent": 15, "my_probability_percent": 8 },
+        { "date": "2026-03-13", "crowd_probability_percent": 16, "my_probability_percent": 8 },
+        { "date": "2026-03-14", "crowd_probability_percent": 15, "my_probability_percent": 8 },
+        { "date": "2026-03-15", "crowd_probability_percent": 14, "my_probability_percent": 8 },
+        { "date": "2026-03-16", "crowd_probability_percent": 13, "my_probability_percent": 8 },
+        { "date": "2026-03-17", "crowd_probability_percent": 12, "my_probability_percent": 8 }
+      ]
+    },
+    {
+      "track_id": "chatgpt-outage-mar15",
+      "title": "Will ChatGPT have a major outage by March 15?",
+      "polymarket_url": "https://polymarket.com/event/chatgpt-outage-by-march-15",
+      "status": "archived",
+      "snapshots": [
+        { "date": "2026-03-09", "crowd_probability_percent": 18, "my_probability_percent": 7 },
+        { "date": "2026-03-10", "crowd_probability_percent": 17, "my_probability_percent": 7 },
+        { "date": "2026-03-11", "crowd_probability_percent": 16, "my_probability_percent": 6 },
+        { "date": "2026-03-12", "crowd_probability_percent": 15, "my_probability_percent": 5 },
+        { "date": "2026-03-13", "crowd_probability_percent": 14, "my_probability_percent": 5 },
+        { "date": "2026-03-14", "crowd_probability_percent": 12, "my_probability_percent": 5 },
+        { "date": "2026-03-15", "crowd_probability_percent": 10, "my_probability_percent": 4 }
+      ]
+    }
+  ]
+}

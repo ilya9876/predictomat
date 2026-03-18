@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Daily comparison of Polymarket crowd probabilities and structured forecast estimates." />
+  <title>Forecast Tracking</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="brand">
+      <img src="assets/logo-pixel.svg" alt="Forecast Tracking logo" class="logo" />
+      <div>
+        <p class="eyebrow">public forecast log</p>
+        <h1 class="site-title">Forecast Tracking</h1>
+        <p class="site-subtitle">Crowd vs. structured forecast</p>
+      </div>
+    </div>
+    <div id="last-updated" class="last-updated">Last updated: —</div>
+  </header>
+
+  <main class="page">
+    <section class="hero card">
+      <h2>Early divergence. Transparent tracking.</h2>
+      <p class="hero-copy">
+        Daily comparison of Polymarket crowd probabilities and my structured forecast estimates.
+      </p>
+      <div class="hero-meta">
+        <span>Updated daily</span>
+        <span>10 tracked markets</span>
+        <span>Crowd vs. forecast</span>
+      </div>
+    </section>
+
+    <section class="view-toggle" aria-label="Market status toggle">
+      <button id="active-tab" class="toggle-button is-active" type="button">Active</button>
+      <button id="archived-tab" class="toggle-button" type="button">Archived</button>
+    </section>
+
+    <section id="market-list" class="market-list" aria-live="polite"></section>
+  </main>
+
+  <footer class="site-footer">
+    <nav aria-label="Legal links">
+      <a href="imprint.html">Imprint</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Use</a>
+    </nav>
+    <p>This site is for informational purposes only. No investment advice. No trading advice.</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
