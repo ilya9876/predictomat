@@ -1,6 +1,7 @@
 const state = {
   view: 'active',
   data: null,
+  lastUpdatedDisplay: null,
 };
 
 const elements = {
@@ -20,12 +21,14 @@ async function init() {
   bindEvents();
 
   try {
-    const response = await fetch('data/desired.json', { cache: 'no-store' });
+    const response = await fetch(`data/desired.json?v=${Date.now()}`, { cache: 'no-store' });
     if (!response.ok) {
       throw new Error(`HTTP ${response.status}`);
     }
 
+    const responseLastModified = response.headers.get('last-modified');
     state.data = await response.json();
+    state.lastUpdatedDisplay = resolveLastUpdated(state.data?.last_updated, responseLastModified);
     renderPage();
   } catch (error) {
     renderLoadError();
@@ -52,7 +55,7 @@ function bindEvents() {
 function renderPage() {
   if (!state.data) return;
 
-  elements.lastUpdated.textContent = `Last updated: ${formatLastUpdated(state.data.last_updated)}`;
+  elements.lastUpdated.textContent = `Last updated: ${formatLastUpdated(state.lastUpdatedDisplay)}`;
 
   elements.activeTab.classList.toggle('is-active', state.view === 'active');
   elements.archivedTab.classList.toggle('is-active', state.view === 'archived');
@@ -487,6 +490,15 @@ function getX(index, totalPoints, left, plotWidth) {
     return left + plotWidth / 2;
   }
   return left + (index / (totalPoints - 1)) * plotWidth;
+}
+
+function resolveLastUpdated(jsonValue, headerValue) {
+  const headerDate = headerValue ? new Date(headerValue) : null;
+  if (headerDate && !Number.isNaN(headerDate.getTime())) {
+    return headerDate.toISOString();
+  }
+
+  return jsonValue || null;
 }
 
 function formatLastUpdated(value) {
