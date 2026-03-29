@@ -205,8 +205,8 @@ function createMarketCard(market) {
 
     <div class="market-stats">
       ${createStat('Crowd', `${formatPercent(latest.crowd_probability_percent)}%`)}
-      ${createStat('Forecast', `${formatPercent(latest.my_probability_percent)}%`)}
-      ${createStat('Current divergence', `${formatPercent(currentGap)} pp`)}
+      ${createStat('Mine', `${formatPercent(latest.my_probability_percent)}%`)}
+      ${createStat('Current gap', `${formatPercent(currentGap)} pp`)}
       ${createStat('Peak divergence', `${formatPercent(peakGap)} pp`)}
       ${createStat('Peak date', escapeHtml(peakDate))}
       ${createStat('Early lead', escapeHtml(earlyLead), earlyLead === 'confirmed' ? 'stat-early-lead-confirmed' : '')}
@@ -215,13 +215,13 @@ function createMarketCard(market) {
     <div class="chart-shell">
       <div class="chart-legend" aria-hidden="true">
         <span class="legend-item"><span class="legend-swatch crowd"></span> Crowd</span>
-        <span class="legend-item"><span class="legend-swatch mine"></span> Forecast</span>
+        <span class="legend-item"><span class="legend-swatch mine"></span> Mine</span>
       </div>
       <canvas aria-label="Probability chart for ${escapeAttribute(market.title)}"></canvas>
       <div class="chart-inspector is-idle" role="status" aria-live="polite">
         <span class="inspector-item inspector-date">${prefersHover ? 'Hover a point to inspect' : 'Tap a point to inspect exact values.'}</span>
         <span class="inspector-item inspector-crowd">Crowd: —</span>
-        <span class="inspector-item inspector-mine">Forecast: —</span>
+        <span class="inspector-item inspector-mine">Mine: —</span>
         <span class="inspector-item inspector-gap">Gap: —</span>
       </div>
     </div>
@@ -472,7 +472,7 @@ function updateInspector(inspector, points, activeIndex) {
     inspector.classList.add('is-idle');
     dateEl.textContent = prefersHover ? 'Hover a point to inspect' : 'Tap a point to inspect exact values.';
     crowdEl.textContent = 'Crowd: —';
-    mineEl.textContent = 'Forecast: —';
+    mineEl.textContent = 'Mine: —';
     gapEl.textContent = 'Gap: —';
     return;
   }
@@ -481,7 +481,7 @@ function updateInspector(inspector, points, activeIndex) {
   inspector.classList.remove('is-idle');
   dateEl.textContent = formatFullDate(point.date);
   crowdEl.textContent = `Crowd: ${formatPercent(point.crowd)}%`;
-  mineEl.textContent = `Forecast: ${formatPercent(point.mine)}%`;
+  mineEl.textContent = `Mine: ${formatPercent(point.mine)}%`;
   gapEl.textContent = `Gap: ${formatPercent(point.gap)} pp`;
 }
 

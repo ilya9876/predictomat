@@ -3,111 +3,42 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Predictomat tracks short-horizon real-world events through public benchmarks and structured forecast comparisons." />
-  <title>Predictomat</title>
+  <meta name="description" content="Daily comparison of Polymarket crowd probabilities and structured forecast estimates." />
+  <title>Forecast Tracking</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <header class="site-header">
     <div class="brand">
-      <img src="assets/logo-pixel.svg" alt="Predictomat logo" class="logo" />
+      <img src="assets/logo-pixel.svg" alt="Forecast Tracking logo" class="logo" />
       <div>
-        <p class="eyebrow">public forecasting benchmark</p>
-        <h1 class="site-title">Predictomat</h1>
-        <p class="site-subtitle">Structured forecasting for short-horizon real-world events</p>
+        <p class="eyebrow">public forecast log</p>
+        <h1 class="site-title">Forecast Tracking</h1>
+        <p class="site-subtitle">Crowd vs. structured forecast</p>
       </div>
     </div>
-
-    <div class="header-side">
-      <nav class="site-nav" aria-label="Primary">
-        <a href="#benchmarks">Benchmarks</a>
-        <a href="#greenfield">Greenfield</a>
-      </nav>
-      <div id="last-updated" class="last-updated">Last updated: —</div>
-    </div>
+    <div id="last-updated" class="last-updated">Last updated: —</div>
   </header>
 
   <main class="page">
     <section class="hero card">
-      <p class="hero-kicker">Public benchmarks first. Independent forecasting next.</p>
-      <h2>Transparent tracking for short-horizon real-world events.</h2>
+      <h2>Early divergence. Transparent tracking.</h2>
       <p class="hero-copy">
-        Predictomat starts with public market benchmarks and structured forecast comparisons. Over time, it is intended to grow into a broader forecasting project with update logic, calibration tracking, and independent greenfield analyses.
+        Daily comparison of Polymarket crowd probabilities and my structured forecast estimates.
       </p>
       <div class="hero-meta">
-        <span>Public market anchors</span>
-        <span>Structured forecast comparisons</span>
-        <span>Greenfield track in preparation</span>
+        <span>Updated daily</span>
+        <span>10 tracked markets</span>
+        <span>Crowd vs. forecast</span>
       </div>
     </section>
 
-    <section id="benchmarks" class="section-block" aria-labelledby="benchmarks-title">
-      <div class="section-header card compact-card">
-        <p class="section-kicker">Current core track</p>
-        <h2 id="benchmarks-title">Public Benchmark Track</h2>
-        <p>
-          This is the current operating core of Predictomat: short-duration Polymarket events used as public anchors for comparing crowd probability, structured forecast estimates, and how divergences evolve over time.
-        </p>
-      </div>
-
-      <section class="view-toggle" aria-label="Market status toggle">
-        <button id="active-tab" class="toggle-button is-active" type="button">Active</button>
-        <button id="archived-tab" class="toggle-button" type="button">Archived</button>
-      </section>
-
-      <section id="market-list" class="market-list" aria-live="polite"></section>
+    <section class="view-toggle" aria-label="Market status toggle">
+      <button id="active-tab" class="toggle-button is-active" type="button">Active</button>
+      <button id="archived-tab" class="toggle-button" type="button">Archived</button>
     </section>
 
-    <section class="info-grid" aria-label="About Predictomat today and next">
-      <article class="info-card card">
-        <p class="section-kicker">What this is today</p>
-        <h3>More than a forecast log</h3>
-        <p>
-          The goal is not just to publish a number. Each benchmark makes the comparison visible: market probability, structured forecast, current divergence, peak divergence, and whether later price action moved toward the earlier view.
-        </p>
-      </article>
-
-      <article class="info-card card">
-        <p class="section-kicker">Where this is going</p>
-        <h3>A broader forecasting platform</h3>
-        <p>
-          The benchmark layer is the starting point, not the final product. Predictomat is meant to expand toward trigger-based revisions, explicit update logs, calibration and scorekeeping, and later independent analyses beyond market-anchored comparisons.
-        </p>
-      </article>
-    </section>
-
-    <section id="greenfield" class="section-block" aria-labelledby="greenfield-title">
-      <div class="section-header card compact-card section-header-greenfield">
-        <p class="section-kicker">Prepared second track</p>
-        <h2 id="greenfield-title">Greenfield Analyses</h2>
-        <p>
-          This section is being prepared for independent short-horizon forecast analyses that do not begin with a public market quote. It is the natural next layer of Predictomat beyond benchmark-only publishing.
-        </p>
-      </div>
-
-      <div class="greenfield-grid">
-        <article class="greenfield-card card">
-          <h3>What will appear here</h3>
-          <p>
-            Independent event theses, scenario framing, and structured forecasts where the analysis is driven by the real-world question itself rather than by an existing market price.
-          </p>
-        </article>
-
-        <article class="greenfield-card card">
-          <h3>What will stay consistent</h3>
-          <p>
-            Short time horizons, explicit triggers for revision, transparent documentation of changes, and later review of calibration and forecast quality.
-          </p>
-        </article>
-
-        <article class="greenfield-card card">
-          <h3>Format still being defined</h3>
-          <p>
-            This area may later evolve into a thesis feed, journal-style stream, or card-based analysis layer. For now, it is a visible and flexible structural starting point.
-          </p>
-        </article>
-      </div>
-    </section>
+    <section id="market-list" class="market-list" aria-live="polite"></section>
   </main>
 
   <footer class="site-footer">
