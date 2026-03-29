@@ -204,6 +204,9 @@ a {
 }
 
 .section-header {
+  width: 100%;
+  max-width: 760px;
+  margin-right: auto;
   margin-bottom: var(--space-3);
 }
 
