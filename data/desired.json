@@ -37,7 +37,8 @@
 		{ "date": "2026-03-29", "crowd_probability_percent": 24, "my_probability_percent": 20 },
 		{ "date": "2026-03-30", "crowd_probability_percent": 23, "my_probability_percent": 21 },
 		{ "date": "2026-03-31", "crowd_probability_percent": 26, "my_probability_percent": 20 },
-		{ "date": "2026-04-01", "crowd_probability_percent": 25, "my_probability_percent": 23 }
+		{ "date": "2026-04-01", "crowd_probability_percent": 25, "my_probability_percent": 23 },
+		{ "date": "2026-04-01", "crowd_probability_percent": 26, "my_probability_percent": 21 }
       ]
     },
 	{
@@ -46,7 +47,8 @@
       "polymarket_url": "https://polymarket.com/de/event/us-escorts-commercial-ship-through-hormuz-by-march-31",
       "status": "active",
       "snapshots": [
-		{ "date": "2026-04-01", "crowd_probability_percent": 17, "my_probability_percent": 11 }
+		{ "date": "2026-04-01", "crowd_probability_percent": 17, "my_probability_percent": 11 },
+		{ "date": "2026-04-01", "crowd_probability_percent": 17, "my_probability_percent": 13 }
       ]
     },
 	{
@@ -55,7 +57,8 @@
       "polymarket_url": "https://polymarket.com/event/aws-service-disrupted-by-april-30",
       "status": "active",
       "snapshots": [
-		{ "date": "2026-04-01", "crowd_probability_percent": 48, "my_probability_percent": 37 }
+		{ "date": "2026-04-01", "crowd_probability_percent": 48, "my_probability_percent": 37 },
+		{ "date": "2026-04-01", "crowd_probability_percent": 48, "my_probability_percent": 40 }
       ]
     },
 	{
@@ -64,7 +67,8 @@
       "polymarket_url": "https://polymarket.com/event/next-prime-minister-of-hungary",
       "status": "active",
       "snapshots": [
-		{ "date": "2026-04-01", "crowd_probability_percent": 63, "my_probability_percent": 58 }
+		{ "date": "2026-04-01", "crowd_probability_percent": 63, "my_probability_percent": 58 },
+		{ "date": "2026-04-01", "crowd_probability_percent": 64, "my_probability_percent": 58 }
       ]
     },
 	{
