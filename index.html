@@ -41,12 +41,26 @@
       </div>
     </section>
 
-    <section class="view-toggle" aria-label="Market status toggle">
-      <button id="active-tab" class="toggle-button is-active" type="button">Active</button>
-      <button id="archived-tab" class="toggle-button" type="button">Archived</button>
-    </section>
+    <nav class="section-nav" aria-label="Content sections">
+      <button id="section-markets" class="section-nav-button is-active" type="button">Markets</button>
+      <button id="section-quarterly" class="section-nav-button" type="button">Quarterly Notes</button>
+    </nav>
 
-    <section id="market-list" class="market-list" aria-live="polite"></section>
+    <div id="panel-markets">
+      <section class="view-toggle" aria-label="Market status toggle">
+        <button id="active-tab" class="toggle-button is-active" type="button">Active</button>
+        <button id="archived-tab" class="toggle-button" type="button">Archived</button>
+      </section>
+
+      <section id="market-list" class="market-list" aria-live="polite"></section>
+    </div>
+
+    <div id="panel-quarterly" class="panel-hidden">
+      <section class="quarterly-disclaimer card">
+        <p>Operational observations on reported figures and guidance assumptions. Nothing below constitutes investment advice, a trading recommendation, or a securities opinion.</p>
+      </section>
+      <section id="quarterly-list" class="quarterly-list" aria-live="polite"></section>
+    </div>
   </main>
 
   <footer class="site-footer">

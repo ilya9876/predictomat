@@ -1,6 +1,8 @@
 const state = {
+  section: 'markets',
   view: 'active',
   data: null,
+  quarterlyData: null,
   lastUpdatedDisplay: null,
 };
 
@@ -10,6 +12,11 @@ const elements = {
   marketCount: document.getElementById('market-count'),
   activeTab: document.getElementById('active-tab'),
   archivedTab: document.getElementById('archived-tab'),
+  sectionMarkets: document.getElementById('section-markets'),
+  sectionQuarterly: document.getElementById('section-quarterly'),
+  panelMarkets: document.getElementById('panel-markets'),
+  panelQuarterly: document.getElementById('panel-quarterly'),
+  quarterlyList: document.getElementById('quarterly-list'),
 };
 
 const prefersHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
@@ -35,6 +42,18 @@ async function init() {
     renderLoadError();
     console.error('Unable to load desired.json', error);
   }
+
+  try {
+    const qResponse = await fetch(`data/quarterly.json?v=${Date.now()}`, { cache: 'no-store' });
+    if (qResponse.ok) {
+      state.quarterlyData = await qResponse.json();
+      if (state.section === 'quarterly') {
+        renderQuarterly();
+      }
+    }
+  } catch (error) {
+    console.error('Unable to load quarterly.json', error);
+  }
 }
 
 function bindEvents() {
@@ -51,6 +70,29 @@ function bindEvents() {
       renderPage();
     }
   });
+
+  elements.sectionMarkets.addEventListener('click', () => {
+    if (state.section !== 'markets') {
+      state.section = 'markets';
+      updateSectionNav();
+      renderPage();
+    }
+  });
+
+  elements.sectionQuarterly.addEventListener('click', () => {
+    if (state.section !== 'quarterly') {
+      state.section = 'quarterly';
+      updateSectionNav();
+      renderQuarterly();
+    }
+  });
+}
+
+function updateSectionNav() {
+  elements.sectionMarkets.classList.toggle('is-active', state.section === 'markets');
+  elements.sectionQuarterly.classList.toggle('is-active', state.section === 'quarterly');
+  elements.panelMarkets.classList.toggle('panel-hidden', state.section !== 'markets');
+  elements.panelQuarterly.classList.toggle('panel-hidden', state.section !== 'quarterly');
 }
 
 function renderPage() {
@@ -566,6 +608,72 @@ function escapeHtml(value) {
 
 function escapeAttribute(value) {
   return escapeHtml(value);
+}
+
+function renderQuarterly() {
+  elements.quarterlyList.innerHTML = '';
+
+  if (!state.quarterlyData || !Array.isArray(state.quarterlyData.entries) || state.quarterlyData.entries.length === 0) {
+    const empty = document.createElement('section');
+    empty.className = 'empty-state';
+    empty.innerHTML = '<h3>No quarterly notes yet.</h3><p>Entries will appear here once published.</p>';
+    elements.quarterlyList.appendChild(empty);
+    return;
+  }
+
+  const sorted = [...state.quarterlyData.entries]
+    .filter(isRenderableQuarterlyEntry)
+    .sort((a, b) => b.published.localeCompare(a.published));
+
+  if (sorted.length === 0) {
+    const empty = document.createElement('section');
+    empty.className = 'empty-state';
+    empty.innerHTML = '<h3>No quarterly notes yet.</h3><p>Entries will appear here once published.</p>';
+    elements.quarterlyList.appendChild(empty);
+    return;
+  }
+
+  for (const entry of sorted) {
+    elements.quarterlyList.appendChild(createQuarterlyCard(entry));
+  }
+}
+
+function isRenderableQuarterlyEntry(entry) {
+  return Boolean(
+    entry &&
+      typeof entry.entry_id === 'string' &&
+      entry.entry_id &&
+      typeof entry.published === 'string' &&
+      entry.published &&
+      typeof entry.subject === 'string' &&
+      entry.subject &&
+      typeof entry.summary === 'string' &&
+      entry.summary
+  );
+}
+
+function createQuarterlyCard(entry) {
+  const article = document.createElement('article');
+  article.className = 'quarterly-card';
+  article.dataset.entryId = entry.entry_id;
+
+  const watchpointsHtml = Array.isArray(entry.watchpoints) && entry.watchpoints.length > 0
+    ? `<span class="quarterly-watchpoints-label">Watchpoints</span>
+       <ul class="quarterly-watchpoints">
+         ${entry.watchpoints.map((wp) => `<li>${escapeHtml(wp)}</li>`).join('')}
+       </ul>`
+    : '';
+
+  article.innerHTML = `
+    <div class="quarterly-card-header">
+      <h3>${escapeHtml(entry.subject)}</h3>
+      <div class="quarterly-card-meta">${escapeHtml(entry.quarter || '')} · Published ${escapeHtml(formatFullDate(entry.published))}</div>
+    </div>
+    <p class="quarterly-summary">${escapeHtml(entry.summary)}</p>
+    ${watchpointsHtml}
+  `;
+
+  return article;
 }
 
 window.addEventListener('resize', debounce(() => {
