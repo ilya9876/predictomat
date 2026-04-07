@@ -1,42 +1,42 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex, nofollow">
-  <title>Impressum – Predictomat</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <title>Imprint – Predictomat</title>
   <style>
     :root {
-      --bg: #f5f1e8;
-      --surface: #fffaf0;
-      --text: #1d1b18;
-      --muted: #6e675d;
-      --border: #2f2a24;
+      --bg: #efe9dd;
+      --surface: #fff9ef;
+      --text: #1a1714;
+      --muted: #6a6156;
+      --border: #28231d;
       --shadow: 4px 4px 0 var(--border);
-      --space-1: 8px;
       --space-2: 12px;
       --space-3: 16px;
       --space-4: 24px;
       --space-5: 32px;
-      --accent: #246bce;
+      --accent: #2c6fd6;
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
+      font-family: "Trebuchet MS", Arial, sans-serif;
       line-height: 1.6;
-      background: var(--bg);
+      background:
+        linear-gradient(0deg, rgba(255,255,255,0.16), rgba(255,255,255,0.16)),
+        var(--bg);
       color: var(--text);
     }
 
     .page {
       width: min(860px, calc(100% - 24px));
       margin: 0 auto;
-      padding: var(--space-5) 0 var(--space-5);
+      padding: var(--space-5) 0;
     }
 
     .card {
@@ -46,9 +46,7 @@
       padding: var(--space-4);
     }
 
-    h1, h2 {
-      margin-top: 0;
-    }
+    h1, h2 { margin-top: 0; }
 
     h1 {
       font-size: 1.8rem;
@@ -61,13 +59,9 @@
       margin-bottom: var(--space-2);
     }
 
-    p, li {
-      margin: 0 0 var(--space-2);
-    }
+    p { margin: 0 0 var(--space-2); }
 
-    .muted {
-      color: var(--muted);
-    }
+    .muted { color: var(--muted); }
 
     .back-link {
       display: inline-block;
@@ -77,64 +71,47 @@
       font-weight: bold;
     }
 
-    .placeholder {
-      display: inline-block;
-      padding: 2px 6px;
-      border: 1px dashed var(--border);
-      background: #fff;
-      white-space: nowrap;
-    }
-
-    .box-note {
-      margin-top: var(--space-4);
-      padding: var(--space-3);
-      border: 2px solid var(--border);
-      background: #fff;
-    }
-
-    ul {
-      padding-left: 20px;
+    .back-link:hover,
+    .back-link:focus-visible {
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
   <main class="page">
-    <a class="back-link" href="index.html">&larr; Zurück zur Startseite</a>
+    <a class="back-link" href="index.html">&larr; Back to homepage</a>
 
     <section class="card">
-      <h1>Impressum</h1>
-      <p class="muted">Anbieterkennzeichnung für den privaten MVP-Stand von Predictomat.</p>
+      <h1>Imprint</h1>
+      <p class="muted">Legal identification as required by § 5 DDG (German Digital Services Act).</p>
 
-      <h2>Angaben gemäß § 5 DDG</h2>
+      <h2>Service provider</h2>
       <p>
         <strong>Name:</strong><br />
-        <span class="placeholder">Ilya Piskarev-Vasiliev</span>
+        Ilya Piskarev-Vasiliev
       </p>
-
       <p>
-        <strong>Anschrift:</strong><br />
-        <span class="placeholder">Stiftsbogen 31</span><br />
-        <span class="placeholder">81375 München</span><br />
-        <span class="placeholder">DE</span>
+        <strong>Address:</strong><br />
+        Stiftsbogen 31<br />
+        81375 München<br />
+        Germany
       </p>
-
       <p>
-        <strong>Kontakt:</strong><br />
-        E-Mail: <span class="placeholder">predictomat@tzugh.com</span><br />
+        <strong>Contact:</strong><br />
+        Email: predictomat@tzugh.com
       </p>
 
-      <h2>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h2>
+      <h2>Responsible for content pursuant to § 18(2) MStV</h2>
       <p>
-        <span class="placeholder">Ilya Piskarev-Vasiliev</span><br />
-        <span class="placeholder">Stiftsbogen 31</span><br />
-        <span class="placeholder">81375 München</span>
+        Ilya Piskarev-Vasiliev<br />
+        Stiftsbogen 31<br />
+        81375 München
       </p>
 
-      <h2>Hinweis zum Projektstatus</h2>
+      <h2>Project status</h2>
       <p>
-        Predictomat wird derzeit als privates MVP-Projekt betrieben. Es werden über diese Website derzeit keine Zahlungen abgewickelt und keine eigenen Nutzerkonten bereitgestellt.
+        Predictomat is currently operated as a private MVP project. No payments are processed and no user accounts are provided through this website at this time.
       </p>
-
     </section>
   </main>
 </body>

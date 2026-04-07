@@ -7,6 +7,7 @@ const state = {
 const elements = {
   lastUpdated: document.getElementById('last-updated'),
   marketList: document.getElementById('market-list'),
+  marketCount: document.getElementById('market-count'),
   activeTab: document.getElementById('active-tab'),
   archivedTab: document.getElementById('archived-tab'),
 };
@@ -57,11 +58,14 @@ function renderPage() {
 
   elements.lastUpdated.textContent = `Last updated: ${formatLastUpdated(state.lastUpdatedDisplay)}`;
 
+  const renderableMarkets = (state.data.markets || []).filter(isRenderableMarket);
+  const totalCount = renderableMarkets.length;
+  elements.marketCount.textContent = `${totalCount} tracked market${totalCount === 1 ? '' : 's'}`;
+
   elements.activeTab.classList.toggle('is-active', state.view === 'active');
   elements.archivedTab.classList.toggle('is-active', state.view === 'archived');
 
-  const filteredMarkets = (state.data.markets || [])
-    .filter(isRenderableMarket)
+  const filteredMarkets = renderableMarkets
     .filter((market) => market.status === state.view)
     .sort(state.view === 'active' ? sortActiveMarkets : sortArchivedMarkets);
 

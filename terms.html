@@ -1,31 +1,34 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex, nofollow" />
-  <title>Nutzungsbedingungen – Predictomat</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <title>Terms of Use – Predictomat</title>
   <style>
     :root {
-      --bg: #f5f1e8;
-      --surface: #fffaf0;
-      --text: #1d1b18;
-      --muted: #6e675d;
-      --border: #2f2a24;
-      --accent: #246bce;
+      --bg: #efe9dd;
+      --surface: #fff9ef;
+      --text: #1a1714;
+      --muted: #6a6156;
+      --border: #28231d;
+      --accent: #2c6fd6;
       --shadow: 4px 4px 0 var(--border);
-      --space-1: 8px;
       --space-2: 12px;
       --space-3: 16px;
       --space-4: 24px;
+      --space-5: 32px;
     }
 
     * { box-sizing: border-box; }
 
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: var(--bg);
+      font-family: "Trebuchet MS", Arial, sans-serif;
+      background:
+        linear-gradient(0deg, rgba(255,255,255,0.16), rgba(255,255,255,0.16)),
+        var(--bg);
       color: var(--text);
       line-height: 1.6;
     }
@@ -33,179 +36,140 @@
     .wrap {
       width: min(900px, calc(100% - 24px));
       margin: 0 auto;
-      padding: 24px 0 48px;
+      padding: var(--space-5) 0;
     }
 
     .card {
       background: var(--surface);
       border: 2px solid var(--border);
       box-shadow: var(--shadow);
-      padding: 24px;
+      padding: var(--space-4);
     }
 
-    h1, h2, h3 { line-height: 1.25; }
-    h1 { margin-top: 0; margin-bottom: 8px; }
-    h2 { margin-top: 32px; margin-bottom: 8px; }
-    p, li { margin-top: 0; }
+    h1, h2 { line-height: 1.25; }
+    h1 { margin-top: 0; margin-bottom: var(--space-2); }
+    h2 { margin-top: var(--space-5); margin-bottom: var(--space-2); }
+    p { margin-top: 0; margin-bottom: var(--space-2); }
+
     .muted { color: var(--muted); }
     a { color: var(--accent); }
-    .back { display: inline-block; margin-bottom: 16px; }
-    .note {
-      border-left: 4px solid var(--border);
-      padding-left: 12px;
-      color: var(--muted);
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: var(--space-3);
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: bold;
     }
-    .placeholder {
-      background: #fff3bf;
-      padding: 0 4px;
+
+    .back-link:hover,
+    .back-link:focus-visible {
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
   <main class="wrap">
-    <a class="back" href="index.html">&larr; Zurück zur Startseite</a>
+    <a class="back-link" href="index.html">&larr; Back to homepage</a>
 
     <section class="card">
-      <h1>Nutzungsbedingungen</h1>
-      <p class="muted">Stand: 17. März 2026</p>
+      <h1>Terms of Use</h1>
+      <p class="muted">Last revised: April 2026</p>
 
       <p>
-        Diese Nutzungsbedingungen regeln die Nutzung der unter dem Namen <strong>Predictomat</strong>
-        bereitgestellten Website und Inhalte durch Besucherinnen und Besucher.
+        These terms of use govern the use of the website and content provided under the name <strong>Predictomat</strong>.
       </p>
 
-      <h2>1. Anbieter</h2>
+      <h2>1. Provider</h2>
       <p>
-        Anbieter dieser Website ist<br />
-        <span class="placeholder">Ilya Piskarev-Vasiliev</span><br />
-        <span class="placeholder">Stiftsbogen 31, 81375 München, DE</span><br />
-        <span class="placeholder">predictomat@tzugh.com</span>
+        The provider of this website is:<br />
+        Ilya Piskarev-Vasiliev<br />
+        Stiftsbogen 31, 81375 München, Germany<br />
+        predictomat@tzugh.com
       </p>
 
-      <h2>2. Gegenstand des Angebots</h2>
+      <h2>2. Scope of the service</h2>
       <p>
-        Predictomat stellt öffentlich zugängliche Informationen, Einschätzungen, Visualisierungen und sonstige
-        Inhalte zu ausgewählten Prediction-Markets und Wahrscheinlichkeitsbewertungen bereit. Die Inhalte dienen
-        ausschließlich allgemeinen Informationszwecken.
+        Predictomat provides publicly accessible information, assessments, visualisations, and other content relating to selected prediction markets and probability estimates. All content is provided for general informational purposes only.
       </p>
-
       <p>
-        Predictomat schuldet keinen bestimmten wirtschaftlichen Erfolg, keine fortlaufende Verfügbarkeit des Angebots
-        und keine Aktualisierung zu einem bestimmten Zeitpunkt, sofern nicht ausdrücklich anders angegeben.
+        Predictomat does not guarantee any particular economic outcome, continuous availability, or updates at any specific time unless expressly stated otherwise.
       </p>
 
-      <h2>3. Keine Anlageberatung, keine Trading-Empfehlung</h2>
+      <h2>3. No investment advice, no trading recommendation</h2>
       <p>
-        Die auf dieser Website bereitgestellten Inhalte stellen <strong>keine Anlageberatung</strong>,
-        <strong>keine Anlageempfehlung</strong>, <strong>keine Finanzanalyse</strong>,
-        <strong>keine Vermögensberatung</strong> und <strong>keine Aufforderung zum Kauf, Verkauf oder Halten</strong>
-        von Finanzinstrumenten, Token, Kryptowerten, Prognosemarkt-Positionen oder sonstigen Vermögenswerten dar.
+        The content provided on this website does not constitute <strong>investment advice</strong>, <strong>investment recommendations</strong>, <strong>financial analysis</strong>, <strong>asset management advice</strong>, or <strong>any solicitation to buy, sell, or hold</strong> financial instruments, tokens, crypto assets, prediction market positions, or any other assets.
       </p>
-
       <p>
-        Die Inhalte sind nicht auf die persönlichen Verhältnisse, Anlageziele, finanziellen Möglichkeiten oder die
-        individuelle Risikobereitschaft einzelner Nutzerinnen und Nutzer zugeschnitten.
+        The content is not tailored to the personal circumstances, investment objectives, financial capacity, or individual risk appetite of any user.
       </p>
-
       <p>
-        Entscheidungen über Wetten, Trades, Investitionen oder sonstige Dispositionen erfolgen ausschließlich auf
-        eigene Verantwortung. Vor wesentlichen finanziellen Entscheidungen sollte gegebenenfalls unabhängiger
-        fachkundiger Rat eingeholt werden.
+        Decisions regarding bets, trades, investments, or other financial actions are made entirely at your own risk. You should seek independent professional advice before making significant financial decisions.
       </p>
 
-      <h2>4. Kein Vertrags- oder Leistungsversprechen</h2>
+      <h2>4. No contractual or service commitment</h2>
       <p>
-        Durch die Nutzung der Website kommt hinsichtlich der unentgeltlich bereitgestellten Inhalte grundsätzlich kein
-        Beratungs-, Auskunfts- oder sonstiger Dienstleistungsvertrag zustande, soweit dies nicht zwingend gesetzlich
-        anders zu beurteilen ist.
+        Use of this website and its freely available content does not, in principle, create any advisory, information, or other service contract, unless mandatory statutory provisions require otherwise.
       </p>
 
-      <h2>5. Genauigkeit, Vollständigkeit und Aktualität</h2>
+      <h2>5. Accuracy, completeness, and timeliness</h2>
       <p>
-        Die Inhalte werden mit Sorgfalt erstellt. Gleichwohl übernimmt Predictomat keine Gewähr dafür, dass Inhalte,
-        Daten, Wahrscheinlichkeiten, Einschätzungen, Visualisierungen oder externe Verlinkungen jederzeit richtig,
-        vollständig, aktuell oder für einen bestimmten Zweck geeignet sind.
+        Content is prepared with care. However, Predictomat makes no warranty that content, data, probabilities, assessments, visualisations, or external links are accurate, complete, up to date, or suitable for any particular purpose at all times.
       </p>
-
       <p>
-        Insbesondere können sich Marktpreise, Wahrscheinlichkeiten, technische Rahmenbedingungen und externe
-        Informationen kurzfristig ändern.
+        Market prices, probabilities, technical conditions, and external information are subject to rapid change.
       </p>
 
-      <h2>6. Eigenverantwortliche Nutzung</h2>
+      <h2>6. Use at your own risk</h2>
       <p>
-        Nutzerinnen und Nutzer verwenden die bereitgestellten Inhalte eigenverantwortlich. Predictomat übernimmt
-        keine Verantwortung dafür, dass die Website oder ihre Inhalte für individuelle Zwecke geeignet sind.
+        Users access and use the content provided at their own risk. Predictomat assumes no responsibility for the suitability of the website or its content for individual purposes.
       </p>
 
-      <h2>7. Haftungsbeschränkung</h2>
+      <h2>7. Limitation of liability</h2>
       <p>
-        Predictomat haftet unbeschränkt bei Vorsatz und grober Fahrlässigkeit sowie bei Schäden aus der Verletzung
-        des Lebens, des Körpers oder der Gesundheit.
+        Predictomat is liable without limitation in cases of intent and gross negligence, as well as for harm to life, body, or health.
       </p>
-
       <p>
-        Bei leichter Fahrlässigkeit haftet Predictomat nur bei Verletzung einer wesentlichen Vertragspflicht
-        (Kardinalpflicht). In diesem Fall ist die Haftung auf den typischerweise vorhersehbaren Schaden begrenzt.
+        In cases of slight negligence, Predictomat is liable only for breach of a material contractual obligation (cardinal obligation). In such cases, liability is limited to the typically foreseeable damage.
       </p>
-
       <p>
-        Soweit die Nutzung der Website unentgeltlich erfolgt und kein ausdrückliches Vertragsverhältnis über entgeltliche
-        Leistungen besteht, bleiben die gesetzlichen Haftungsbeschränkungen unberührt.
+        Where use of the website is provided free of charge and no express contractual relationship for paid services exists, statutory limitations of liability remain unaffected.
       </p>
-
       <p>
-        Die vorstehenden Haftungsbeschränkungen gelten nicht, soweit zwingende gesetzliche Vorschriften,
-        insbesondere nach dem Produkthaftungsgesetz, entgegenstehen.
+        The above limitations of liability do not apply where mandatory statutory provisions, in particular under the German Product Liability Act, provide otherwise.
       </p>
 
-      <h2>8. Externe Links</h2>
+      <h2>8. External links</h2>
       <p>
-        Die Website kann Links zu externen Websites Dritter enthalten, insbesondere zu Polymarket oder anderen
-        Informationsquellen. Auf Inhalte externer Websites hat Predictomat keinen Einfluss und übernimmt hierfür keine
-        Gewähr. Für die Inhalte der verlinkten Seiten sind ausschließlich deren jeweilige Betreiber verantwortlich.
+        This website may contain links to third-party websites, in particular Polymarket or other information sources. Predictomat has no influence over the content of linked external websites and assumes no responsibility for them. The respective operators of linked sites are solely responsible for their content.
       </p>
 
-      <h2>9. Geistiges Eigentum und Nutzungsrechte</h2>
+      <h2>9. Intellectual property and usage rights</h2>
       <p>
-        Sämtliche auf dieser Website veröffentlichten Inhalte, soweit sie urheberrechtlich oder anderweitig geschützt
-        sind, dürfen ohne vorherige Zustimmung des Rechteinhabers nicht über den gesetzlich zulässigen Umfang hinaus
-        vervielfältigt, bearbeitet, verbreitet oder öffentlich zugänglich gemacht werden.
+        All content published on this website that is protected by copyright or other intellectual property rights may not be reproduced, modified, distributed, or made publicly accessible beyond the scope permitted by law without the prior consent of the rights holder.
       </p>
-
       <p>
-        Zulässig bleibt die private, rein informatorische Nutzung der Inhalte im Rahmen der gesetzlichen Schranken.
+        Private, purely informational use of the content within the limits permitted by law remains permissible.
       </p>
 
-      <h2>10. Änderungen und Einstellung des Angebots</h2>
+      <h2>10. Changes and discontinuation</h2>
       <p>
-        Predictomat behält sich vor, Inhalte, Funktionen, Darstellungen und technische Bestandteile der Website jederzeit
-        ganz oder teilweise zu ändern, einzuschränken oder einzustellen.
+        Predictomat reserves the right to modify, restrict, or discontinue the content, features, presentation, and technical components of the website in whole or in part at any time.
       </p>
 
-      <h2>11. Verbraucherstreitbeilegung</h2>
+      <h2>11. Consumer dispute resolution</h2>
       <p>
-        <span class="placeholder">Wir sind weder verpflichtet noch bereit, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</span>
+        We are neither obligated nor willing to participate in dispute resolution proceedings before a consumer arbitration body.
       </p>
 
-      <p class="muted">
-        Hinweis: Die Informationspflicht nach § 36 VSBG gilt grundsätzlich für Unternehmer, die eine Website
-        unterhalten oder AGB verwenden und Verbraucherverträge schließen; Unternehmen mit bis zu zehn Beschäftigten
-        zum Stichtag 31. Dezember des Vorjahres sind von der allgemeinen Informationspflicht nach § 36 Abs. 1 Nr. 1
-        VSBG ausgenommen. Ob und in welchem Umfang die Vorschrift für dein konkretes Angebot einschlägig ist,
-        sollte im Zweifel rechtlich geprüft werden.
-      </p>
-
-      <h2>12. Anwendbares Recht</h2>
+      <h2>12. Governing law</h2>
       <p>
-        Es gilt das Recht der Bundesrepublik Deutschland unter Ausschluss des UN-Kaufrechts, soweit dem keine
-        zwingenden Verbraucherschutzvorschriften entgegenstehen.
+        The laws of the Federal Republic of Germany apply, excluding the UN Convention on Contracts for the International Sale of Goods (CISG), to the extent that mandatory consumer protection provisions do not require otherwise.
       </p>
 
-      <h2>13. Salvatorische Klausel</h2>
+      <h2>13. Severability</h2>
       <p>
-        Sollten einzelne Bestimmungen dieser Nutzungsbedingungen ganz oder teilweise unwirksam sein oder werden,
-        bleibt die Wirksamkeit der übrigen Bestimmungen unberührt.
+        If any provision of these terms of use is or becomes invalid in whole or in part, the validity of the remaining provisions shall not be affected.
       </p>
     </section>
   </main>

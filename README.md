@@ -20,8 +20,10 @@ For each tracked market, the website displays:
 - the current gap between both values
 - the peak divergence within the visible snapshot window
 - the date of peak divergence
-- a simple repricing status (`narrowing`, `flat`, or `widening`)
+- an early-lead status (`confirmed` or `not yet`) indicating whether the crowd later moved toward a prior forecast estimate
 - a chart based on the most recent daily snapshots
+
+The hero section dynamically displays the total number of tracked markets.
 
 ## Data model
 
@@ -59,6 +61,7 @@ Each snapshot contains:
   index.html
   styles.css
   app.js
+  favicon.svg
   imprint.html
   privacy.html
   terms.html
@@ -99,7 +102,8 @@ To publish it:
 
 - `Active` and `Archived` views are controlled entirely by the `status` field in `desired.json`
 - the site is mobile-first and intentionally minimal
-- the legal pages are included as static HTML files
+- the legal pages (imprint, privacy policy, terms of use) are included as static HTML files in English
+- `index.html` is indexable; legal pages carry `noindex, nofollow`
 - texts and styling can be adjusted later without changing the core rendering logic
 
 ## Disclaimer
