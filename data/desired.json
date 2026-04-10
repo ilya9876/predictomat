@@ -104,6 +104,18 @@
       ]
     },
 	{
+      "track_id": "Which-party-will-win-the-Senate-in-2026",
+      "title": "Which party will win the Senate in 2026?",
+      "polymarket_url": "https://polymarket.com/event/which-party-will-win-the-senate-in-2026",
+      "status": "active",
+      "snapshots": [
+		{ "date": "2026-04-07", "crowd_probability_percent": 52, "my_probability_percent": 45 },
+		{ "date": "2026-04-08", "crowd_probability_percent": 52, "my_probability_percent": 47 },
+		{ "date": "2026-04-09", "crowd_probability_percent": 53, "my_probability_percent": 49 },
+		{ "date": "2026-04-10", "crowd_probability_percent": 53, "my_probability_percent": 47 }
+      ]
+    },
+	{
       "track_id": "pakistan-x-afghanistan-ceasefire",
       "title": "pakistan-x-afghanistan-ceasefire-by-march-31",
       "polymarket_url": "https://polymarket.com/event/pakistan-x-afghanistan-ceasefire-by-march-31",
