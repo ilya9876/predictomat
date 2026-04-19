@@ -1,7 +1,6 @@
 {
   "last_updated": "2026-04-19T12:00:00+02:00",
   "disclaimer": "Operational observations only. Nothing on this page constitutes investment advice, a trading recommendation, or a securities opinion. Surprise probabilities reflect estimated likelihood of material deviation from analyst consensus on operational metrics — they are not price targets, fair value estimates, or buy/sell/hold signals.",
-  "noise_threshold_percent": 55,
   "entries": [
     {
       "entry_id": "2026-q1-vestas",
