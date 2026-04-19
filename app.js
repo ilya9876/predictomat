@@ -830,19 +830,29 @@ function createIRCheckCard(entry) {
     `;
   }).join('');
 
+  const isRevenueAnchor = s2.target_metric === 'konzern_revenue' || s2.consensus_revenue_m != null;
+  const consensusLabel = isRevenueAnchor ? 'Consensus revenue' : 'Consensus EPS';
+  const consensusValue = isRevenueAnchor
+    ? `${currency}${Number(s2.consensus_revenue_m).toLocaleString('en')}M`
+    : `${currency}${s2.consensus_eps}`;
+
   let metricsHtml = '';
   if (isResolved) {
     const actDir = s2.actual_direction === 'above_consensus' ? 'Above' : 'Below';
+    const actualLabel = isRevenueAnchor ? 'Actual revenue' : 'Actual EPS';
+    const actualValue = isRevenueAnchor
+      ? `${currency}${s2.actual_revenue_m != null ? Number(s2.actual_revenue_m).toLocaleString('en') + 'M' : s2.actual_eps}`
+      : `${currency}${s2.actual_eps}`;
     metricsHtml = `
       <div class="ir-metrics">
         <div class="ir-metric">
-          <div class="ir-metric-label">Consensus EPS</div>
-          <div class="ir-metric-value">${currency}${s2.consensus_eps}</div>
+          <div class="ir-metric-label">${consensusLabel}</div>
+          <div class="ir-metric-value">${consensusValue}</div>
           <div class="ir-metric-sub">Analyst benchmark</div>
         </div>
         <div class="ir-metric">
-          <div class="ir-metric-label">Actual EPS</div>
-          <div class="ir-metric-value">${currency}${s2.actual_eps}</div>
+          <div class="ir-metric-label">${actualLabel}</div>
+          <div class="ir-metric-value">${actualValue}</div>
           <div class="ir-metric-sub">${actDir} consensus ${s2.actual_deviation_percent > 0 ? '+' : ''}${s2.actual_deviation_percent}%</div>
         </div>
         <div class="ir-metric">
@@ -856,8 +866,8 @@ function createIRCheckCard(entry) {
     metricsHtml = `
       <div class="ir-metrics">
         <div class="ir-metric">
-          <div class="ir-metric-label">Consensus EPS</div>
-          <div class="ir-metric-value">${currency}${s2.consensus_eps}</div>
+          <div class="ir-metric-label">${consensusLabel}</div>
+          <div class="ir-metric-value">${consensusValue}</div>
           <div class="ir-metric-sub">Analyst benchmark</div>
         </div>
         <div class="ir-metric">
