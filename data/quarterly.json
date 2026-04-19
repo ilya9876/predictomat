@@ -1,0 +1,120 @@
+{
+  "last_updated": "2026-04-18T14:00:00+02:00",
+  "disclaimer": "Operational observations only. Nothing on this page constitutes investment advice, a trading recommendation, or a securities opinion. Surprise probabilities reflect estimated likelihood of material deviation from analyst consensus on operational metrics — they are not price targets, fair value estimates, or buy/sell/hold signals.",
+  "noise_threshold_percent": 55,
+  "entries": [
+    {
+      "entry_id": "2026-q1-ge-vernova",
+      "published": "2026-04-04",
+      "quarter": "Q1 2026",
+      "subject": "GE Vernova Inc.",
+      "analysis_date": "2026-04-04",
+      "consensus_date": "2026-04-04",
+      "resolution_date": "2026-04-22",
+      "status": "pending",
+      "stage2": {
+        "consensus_eps": 1.79,
+        "consensus_currency": "USD",
+        "surprise_probability_percent": 45,
+        "predicted_direction": "miss",
+        "confidence_label": "noise"
+      },
+      "assumptions": [
+        {
+          "assumption_id": "IR-GEV-01",
+          "name": "Gas Power demand trajectory",
+          "testable_question": "Power segment revenue >= $4.5B in Q1?",
+          "stage1_verdict": "no_material_mismatch",
+          "driver_timing": "current_quarter_impact"
+        },
+        {
+          "assumption_id": "IR-GEV-02",
+          "name": "Electrification growth sustainability",
+          "testable_question": "Electrification segment revenue >= $3.0B in Q1?",
+          "stage1_verdict": "no_material_mismatch",
+          "driver_timing": "current_quarter_impact"
+        },
+        {
+          "assumption_id": "IR-GEV-03",
+          "name": "Wind segment loss trajectory",
+          "testable_question": "Wind segment EBITDA better than -$250M in Q1?",
+          "stage1_verdict": "material_mismatch",
+          "stage1_direction": "guidance_too_optimistic",
+          "driver_timing": "current_quarter_impact",
+          "mismatch_drivers": "BOEM suspended Vineyard Wind, Revolution Wind, Sunrise Wind. Weak onshore orders from US policy uncertainty. Tariff impact $300-400M guided for full year."
+        }
+      ],
+      "score_summary": {
+        "assumptions_total": 3,
+        "stage1_mismatches": 1,
+        "stage2_signal": "noise"
+      }
+    },
+    {
+      "entry_id": "2026-q1-asml",
+      "published": "2026-01-18",
+      "quarter": "Q1 2026",
+      "subject": "ASML Holding NV",
+      "analysis_date": "2026-01-18",
+      "consensus_date": "2026-01-18",
+      "resolution_date": "2026-04-15",
+      "status": "resolved",
+      "stage2": {
+        "consensus_eps": 6.64,
+        "consensus_currency": "EUR",
+        "surprise_probability_percent": 45,
+        "predicted_direction": "miss",
+        "confidence_label": "noise",
+        "actual_eps": 7.15,
+        "actual_deviation_percent": 7.7,
+        "actual_direction": "above_consensus",
+        "direction_correct": false
+      },
+      "assumptions": [
+        {
+          "assumption_id": "IR-ASML-01",
+          "name": "EUV demand sustainability",
+          "testable_question": "Q1 net sales >= EUR 8.55B?",
+          "stage1_verdict": "no_material_mismatch",
+          "driver_timing": "current_quarter_impact",
+          "actual_value": "EUR 8.77B",
+          "condition_met": true,
+          "call_correct": true
+        },
+        {
+          "assumption_id": "IR-ASML-02",
+          "name": "Installed base stability",
+          "testable_question": "Installed base management sales > EUR 2.13B?",
+          "stage1_verdict": "no_material_mismatch",
+          "driver_timing": "current_quarter_impact",
+          "actual_value": "EUR 2.49B",
+          "condition_met": true,
+          "call_correct": true
+        },
+        {
+          "assumption_id": "IR-ASML-03",
+          "name": "Export control risk",
+          "testable_question": "Gross margin >= 51%?",
+          "stage1_verdict": "material_mismatch",
+          "stage1_direction": "guidance_too_optimistic",
+          "driver_timing": "next_quarter_impact",
+          "actual_value": "53.0%",
+          "condition_met": true,
+          "call_correct": false,
+          "miss_reason": "MATCH Act appeared April 2026, after quarter-end March 29. Driver had no mechanical impact on Q1 numbers."
+        }
+      ],
+      "lessons_learned": [
+        "Generic cycle skepticism against a well-understood mega-trend (AI/EUV) rarely constitutes a genuine edge.",
+        "Timing mismatch between driver appearance and quarter-end is a fixable methodological error — now addressed by driver_timing field.",
+        "Two correct aligned-calls (IR-ASML-01, IR-ASML-02) confirm guidance robustness and have real value."
+      ],
+      "score_summary": {
+        "assumptions_correct": 2,
+        "assumptions_incorrect": 1,
+        "assumptions_total": 3,
+        "stage2_direction_correct": false
+      }
+    }
+  ]
+}
