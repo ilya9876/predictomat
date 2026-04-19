@@ -723,8 +723,7 @@ function createLegacyQuarterlyCard(entry) {
 
 function getIRVerdict(entry) {
   const s2 = entry.stage2;
-  const threshold = 55;
-  const isNoise = s2.confidence_label === 'noise' || s2.confidence_label === 'fragile' || s2.surprise_probability_percent < threshold;
+  const isNoise = s2.confidence_label === 'noise' || s2.confidence_label === 'fragile';
 
   if (entry.status !== 'resolved') {
     if (isNoise) return { type: 'pending-noise', icon: '—', label: 'No actionable signal', cssClass: 'verdict-noise' };
