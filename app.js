@@ -1,6 +1,7 @@
 const state = {
   section: 'markets',
   view: 'active',
+  quarterlyView: 'pending',
   data: null,
   quarterlyData: null,
   lastUpdatedDisplay: null,
@@ -10,6 +11,7 @@ const elements = {
   lastUpdated: document.getElementById('last-updated'),
   marketList: document.getElementById('market-list'),
   marketCount: document.getElementById('market-count'),
+  quarterlyCount: document.getElementById('quarterly-count'),
   activeTab: document.getElementById('active-tab'),
   archivedTab: document.getElementById('archived-tab'),
   sectionMarkets: document.getElementById('section-markets'),
@@ -17,6 +19,8 @@ const elements = {
   panelMarkets: document.getElementById('panel-markets'),
   panelQuarterly: document.getElementById('panel-quarterly'),
   quarterlyList: document.getElementById('quarterly-list'),
+  quarterlyPendingTab: document.getElementById('quarterly-pending-tab'),
+  quarterlyResolvedTab: document.getElementById('quarterly-resolved-tab'),
 };
 
 const prefersHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
@@ -47,6 +51,7 @@ async function init() {
     const qResponse = await fetch(`data/quarterly.json?v=${Date.now()}`, { cache: 'no-store' });
     if (qResponse.ok) {
       state.quarterlyData = await qResponse.json();
+      updateQuarterlyCount();
       if (state.section === 'quarterly') {
         renderQuarterly();
       }
@@ -83,6 +88,20 @@ function bindEvents() {
     if (state.section !== 'quarterly') {
       state.section = 'quarterly';
       updateSectionNav();
+      renderQuarterly();
+    }
+  });
+
+  elements.quarterlyPendingTab.addEventListener('click', () => {
+    if (state.quarterlyView !== 'pending') {
+      state.quarterlyView = 'pending';
+      renderQuarterly();
+    }
+  });
+
+  elements.quarterlyResolvedTab.addEventListener('click', () => {
+    if (state.quarterlyView !== 'resolved') {
+      state.quarterlyView = 'resolved';
       renderQuarterly();
     }
   });
@@ -610,25 +629,45 @@ function escapeAttribute(value) {
   return escapeHtml(value);
 }
 
+function updateQuarterlyCount() {
+  if (!state.quarterlyData || !Array.isArray(state.quarterlyData.entries)) return;
+  const count = state.quarterlyData.entries.filter(isRenderableQuarterlyEntry).length;
+  elements.quarterlyCount.textContent = `${count} quarterly analys${count === 1 ? 'is' : 'es'}`;
+}
+
 function renderQuarterly() {
   elements.quarterlyList.innerHTML = '';
+
+  elements.quarterlyPendingTab.classList.toggle('is-active', state.quarterlyView === 'pending');
+  elements.quarterlyResolvedTab.classList.toggle('is-active', state.quarterlyView === 'resolved');
 
   if (!state.quarterlyData || !Array.isArray(state.quarterlyData.entries) || state.quarterlyData.entries.length === 0) {
     const empty = document.createElement('section');
     empty.className = 'empty-state';
-    empty.innerHTML = '<h3>No quarterly notes yet.</h3><p>Entries will appear here once published.</p>';
+    empty.innerHTML = '<h3>No quarterly analyses yet.</h3><p>Entries will appear here once published.</p>';
     elements.quarterlyList.appendChild(empty);
     return;
   }
 
+  const targetStatus = state.quarterlyView === 'pending' ? 'pending' : 'resolved';
+
   const sorted = [...state.quarterlyData.entries]
     .filter(isRenderableQuarterlyEntry)
+    .filter((entry) => {
+      if (isIRCheckEntry(entry)) {
+        return entry.status === targetStatus;
+      }
+      return targetStatus === 'pending';
+    })
     .sort((a, b) => b.published.localeCompare(a.published));
 
   if (sorted.length === 0) {
     const empty = document.createElement('section');
     empty.className = 'empty-state';
-    empty.innerHTML = '<h3>No quarterly notes yet.</h3><p>Entries will appear here once published.</p>';
+    const msg = targetStatus === 'pending'
+      ? '<h3>No pending analyses.</h3><p>All current analyses have been resolved.</p>'
+      : '<h3>No resolved analyses yet.</h3><p>Resolved analyses will appear here after quarterly reports are published.</p>';
+    empty.innerHTML = msg;
     elements.quarterlyList.appendChild(empty);
     return;
   }
@@ -684,7 +723,8 @@ function createLegacyQuarterlyCard(entry) {
 
 function getIRVerdict(entry) {
   const s2 = entry.stage2;
-  const isNoise = s2.confidence_label === 'noise' || s2.confidence_label === 'fragile';
+  const threshold = 55;
+  const isNoise = s2.confidence_label === 'noise' || s2.confidence_label === 'fragile' || s2.surprise_probability_percent < threshold;
 
   if (entry.status !== 'resolved') {
     if (isNoise) return { type: 'pending-noise', icon: '—', label: 'No actionable signal', cssClass: 'verdict-noise' };

@@ -31,14 +31,14 @@
 
   <main class="page">
     <section class="hero card">
-      <h2>Early divergence. Transparent tracking.</h2>
+      <h2>Structured forecasts. Public track record.</h2>
       <p class="hero-copy">
-        Daily comparison of Polymarket crowd probabilities and my structured forecast estimates.
+        Polymarket crowd probabilities vs. structured forecast estimates, plus quarterly earnings guidance checks with measurable resolution.
       </p>
       <div class="hero-meta">
-        <span>Updated daily</span>
         <span id="market-count">— tracked markets</span>
-        <span>Crowd vs. forecast</span>
+        <span id="quarterly-count">— quarterly analyses</span>
+        <span>Updated regularly</span>
       </div>
     </section>
 
@@ -57,8 +57,9 @@
     </div>
 
     <div id="panel-quarterly" class="panel-hidden">
-      <section class="quarterly-disclaimer card">
-        <p>Operational observations on reported figures and guidance assumptions. Nothing below constitutes investment advice, a trading recommendation, or a securities opinion.</p>
+      <section class="view-toggle" aria-label="Quarterly status toggle">
+        <button id="quarterly-pending-tab" class="toggle-button is-active" type="button">Pending</button>
+        <button id="quarterly-resolved-tab" class="toggle-button" type="button">Resolved</button>
       </section>
       <section id="quarterly-list" class="quarterly-list" aria-live="polite"></section>
     </div>
