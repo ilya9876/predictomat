@@ -5,11 +5,11 @@
   "entries": [
     {
       "entry_id": "2026-q1-ge-vernova",
-      "published": "2026-04-04",
+      "published": "2026-04-12",
       "quarter": "Q1 2026",
       "subject": "GE Vernova Inc.",
-      "analysis_date": "2026-04-04",
-      "consensus_date": "2026-04-04",
+      "analysis_date": "2026-04-12",
+      "consensus_date": "2026-04-12",
       "resolution_date": "2026-04-22",
       "status": "pending",
       "stage2": {
@@ -23,21 +23,21 @@
         {
           "assumption_id": "IR-GEV-01",
           "name": "Gas Power demand trajectory",
-          "testable_question": "Power segment revenue >= $4.5B in Q1?",
+          "testable_question": "Power segment revenue >= $5.0B in Q1?",
           "stage1_verdict": "no_material_mismatch",
           "driver_timing": "current_quarter_impact"
         },
         {
           "assumption_id": "IR-GEV-02",
           "name": "Electrification growth sustainability",
-          "testable_question": "Electrification segment revenue >= $3.0B in Q1?",
+          "testable_question": "Electrification segment revenue >= $2.8B in Q1?",
           "stage1_verdict": "no_material_mismatch",
           "driver_timing": "current_quarter_impact"
         },
         {
           "assumption_id": "IR-GEV-03",
           "name": "Wind segment loss trajectory",
-          "testable_question": "Wind segment EBITDA better than -$250M in Q1?",
+          "testable_question": "Wind segment EBITDA better than -$150M in Q1?",
           "stage1_verdict": "material_mismatch",
           "stage1_direction": "guidance_too_optimistic",
           "driver_timing": "current_quarter_impact",
