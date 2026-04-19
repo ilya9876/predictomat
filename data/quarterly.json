@@ -1,8 +1,83 @@
 {
-  "last_updated": "2026-04-18T14:00:00+02:00",
+  "last_updated": "2026-04-19T10:00:00+02:00",
   "disclaimer": "Operational observations only. Nothing on this page constitutes investment advice, a trading recommendation, or a securities opinion. Surprise probabilities reflect estimated likelihood of material deviation from analyst consensus on operational metrics — they are not price targets, fair value estimates, or buy/sell/hold signals.",
   "noise_threshold_percent": 55,
   "entries": [
+    {
+      "entry_id": "2026-q1-vestas",
+      "published": "2026-04-19",
+      "quarter": "Q1 2026",
+      "subject": "Vestas Wind Systems A/S",
+      "analysis_date": "2026-04-19",
+      "consensus_date": "2026-03-06",
+      "resolution_date": "2026-05-06",
+      "status": "pending",
+      "stage2": {
+        "consensus_revenue_m": 3743,
+        "consensus_currency": "EUR",
+        "target_metric": "konzern_revenue",
+        "surprise_probability_percent": 35,
+        "predicted_direction": "miss",
+        "confidence_label": "signal",
+        "near_zero_eps_fallback": true,
+        "consensus_source": "Vestas public analyst consensus page (cut-off 2026-03-06)"
+      },
+      "assumptions": [
+        {
+          "assumption_id": "IR-VWS-01",
+          "name": "Power Solutions demand trajectory",
+          "testable_question": "Q1 order intake >= EUR 3.9B (at least Q1/2025 level)?",
+          "stage1_verdict": "material_mismatch",
+          "stage1_direction": "guidance_too_optimistic",
+          "driver_timing": "current_quarter_impact",
+          "mismatch_drivers": "US policy/tariff uncertainty, offshore FID weakness, 2025 order intake already declining YoY with falling ASP.",
+          "overlap_cluster": "OC-VWS-01"
+        },
+        {
+          "assumption_id": "IR-VWS-02",
+          "name": "Geopolitical/tariff stability for margins",
+          "testable_question": "Q1 Group EBIT margin before special items >= 6.0%?",
+          "stage1_verdict": "material_mismatch",
+          "stage1_direction": "guidance_too_optimistic",
+          "driver_timing": "current_quarter_impact",
+          "mismatch_drivers": "Report explicitly names tariffs, trade barriers, sanctions as margin risk. Management assumes no significant deterioration — a high stability bar.",
+          "overlap_cluster": "OC-VWS-01"
+        },
+        {
+          "assumption_id": "IR-VWS-03",
+          "name": "Grid/permitting conversion stability",
+          "testable_question": "Q1 Group revenue > EUR 3,468M (above Q1/2025)?",
+          "stage1_verdict": "material_mismatch",
+          "stage1_direction": "guidance_too_optimistic",
+          "driver_timing": "current_quarter_impact",
+          "mismatch_drivers": "Outlook names lack of grid connections as risk. Revenue recognition only at control transfer. Market design and permitting remain bottlenecks.",
+          "overlap_cluster": "OC-VWS-01"
+        },
+        {
+          "assumption_id": "IR-VWS-04",
+          "name": "Service segment weather/FX resilience",
+          "testable_question": "Q1 Service EBIT margin before special items >= 15.5%?",
+          "stage1_verdict": "no_material_mismatch",
+          "driver_timing": "current_quarter_impact"
+        }
+      ],
+      "overlap_clusters": [
+        {
+          "cluster_id": "OC-VWS-01",
+          "assumptions": ["IR-VWS-01", "IR-VWS-02", "IR-VWS-03"],
+          "shared_driver": "Deterioration of external business conditions — policy/tariff uncertainty, permitting/grid frictions, and resulting delays in orders, handover, and margins.",
+          "overlap_strength": "mittel"
+        }
+      ],
+      "score_summary": {
+        "assumptions_total": 4,
+        "stage1_mismatches": 3,
+        "independent_mismatches": 0,
+        "overlap_clusters": 1,
+        "effective_mismatch_count": 1,
+        "stage2_signal": "signal"
+      }
+    },
     {
       "entry_id": "2026-q1-ge-vernova",
       "published": "2026-04-12",
