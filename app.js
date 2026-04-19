@@ -639,20 +639,26 @@ function renderQuarterly() {
 }
 
 function isRenderableQuarterlyEntry(entry) {
-  return Boolean(
-    entry &&
-      typeof entry.entry_id === 'string' &&
-      entry.entry_id &&
-      typeof entry.published === 'string' &&
-      entry.published &&
-      typeof entry.subject === 'string' &&
-      entry.subject &&
-      typeof entry.summary === 'string' &&
-      entry.summary
-  );
+  if (!entry || typeof entry.entry_id !== 'string' || !entry.entry_id) return false;
+  if (typeof entry.published !== 'string' || !entry.published) return false;
+  if (typeof entry.subject !== 'string' || !entry.subject) return false;
+  if (entry.stage2 && Array.isArray(entry.assumptions)) return true;
+  if (typeof entry.summary === 'string' && entry.summary) return true;
+  return false;
+}
+
+function isIRCheckEntry(entry) {
+  return Boolean(entry.stage2 && Array.isArray(entry.assumptions));
 }
 
 function createQuarterlyCard(entry) {
+  if (isIRCheckEntry(entry)) {
+    return createIRCheckCard(entry);
+  }
+  return createLegacyQuarterlyCard(entry);
+}
+
+function createLegacyQuarterlyCard(entry) {
   const article = document.createElement('article');
   article.className = 'quarterly-card';
   article.dataset.entryId = entry.entry_id;
@@ -672,6 +678,207 @@ function createQuarterlyCard(entry) {
     <p class="quarterly-summary">${escapeHtml(entry.summary)}</p>
     ${watchpointsHtml}
   `;
+
+  return article;
+}
+
+function getIRVerdict(entry) {
+  const s2 = entry.stage2;
+  const threshold = 55;
+  const isNoise = s2.confidence_label === 'noise' || s2.confidence_label === 'fragile' || s2.surprise_probability_percent < threshold;
+
+  if (entry.status !== 'resolved') {
+    if (isNoise) return { type: 'pending-noise', icon: '—', label: 'No actionable signal', cssClass: 'verdict-noise' };
+    return { type: 'pending-signal', icon: '!', label: 'Signal detected — awaiting resolution', cssClass: 'verdict-pending' };
+  }
+
+  if (isNoise) return { type: 'noise', icon: '—', label: 'No actionable signal', cssClass: 'verdict-noise' };
+  if (s2.direction_correct) return { type: 'hit', icon: '\u2713', label: 'Signal confirmed', cssClass: 'verdict-hit' };
+  return { type: 'miss', icon: '\u2717', label: 'Signal missed', cssClass: 'verdict-miss' };
+}
+
+function buildVerdictExplanation(entry, verdict) {
+  const s2 = entry.stage2;
+  const prob = s2.surprise_probability_percent;
+  const dir = s2.predicted_direction === 'miss' ? 'below consensus' : 'above consensus';
+  const currency = s2.consensus_currency === 'EUR' ? '\u20ac' : '$';
+
+  if (entry.status !== 'resolved') {
+    if (verdict.type === 'pending-noise') {
+      return `System estimates ${prob}% surprise probability (${s2.confidence_label}). Resolution expected ${escapeHtml(formatFullDate(entry.resolution_date))}.`;
+    }
+    return `System estimates ${prob}% surprise probability, direction: ${dir}. Resolution expected ${escapeHtml(formatFullDate(entry.resolution_date))}.`;
+  }
+
+  const actDir = s2.actual_direction === 'above_consensus' ? 'above' : 'below';
+  const devPct = s2.actual_deviation_percent;
+
+  if (verdict.type === 'noise') {
+    return `System estimated ${prob}% surprise probability (${s2.confidence_label}). Actual EPS came in ${devPct}% ${actDir} consensus \u2014 deviation was real, but signal too weak to call direction.`;
+  }
+  if (verdict.type === 'hit') {
+    return `System estimated ${prob}% surprise probability, direction: ${dir}. Actual EPS came in ${devPct}% ${actDir} consensus \u2014 the predicted deviation materialized.`;
+  }
+  return `System estimated ${prob}% surprise probability, direction: ${dir}. Actual EPS came in ${devPct}% ${actDir} consensus \u2014 the system called a deviation but got the direction wrong.`;
+}
+
+function createIRCheckCard(entry) {
+  const article = document.createElement('article');
+  article.className = 'quarterly-card ir-check-card';
+  article.dataset.entryId = entry.entry_id;
+
+  const s2 = entry.stage2;
+  const verdict = getIRVerdict(entry);
+  const explanation = buildVerdictExplanation(entry, verdict);
+  const currency = s2.consensus_currency === 'EUR' ? '\u20ac' : '$';
+  const isResolved = entry.status === 'resolved';
+  const detailsId = `ir-details-${entry.entry_id.replace(/[^a-zA-Z0-9-]/g, '')}`;
+  const chevronId = `ir-chev-${entry.entry_id.replace(/[^a-zA-Z0-9-]/g, '')}`;
+
+  const metaParts = [];
+  if (entry.analysis_date) metaParts.push(`Analysis: ${escapeHtml(formatFullDate(entry.analysis_date))}`);
+  if (entry.consensus_date) metaParts.push(`Consensus as of: ${escapeHtml(formatFullDate(entry.consensus_date))}`);
+  if (entry.resolution_date) {
+    const resLabel = isResolved ? 'Resolved' : 'Resolution';
+    metaParts.push(`${resLabel}: ${escapeHtml(formatFullDate(entry.resolution_date))}`);
+  }
+
+  const correctCount = entry.assumptions.filter((a) => a.call_correct === true).length;
+  const incorrectCount = entry.assumptions.filter((a) => a.call_correct === false).length;
+  const mismatchCount = entry.assumptions.filter((a) => a.stage1_verdict === 'material_mismatch').length;
+
+  let detailsLabel = '';
+  if (isResolved) {
+    detailsLabel = `Underlying assumptions (${correctCount} correct, ${incorrectCount} incorrect)`;
+  } else {
+    detailsLabel = `Underlying assumptions (${mismatchCount} mismatch, ${entry.assumptions.length - mismatchCount} aligned)`;
+  }
+
+  const assumptionsHtml = entry.assumptions.map((a) => {
+    let resultHtml = '';
+    if (isResolved && typeof a.call_correct === 'boolean') {
+      if (a.call_correct) {
+        resultHtml = `<div class="ir-a-result ir-a-correct"><span class="ir-a-dot ir-a-dot-ok"></span> Correct</div>`;
+      } else {
+        resultHtml = `<div class="ir-a-result ir-a-incorrect"><span class="ir-a-dot ir-a-dot-bad"></span> Incorrect</div>`;
+      }
+      if (a.actual_value) {
+        resultHtml += `<div class="ir-a-actual">Actual: ${escapeHtml(a.actual_value)}</div>`;
+      }
+    } else {
+      const verdictLabel = a.stage1_verdict === 'material_mismatch' ? 'Mismatch' : 'Aligned';
+      const verdictClass = a.stage1_verdict === 'material_mismatch' ? 'ir-a-mismatch' : 'ir-a-aligned';
+      resultHtml = `<div class="ir-a-result ${verdictClass}">${escapeHtml(verdictLabel)}</div>`;
+      if (a.mismatch_drivers) {
+        resultHtml += `<div class="ir-a-actual">${escapeHtml(a.mismatch_drivers)}</div>`;
+      }
+    }
+
+    return `
+      <div class="ir-a-card">
+        <div class="ir-a-id">${escapeHtml(a.assumption_id)}</div>
+        <div class="ir-a-name">${escapeHtml(a.name)}</div>
+        <div class="ir-a-test">${escapeHtml(a.testable_question)}</div>
+        ${resultHtml}
+      </div>
+    `;
+  }).join('');
+
+  let metricsHtml = '';
+  if (isResolved) {
+    const actDir = s2.actual_direction === 'above_consensus' ? 'Above' : 'Below';
+    metricsHtml = `
+      <div class="ir-metrics">
+        <div class="ir-metric">
+          <div class="ir-metric-label">Consensus EPS</div>
+          <div class="ir-metric-value">${currency}${s2.consensus_eps}</div>
+          <div class="ir-metric-sub">Analyst benchmark</div>
+        </div>
+        <div class="ir-metric">
+          <div class="ir-metric-label">Actual EPS</div>
+          <div class="ir-metric-value">${currency}${s2.actual_eps}</div>
+          <div class="ir-metric-sub">${actDir} consensus ${s2.actual_deviation_percent > 0 ? '+' : ''}${s2.actual_deviation_percent}%</div>
+        </div>
+        <div class="ir-metric">
+          <div class="ir-metric-label">Surprise probability</div>
+          <div class="ir-metric-value">${s2.surprise_probability_percent}%</div>
+          <div class="ir-metric-sub">${escapeHtml(s2.confidence_label || '')}</div>
+        </div>
+      </div>
+    `;
+  } else {
+    metricsHtml = `
+      <div class="ir-metrics">
+        <div class="ir-metric">
+          <div class="ir-metric-label">Consensus EPS</div>
+          <div class="ir-metric-value">${currency}${s2.consensus_eps}</div>
+          <div class="ir-metric-sub">Analyst benchmark</div>
+        </div>
+        <div class="ir-metric">
+          <div class="ir-metric-label">Surprise probability</div>
+          <div class="ir-metric-value">${s2.surprise_probability_percent}%</div>
+          <div class="ir-metric-sub">${escapeHtml(s2.confidence_label || '')}</div>
+        </div>
+        <div class="ir-metric">
+          <div class="ir-metric-label">Predicted direction</div>
+          <div class="ir-metric-value">${s2.predicted_direction === 'miss' ? 'Below' : 'Above'}</div>
+          <div class="ir-metric-sub">consensus</div>
+        </div>
+      </div>
+    `;
+  }
+
+  let scoreHtml = '';
+  if (isResolved) {
+    const dirLabel = s2.direction_correct ? 'correct' : `${s2.predicted_direction} predicted, actual ${s2.actual_direction === 'above_consensus' ? 'above' : 'below'} consensus`;
+    scoreHtml = `
+      <div class="ir-score-row">
+        <span class="ir-score-item"><span class="ir-a-dot ir-a-dot-ok"></span> ${correctCount} correct</span>
+        <span class="ir-score-item"><span class="ir-a-dot ir-a-dot-bad"></span> ${incorrectCount} incorrect</span>
+        <span class="ir-score-item ir-score-dim">Stage 2 direction: ${escapeHtml(dirLabel)}</span>
+      </div>
+    `;
+  }
+
+  const statusBadge = isResolved
+    ? '<span class="ir-status-badge ir-status-resolved">Resolved</span>'
+    : '<span class="ir-status-badge ir-status-pending">Pending</span>';
+
+  article.innerHTML = `
+    <div class="ir-header-row">
+      <div>
+        <h3>${escapeHtml(entry.subject)}</h3>
+        <div class="ir-meta">${metaParts.join(' \u00b7 ')}</div>
+      </div>
+      <div class="ir-header-right">
+        ${statusBadge}
+        <span class="ir-quarter-tag">${escapeHtml(entry.quarter || '')}</span>
+      </div>
+    </div>
+    <div class="ir-verdict-row">
+      <div class="ir-verdict-icon ${verdict.cssClass}">${verdict.icon}</div>
+      <div class="ir-verdict-text">
+        <div class="ir-verdict-headline">${escapeHtml(verdict.label)}</div>
+        <div class="ir-verdict-explain">${escapeHtml(explanation)}</div>
+      </div>
+    </div>
+    ${metricsHtml}
+    <div class="ir-details-toggle" data-target="${detailsId}" data-chevron="${chevronId}">
+      <span class="ir-chevron" id="${chevronId}">\u25b6</span> ${escapeHtml(detailsLabel)}
+    </div>
+    <div class="ir-details-body" id="${detailsId}">
+      <div class="ir-assumptions">${assumptionsHtml}</div>
+    </div>
+    ${scoreHtml}
+  `;
+
+  const toggle = article.querySelector('.ir-details-toggle');
+  toggle.addEventListener('click', () => {
+    const body = article.querySelector(`#${detailsId}`);
+    const chev = article.querySelector(`#${chevronId}`);
+    const isOpen = body.classList.toggle('ir-details-open');
+    chev.classList.toggle('ir-chevron-open', isOpen);
+  });
 
   return article;
 }

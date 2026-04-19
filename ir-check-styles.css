@@ -1,0 +1,329 @@
+/* === IR Check Cards === */
+/* Extends styles.css — uses the same design tokens */
+
+.ir-check-card {
+  padding: var(--space-3);
+}
+
+.ir-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 4px;
+  gap: var(--space-2);
+}
+
+.ir-header-row h3 {
+  margin: 0;
+  font-size: 1.15rem;
+  line-height: 1.2;
+}
+
+.ir-header-right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  flex-shrink: 0;
+}
+
+.ir-quarter-tag {
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.ir-status-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border: 2px solid var(--border);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.ir-status-resolved {
+  background: #dff6e6;
+  color: #165b2b;
+}
+
+.ir-status-pending {
+  background: var(--accent-active);
+  color: var(--text);
+}
+
+.ir-meta {
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin-bottom: var(--space-3);
+}
+
+/* ── Verdict row ── */
+
+.ir-verdict-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+  padding-bottom: var(--space-3);
+  border-bottom: 2px solid var(--border);
+}
+
+.ir-verdict-icon {
+  width: 42px;
+  height: 42px;
+  border: 2px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.verdict-noise {
+  background: var(--surface-2);
+  color: var(--muted);
+}
+
+.verdict-hit {
+  background: #dff6e6;
+  color: #165b2b;
+}
+
+.verdict-miss {
+  background: #fce8e8;
+  color: #7a1f1f;
+}
+
+.verdict-pending {
+  background: var(--accent-active);
+  color: var(--text);
+}
+
+.ir-verdict-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.ir-verdict-headline {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.2;
+}
+
+.ir-verdict-explain {
+  font-size: 0.86rem;
+  color: var(--muted);
+  margin-top: 4px;
+  line-height: 1.45;
+}
+
+/* ── Metrics grid ── */
+
+.ir-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+}
+
+.ir-metric {
+  border: 2px solid var(--border);
+  background: var(--surface-2);
+  padding: var(--space-2);
+}
+
+.ir-metric-label {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+
+.ir-metric-value {
+  display: block;
+  font-size: 1.08rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.ir-metric-sub {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+/* ── Collapsible details ── */
+
+.ir-details-toggle {
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: var(--muted);
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: var(--space-1) 0;
+}
+
+.ir-details-toggle:hover {
+  color: var(--text);
+}
+
+.ir-chevron {
+  transition: transform 0.15s;
+  display: inline-block;
+  font-size: 0.68rem;
+}
+
+.ir-chevron-open {
+  transform: rotate(90deg);
+}
+
+.ir-details-body {
+  display: none;
+  padding-top: var(--space-2);
+}
+
+.ir-details-open {
+  display: block;
+}
+
+/* ── Assumption cards ── */
+
+.ir-assumptions {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-2);
+}
+
+.ir-a-card {
+  border: 2px solid var(--border);
+  background: var(--surface-2);
+  padding: var(--space-2);
+}
+
+.ir-a-id {
+  font-size: 0.68rem;
+  color: var(--muted);
+  margin-bottom: 3px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.ir-a-name {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: var(--space-1);
+  line-height: 1.25;
+}
+
+.ir-a-test {
+  font-size: 0.76rem;
+  color: var(--muted);
+  margin-bottom: var(--space-1);
+  line-height: 1.3;
+}
+
+.ir-a-result {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.76rem;
+  font-weight: 700;
+}
+
+.ir-a-correct {
+  color: #165b2b;
+}
+
+.ir-a-incorrect {
+  color: #7a1f1f;
+}
+
+.ir-a-mismatch {
+  color: #7a1f1f;
+}
+
+.ir-a-aligned {
+  color: #165b2b;
+}
+
+.ir-a-dot {
+  width: 7px;
+  height: 7px;
+  flex-shrink: 0;
+  border: 1.5px solid var(--border);
+}
+
+.ir-a-dot-ok {
+  background: #7bc491;
+}
+
+.ir-a-dot-bad {
+  background: #e4a0a0;
+}
+
+.ir-a-actual {
+  font-size: 0.72rem;
+  color: var(--muted);
+  margin-top: 4px;
+  line-height: 1.3;
+}
+
+/* ── Score row ── */
+
+.ir-score-row {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-2) 0 0;
+  border-top: 2px solid var(--border);
+  margin-top: var(--space-2);
+}
+
+.ir-score-item {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.ir-score-dim {
+  font-weight: 600;
+  color: var(--muted);
+}
+
+/* ── Responsive ── */
+
+@media (max-width: 600px) {
+  .ir-metrics {
+    grid-template-columns: 1fr;
+  }
+
+  .ir-assumptions {
+    grid-template-columns: 1fr;
+  }
+
+  .ir-header-row {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .ir-header-right {
+    align-self: flex-start;
+  }
+
+  .ir-score-row {
+    flex-direction: column;
+    gap: 6px;
+    align-items: flex-start;
+  }
+}
