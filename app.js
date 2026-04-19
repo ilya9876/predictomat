@@ -796,10 +796,17 @@ function createIRCheckCard(entry) {
   const assumptionsHtml = entry.assumptions.map((a) => {
     let resultHtml = '';
     if (isResolved && typeof a.call_correct === 'boolean') {
+      const isMismatch = a.stage1_verdict === 'material_mismatch';
+      let label = '';
+      if (a.call_correct && !isMismatch) label = 'Correct \u2014 guidance held';
+      else if (a.call_correct && isMismatch) label = 'Correct \u2014 mismatch confirmed';
+      else if (!a.call_correct && isMismatch) label = 'Incorrect \u2014 mismatch not confirmed';
+      else label = 'Incorrect \u2014 guidance missed';
+
       if (a.call_correct) {
-        resultHtml = `<div class="ir-a-result ir-a-correct"><span class="ir-a-dot ir-a-dot-ok"></span> Correct</div>`;
+        resultHtml = `<div class="ir-a-result ir-a-correct"><span class="ir-a-dot ir-a-dot-ok"></span> ${escapeHtml(label)}</div>`;
       } else {
-        resultHtml = `<div class="ir-a-result ir-a-incorrect"><span class="ir-a-dot ir-a-dot-bad"></span> Incorrect</div>`;
+        resultHtml = `<div class="ir-a-result ir-a-incorrect"><span class="ir-a-dot ir-a-dot-bad"></span> ${escapeHtml(label)}</div>`;
       }
       if (a.actual_value) {
         resultHtml += `<div class="ir-a-actual">Actual: ${escapeHtml(a.actual_value)}</div>`;
