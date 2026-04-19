@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-04-19T10:00:00+02:00",
+  "last_updated": "2026-04-19T12:00:00+02:00",
   "disclaimer": "Operational observations only. Nothing on this page constitutes investment advice, a trading recommendation, or a securities opinion. Surprise probabilities reflect estimated likelihood of material deviation from analyst consensus on operational metrics — they are not price targets, fair value estimates, or buy/sell/hold signals.",
   "noise_threshold_percent": 55,
   "entries": [
@@ -74,6 +74,58 @@
         "stage1_mismatches": 3,
         "independent_mismatches": 0,
         "overlap_clusters": 1,
+        "effective_mismatch_count": 1,
+        "stage2_signal": "signal"
+      }
+    },
+    {
+      "entry_id": "2026-q1-shopify",
+      "published": "2026-04-19",
+      "quarter": "Q1 2026",
+      "subject": "Shopify Inc.",
+      "analysis_date": "2026-04-19",
+      "consensus_date": "2026-04-19",
+      "resolution_date": "2026-05-05",
+      "status": "pending",
+      "stage2": {
+        "consensus_eps": 0.33,
+        "consensus_currency": "USD",
+        "target_metric": "konzern_eps",
+        "surprise_probability_percent": 40,
+        "predicted_direction": "miss",
+        "confidence_label": "signal",
+        "consensus_source": "Yahoo Finance Analysis Page (32 analysts)"
+      },
+      "assumptions": [
+        {
+          "assumption_id": "IR-SHOP-01",
+          "name": "Merchant demand sustainability",
+          "testable_question": "Q1/2026 reported revenue growth >= 30% YoY?",
+          "stage1_verdict": "no_material_mismatch",
+          "driver_timing": "current_quarter_impact"
+        },
+        {
+          "assumption_id": "IR-SHOP-02",
+          "name": "Trade/tariff friction on gross profit",
+          "testable_question": "Q1/2026 gross profit dollar growth >= 28% YoY?",
+          "stage1_verdict": "material_mismatch",
+          "stage1_direction": "guidance_too_optimistic",
+          "driver_timing": "current_quarter_impact",
+          "mismatch_drivers": "De-minimis duty-free suspension continued Feb 2026. Cross-border friction rising for smaller merchants. Shopify names trade measures including tariffs as explicit risk factor."
+        },
+        {
+          "assumption_id": "IR-SHOP-03",
+          "name": "FX impact on reported growth",
+          "testable_question": "Q1/2026 reported revenue growth >= 30% YoY?",
+          "stage1_verdict": "no_material_mismatch",
+          "driver_timing": "current_quarter_impact"
+        }
+      ],
+      "score_summary": {
+        "assumptions_total": 3,
+        "stage1_mismatches": 1,
+        "independent_mismatches": 1,
+        "overlap_clusters": 0,
         "effective_mismatch_count": 1,
         "stage2_signal": "signal"
       }
