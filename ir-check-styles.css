@@ -320,33 +320,6 @@
   font-size: 0.96rem;
 }
 
-/* ── Section intro block (above section navigation) ── */
-
-.section-intro {
-  width: min(var(--max-width), calc(100% - 24px));
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: var(--space-3);
-  padding: var(--space-3);
-}
-
-.section-intro p {
-  margin: 0;
-  color: var(--muted);
-  font-size: 0.9rem;
-  line-height: 1.55;
-}
-
-.section-intro strong {
-  color: var(--text);
-  font-weight: 700;
-}
-
-.section-intro em {
-  font-style: italic;
-  color: var(--text);
-}
-
 /* ── Responsive ── */
 
 @media (max-width: 600px) {
