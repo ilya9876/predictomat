@@ -241,13 +241,28 @@ function renderMarkets(markets) {
     return;
   }
 
-  for (const market of markets) {
+  for (let i = 0; i < markets.length; i += 1) {
+    const market = markets[i];
     const card = createMarketCard(market);
     elements.marketList.appendChild(card);
     const canvas = card.querySelector('canvas');
     const inspector = card.querySelector('.chart-inspector');
     renderMarketChart(canvas, market.snapshots, inspector);
+
+    if (i === 0 && state.view === 'active') {
+      elements.marketList.appendChild(createGapExplainerBlock());
+    }
   }
+}
+
+function createGapExplainerBlock() {
+  const section = document.createElement('section');
+  section.className = 'gap-explainer card';
+  section.innerHTML = `
+    <h3>Reading the gap.</h3>
+    <p>Our forecast usually tracks close to the Polymarket consensus. That alignment is expected — the crowd is often right. Where it gets interesting is the gap: days when the two lines separate significantly. If the crowd later moves toward our earlier estimate, the gap wasn't noise — it was early signal. The chart above shows these moments as they happen, timestamped before the crowd catches up.</p>
+  `;
+  return section;
 }
 
 function createMarketCard(market) {
@@ -738,26 +753,29 @@ function getIRVerdict(entry) {
 function buildVerdictExplanation(entry, verdict) {
   const s2 = entry.stage2;
   const prob = s2.surprise_probability_percent;
-  const dir = s2.predicted_direction === 'miss' ? 'below consensus' : 'above consensus';
+  const deviation = prob - 50;
+  const deviationSign = deviation > 0 ? '+' : '';
+  const deviationLabel = `${deviationSign}${deviation}pp from consensus`;
+  const dir = s2.predicted_direction === 'miss' ? 'miss bias' : 'beat bias';
   const currency = s2.consensus_currency === 'EUR' ? '\u20ac' : '$';
 
   if (entry.status !== 'resolved') {
     if (verdict.type === 'pending-noise') {
-      return `System estimates ${prob}% surprise probability (${s2.confidence_label}). Resolution expected ${escapeHtml(formatFullDate(entry.resolution_date))}.`;
+      return `Predictomat estimate: ${deviationLabel} (${s2.confidence_label}). Resolution expected ${escapeHtml(formatFullDate(entry.resolution_date))}.`;
     }
-    return `System estimates ${prob}% surprise probability, direction: ${dir}. Resolution expected ${escapeHtml(formatFullDate(entry.resolution_date))}.`;
+    return `Predictomat estimate: ${deviationLabel} (${dir}). Resolution expected ${escapeHtml(formatFullDate(entry.resolution_date))}.`;
   }
 
   const actDir = s2.actual_direction === 'above_consensus' ? 'above' : 'below';
   const devPct = s2.actual_deviation_percent;
 
   if (verdict.type === 'noise') {
-    return `System estimated ${prob}% surprise probability (${s2.confidence_label}). Actual EPS came in ${devPct}% ${actDir} consensus \u2014 deviation was real, but signal too weak to call direction.`;
+    return `Predictomat estimate: ${deviationLabel} (${s2.confidence_label}). Actual came in ${devPct}% ${actDir} consensus \u2014 deviation was real, but signal too weak to call direction.`;
   }
   if (verdict.type === 'hit') {
-    return `System estimated ${prob}% surprise probability, direction: ${dir}. Actual EPS came in ${devPct}% ${actDir} consensus \u2014 the predicted deviation materialized.`;
+    return `Predictomat estimate: ${deviationLabel} (${dir}). Actual came in ${devPct}% ${actDir} consensus \u2014 the predicted deviation materialized.`;
   }
-  return `System estimated ${prob}% surprise probability, direction: ${dir}. Actual EPS came in ${devPct}% ${actDir} consensus \u2014 the system called a deviation but got the direction wrong.`;
+  return `Predictomat estimate: ${deviationLabel} (${dir}). Actual came in ${devPct}% ${actDir} consensus \u2014 the direction call was wrong.`;
 }
 
 function createIRCheckCard(entry) {
@@ -835,6 +853,13 @@ function createIRCheckCard(entry) {
     ? `${currency}${Number(s2.consensus_revenue_m).toLocaleString('en')}M`
     : `${currency}${s2.consensus_eps}`;
 
+  const deviation = s2.surprise_probability_percent - 50;
+  const deviationSign = deviation > 0 ? '+' : '';
+  const deviationValue = `${deviationSign}${deviation}pp`;
+  const deviationSub = deviation === 0
+    ? 'neutral'
+    : (deviation < 0 ? 'miss bias' : 'beat bias');
+
   let metricsHtml = '';
   if (isResolved) {
     const actDir = s2.actual_direction === 'above_consensus' ? 'Above' : 'Below';
@@ -855,9 +880,9 @@ function createIRCheckCard(entry) {
           <div class="ir-metric-sub">${actDir} consensus ${s2.actual_deviation_percent > 0 ? '+' : ''}${s2.actual_deviation_percent}%</div>
         </div>
         <div class="ir-metric">
-          <div class="ir-metric-label">Surprise probability</div>
-          <div class="ir-metric-value">${s2.surprise_probability_percent}%</div>
-          <div class="ir-metric-sub">${escapeHtml(s2.confidence_label || '')}</div>
+          <div class="ir-metric-label">Predictomat estimate</div>
+          <div class="ir-metric-value">${deviationValue}</div>
+          <div class="ir-metric-sub">${deviationSub} \u00b7 ${escapeHtml(s2.confidence_label || '')}</div>
         </div>
       </div>
     `;
@@ -870,14 +895,14 @@ function createIRCheckCard(entry) {
           <div class="ir-metric-sub">Analyst benchmark</div>
         </div>
         <div class="ir-metric">
-          <div class="ir-metric-label">Surprise probability</div>
-          <div class="ir-metric-value">${s2.surprise_probability_percent}%</div>
-          <div class="ir-metric-sub">${escapeHtml(s2.confidence_label || '')}</div>
+          <div class="ir-metric-label">Predictomat estimate</div>
+          <div class="ir-metric-value">${deviationValue}</div>
+          <div class="ir-metric-sub">${deviationSub}</div>
         </div>
         <div class="ir-metric">
-          <div class="ir-metric-label">Predicted direction</div>
-          <div class="ir-metric-value">${s2.predicted_direction === 'miss' ? 'Below' : 'Above'}</div>
-          <div class="ir-metric-sub">consensus</div>
+          <div class="ir-metric-label">Signal strength</div>
+          <div class="ir-metric-value">${escapeHtml(s2.confidence_label || '')}</div>
+          <div class="ir-metric-sub">${Math.abs(deviation) >= 10 ? 'gap \u2265 10pp' : 'gap &lt; 10pp'}</div>
         </div>
       </div>
     `;
