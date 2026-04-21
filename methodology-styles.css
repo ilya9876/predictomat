@@ -1,0 +1,56 @@
+/* === Methodology page === */
+/* Extends styles.css — uses the same design tokens */
+
+.legal-page {
+  padding-top: var(--space-4);
+  padding-bottom: var(--space-5);
+}
+
+.back-link {
+  width: min(var(--max-width), calc(100% - 24px));
+  margin: 0 auto var(--space-3);
+  font-size: 0.94rem;
+}
+
+.back-link a {
+  color: var(--accent-crowd);
+  text-decoration: none;
+}
+
+.back-link a:hover,
+.back-link a:focus-visible {
+  text-decoration: underline;
+}
+
+.back-link-bottom {
+  margin-top: var(--space-4);
+  margin-bottom: 0;
+  padding: 0;
+  width: auto;
+}
+
+.legal-card {
+  width: min(var(--max-width), calc(100% - 24px));
+  margin-left: auto;
+  margin-right: auto;
+  padding: var(--space-4);
+}
+
+.legal-card h1 {
+  margin: 0 0 var(--space-3);
+  font-size: clamp(1.55rem, 3vw, 2.1rem);
+  line-height: 1.1;
+}
+
+.legal-card h2 {
+  margin: var(--space-4) 0 var(--space-2);
+  font-size: 1.15rem;
+  line-height: 1.2;
+}
+
+.legal-card p {
+  margin: 0 0 var(--space-2);
+  line-height: 1.55;
+  color: var(--text);
+  max-width: 44rem;
+}
