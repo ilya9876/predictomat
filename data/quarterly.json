@@ -1,7 +1,113 @@
 {
-  "last_updated": "2026-04-19T12:00:00+02:00",
+  "last_updated": "2026-04-20T20:30:00+02:00",
   "disclaimer": "Operational observations only. Nothing on this page constitutes investment advice, a trading recommendation, or a securities opinion. Surprise probabilities reflect estimated likelihood of material deviation from analyst consensus on operational metrics — they are not price targets, fair value estimates, or buy/sell/hold signals.",
   "entries": [
+    {
+      "entry_id": "2026-q1-tower-semiconductor",
+      "published": "2026-04-20",
+      "quarter": "Q1 2026",
+      "subject": "Tower Semiconductor Ltd.",
+      "analysis_date": "2026-04-20",
+      "consensus_date": "2026-04-20",
+      "resolution_date": "2026-05-13",
+      "status": "pending",
+      "stage2": {
+        "consensus_eps": 0.56,
+        "consensus_currency": "USD",
+        "target_metric": "konzern_eps",
+        "surprise_probability_percent": 40,
+        "predicted_direction": "miss",
+        "confidence_label": "signal",
+        "robustness": "fragile",
+        "consensus_source": "Zacks Detailed Earnings Estimates (4 analysts)"
+      },
+      "assumptions": [
+        {
+          "assumption_id": "IR-TSEM-01",
+          "name": "SiPho/SiGe AI-optics demand",
+          "testable_question": "Q1/2026 revenue >= $412M (guidance midpoint)?",
+          "stage1_verdict": "no_material_mismatch",
+          "driver_timing": "current_quarter_impact"
+        },
+        {
+          "assumption_id": "IR-TSEM-02",
+          "name": "Non-SiPho specialty foundry base",
+          "testable_question": "Q1/2026 revenue >= $412M (guidance midpoint)?",
+          "stage1_verdict": "material_mismatch",
+          "stage1_direction": "guidance_too_optimistic",
+          "driver_timing": "current_quarter_impact",
+          "mismatch_drivers": "X-FAB flags continued automotive inventory corrections and limited short-term visibility. Specialty foundry recovery uneven across peers. Tower guidance linearly extrapolates a base that peer data suggests is more inhomogeneous."
+        },
+        {
+          "assumption_id": "IR-TSEM-03",
+          "name": "Competitive pressure in silicon photonics",
+          "testable_question": "Q1/2026 revenue >= $412M (guidance midpoint)?",
+          "stage1_verdict": "no_material_mismatch",
+          "driver_timing": "current_quarter_impact"
+        }
+      ],
+      "score_summary": {
+        "assumptions_total": 3,
+        "stage1_mismatches": 1,
+        "independent_mismatches": 1,
+        "overlap_clusters": 0,
+        "effective_mismatch_count": 1,
+        "stage2_signal": "signal"
+      }
+    },
+    {
+      "entry_id": "2026-q1-stmicroelectronics",
+      "published": "2026-04-20",
+      "quarter": "Q1 2026",
+      "subject": "STMicroelectronics N.V.",
+      "analysis_date": "2026-04-20",
+      "consensus_date": "2026-04-20",
+      "resolution_date": "2026-04-23",
+      "status": "pending",
+      "stage2": {
+        "consensus_revenue_m": 3050,
+        "consensus_currency": "USD",
+        "target_metric": "konzern_revenue",
+        "surprise_probability_percent": 50,
+        "predicted_direction": "neutral",
+        "confidence_label": "noise",
+        "consensus_source": "Yahoo Finance Analysis Page (8 analysts)"
+      },
+      "assumptions": [
+        {
+          "assumption_id": "IR-STM-01",
+          "name": "Semiconductor cycle recovery breadth",
+          "testable_question": "Q1/2026 net revenues >= $2.95B?",
+          "stage1_verdict": "no_material_mismatch",
+          "driver_timing": "current_quarter_impact"
+        },
+        {
+          "assumption_id": "IR-STM-02",
+          "name": "Automotive/P&D stabilisation",
+          "testable_question": "Q1/2026 P&D segment revenue >= $380M?",
+          "stage1_verdict": "material_mismatch",
+          "stage1_direction": "guidance_too_optimistic",
+          "driver_timing": "current_quarter_impact",
+          "mismatch_drivers": "EU car registrations -3.9% YoY in January, -1.2% YoY YTD February. Infineon remains cautious on automotive. ST started from a weaker base than peers, with P&D -31.6% YoY in Q4."
+        },
+        {
+          "assumption_id": "IR-STM-03",
+          "name": "FX stability around $1.16/EUR",
+          "testable_question": "Q1/2026 gross margin >= 33.2%?",
+          "stage1_verdict": "no_material_mismatch",
+          "driver_timing": "current_quarter_impact"
+        }
+      ],
+      "score_summary": {
+        "assumptions_total": 3,
+        "stage1_mismatches": 1,
+        "independent_mismatches": 1,
+        "overlap_clusters": 0,
+        "effective_mismatch_count": 1,
+        "stage2_signal": "noise",
+        "stage2_note": "Segment share 12.4% scales -20pp P&D mismatch down to -2.5pp at group level. Blind spot is real but mechanically too small to produce a group-level signal."
+      }
+    },
     {
       "entry_id": "2026-q1-vestas",
       "published": "2026-04-19",
@@ -93,6 +199,7 @@
         "surprise_probability_percent": 40,
         "predicted_direction": "miss",
         "confidence_label": "signal",
+        "robustness": "robust",
         "consensus_source": "Yahoo Finance Analysis Page (32 analysts)"
       },
       "assumptions": [
