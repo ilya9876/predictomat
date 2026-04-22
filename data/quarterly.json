@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-04-22T14:00:00+02:00",
+  "last_updated": "2026-04-19T10:00:00+02:00",
   "disclaimer": "Operational observations only. Nothing on this page constitutes investment advice, a trading recommendation, or a securities opinion. Surprise probabilities reflect estimated likelihood of material deviation from analyst consensus on operational metrics — they are not price targets, fair value estimates, or buy/sell/hold signals.",
   "noise_threshold_percent": 55,
   "entries": [
@@ -86,18 +86,13 @@
       "analysis_date": "2026-04-12",
       "consensus_date": "2026-04-12",
       "resolution_date": "2026-04-22",
-      "status": "resolved",
+      "status": "pending",
       "stage2": {
         "consensus_eps": 1.79,
         "consensus_currency": "USD",
         "surprise_probability_percent": 45,
         "predicted_direction": "miss",
-        "confidence_label": "noise",
-        "actual_eps": 2.06,
-        "actual_deviation_percent": 15.1,
-        "actual_direction": "above_consensus",
-        "direction_correct": false,
-        "note": "GAAP EPS of $17.44 includes $3.99B pre-tax gain from Prolec GE remeasurement and $330M from Proficy divestiture (non-operating, non-recurring). Adjusted EPS reconstructed from Adjusted EBITDA of $896M, D&A of $341M, non-operating benefit income of $134M, and 272M diluted shares yields approximately $1.97–$2.16 depending on effective tax rate assumption (midpoint ~$2.06). Beat of roughly 15% vs $1.79 consensus. Self-labeled 'noise' at 45% probability — system correctly refrained from claiming a strong signal."
+        "confidence_label": "noise"
       },
       "assumptions": [
         {
@@ -105,21 +100,14 @@
           "name": "Gas Power demand trajectory",
           "testable_question": "Power segment revenue >= $5.0B in Q1?",
           "stage1_verdict": "no_material_mismatch",
-          "driver_timing": "current_quarter_impact",
-          "actual_value": "$4,971M",
-          "condition_met": false,
-          "condition_met_note": "Below threshold by $29M (0.6%) — de minimis deviation, materially aligned with 'no mismatch' call.",
-          "call_correct": true
+          "driver_timing": "current_quarter_impact"
         },
         {
           "assumption_id": "IR-GEV-02",
           "name": "Electrification growth sustainability",
           "testable_question": "Electrification segment revenue >= $2.8B in Q1?",
           "stage1_verdict": "no_material_mismatch",
-          "driver_timing": "current_quarter_impact",
-          "actual_value": "$2,959M",
-          "condition_met": true,
-          "call_correct": true
+          "driver_timing": "current_quarter_impact"
         },
         {
           "assumption_id": "IR-GEV-03",
@@ -128,26 +116,13 @@
           "stage1_verdict": "material_mismatch",
           "stage1_direction": "guidance_too_optimistic",
           "driver_timing": "current_quarter_impact",
-          "mismatch_drivers": "BOEM suspended Vineyard Wind, Revolution Wind, Sunrise Wind. Weak onshore orders from US policy uncertainty. Tariff impact $300-400M guided for full year.",
-          "actual_value": "-$382M",
-          "condition_met": false,
-          "call_correct": true,
-          "magnitude_note": "Actual result $232M worse than threshold and $218M worse than guided full-year Wind loss of roughly -$400M after just one quarter — deterioration substantially more severe than anticipated."
+          "mismatch_drivers": "BOEM suspended Vineyard Wind, Revolution Wind, Sunrise Wind. Weak onshore orders from US policy uncertainty. Tariff impact $300-400M guided for full year."
         }
       ],
-      "lessons_learned": [
-        "Stage 1 correctly resolved all three assumption calls — two aligned (Power marginally below threshold but de minimis; Electrification clearly above), one material mismatch (Wind) confirmed with severity exceeding expectation.",
-        "Wind mismatch validates the Tetlock-style edge-seeking approach: the analysis identified a blind spot in consensus guidance and was directionally correct with meaningful magnitude.",
-        "Stage 2 miss on direction was correctly self-labeled 'noise' at 45% probability — confidence calibration held. The Prolec-GE remeasurement gain of $3.99B was a bookkeeping event not foreseeable at analysis time and does not materially affect Adjusted EPS comparison.",
-        "GAAP vs. Adjusted EPS distinction is critical for resolution: headline GAAP of $17.44 would falsely suggest a 874% beat; reconstructed Adjusted EPS of ~$2.00 shows a more modest 10–20% beat vs consensus."
-      ],
       "score_summary": {
-        "assumptions_correct": 3,
-        "assumptions_incorrect": 0,
         "assumptions_total": 3,
         "stage1_mismatches": 1,
-        "stage2_direction_correct": false,
-        "stage2_self_label": "noise"
+        "stage2_signal": "noise"
       }
     },
     {
