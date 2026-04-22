@@ -93,12 +93,11 @@
         "surprise_probability_percent": 45,
         "predicted_direction": "miss",
         "confidence_label": "noise",
-        "actual_eps_gaap": 17.44,
-        "actual_eps_adjusted_estimate_range": "1.97–2.16",
-        "actual_deviation_percent_from_consensus": 10.1,
+        "actual_eps": 2.06,
+        "actual_deviation_percent": 15.1,
         "actual_direction": "above_consensus",
         "direction_correct": false,
-        "note": "GAAP EPS of $17.44 includes $3.99B pre-tax gain from Prolec GE remeasurement and $330M from Proficy divestiture (non-operating, non-recurring). Adjusted EPS reconstructed from Adjusted EBITDA of $896M, D&A of $341M, non-operating benefit income of $134M, and 272M diluted shares yields approximately $1.97–$2.16 depending on effective tax rate assumption. Beat of roughly 10–20% vs $1.79 consensus. Self-labeled 'noise' at 45% probability — system correctly refrained from claiming a strong signal."
+        "note": "GAAP EPS of $17.44 includes $3.99B pre-tax gain from Prolec GE remeasurement and $330M from Proficy divestiture (non-operating, non-recurring). Adjusted EPS reconstructed from Adjusted EBITDA of $896M, D&A of $341M, non-operating benefit income of $134M, and 272M diluted shares yields approximately $1.97–$2.16 depending on effective tax rate assumption (midpoint ~$2.06). Beat of roughly 15% vs $1.79 consensus. Self-labeled 'noise' at 45% probability — system correctly refrained from claiming a strong signal."
       },
       "assumptions": [
         {
