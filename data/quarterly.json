@@ -1,113 +1,8 @@
 {
-  "last_updated": "2026-04-20T20:30:00+02:00",
+  "last_updated": "2026-04-22T14:00:00+02:00",
   "disclaimer": "Operational observations only. Nothing on this page constitutes investment advice, a trading recommendation, or a securities opinion. Surprise probabilities reflect estimated likelihood of material deviation from analyst consensus on operational metrics — they are not price targets, fair value estimates, or buy/sell/hold signals.",
+  "noise_threshold_percent": 55,
   "entries": [
-    {
-      "entry_id": "2026-q1-tower-semiconductor",
-      "published": "2026-04-20",
-      "quarter": "Q1 2026",
-      "subject": "Tower Semiconductor Ltd.",
-      "analysis_date": "2026-04-20",
-      "consensus_date": "2026-04-20",
-      "resolution_date": "2026-05-13",
-      "status": "pending",
-      "stage2": {
-        "consensus_eps": 0.56,
-        "consensus_currency": "USD",
-        "target_metric": "konzern_eps",
-        "surprise_probability_percent": 40,
-        "predicted_direction": "miss",
-        "confidence_label": "signal",
-        "robustness": "fragile",
-        "consensus_source": "Zacks Detailed Earnings Estimates (4 analysts)"
-      },
-      "assumptions": [
-        {
-          "assumption_id": "IR-TSEM-01",
-          "name": "SiPho/SiGe AI-optics demand",
-          "testable_question": "Q1/2026 revenue >= $412M (guidance midpoint)?",
-          "stage1_verdict": "no_material_mismatch",
-          "driver_timing": "current_quarter_impact"
-        },
-        {
-          "assumption_id": "IR-TSEM-02",
-          "name": "Non-SiPho specialty foundry base",
-          "testable_question": "Q1/2026 revenue >= $412M (guidance midpoint)?",
-          "stage1_verdict": "material_mismatch",
-          "stage1_direction": "guidance_too_optimistic",
-          "driver_timing": "current_quarter_impact",
-          "mismatch_drivers": "X-FAB flags continued automotive inventory corrections and limited short-term visibility. Specialty foundry recovery uneven across peers. Tower guidance linearly extrapolates a base that peer data suggests is more inhomogeneous."
-        },
-        {
-          "assumption_id": "IR-TSEM-03",
-          "name": "Competitive pressure in silicon photonics",
-          "testable_question": "Q1/2026 revenue >= $412M (guidance midpoint)?",
-          "stage1_verdict": "no_material_mismatch",
-          "driver_timing": "current_quarter_impact"
-        }
-      ],
-      "score_summary": {
-        "assumptions_total": 3,
-        "stage1_mismatches": 1,
-        "independent_mismatches": 1,
-        "overlap_clusters": 0,
-        "effective_mismatch_count": 1,
-        "stage2_signal": "signal"
-      }
-    },
-    {
-      "entry_id": "2026-q1-stmicroelectronics",
-      "published": "2026-04-20",
-      "quarter": "Q1 2026",
-      "subject": "STMicroelectronics N.V.",
-      "analysis_date": "2026-04-20",
-      "consensus_date": "2026-04-20",
-      "resolution_date": "2026-04-23",
-      "status": "pending",
-      "stage2": {
-        "consensus_revenue_m": 3050,
-        "consensus_currency": "USD",
-        "target_metric": "konzern_revenue",
-        "surprise_probability_percent": 50,
-        "predicted_direction": "neutral",
-        "confidence_label": "noise",
-        "consensus_source": "Yahoo Finance Analysis Page (8 analysts)"
-      },
-      "assumptions": [
-        {
-          "assumption_id": "IR-STM-01",
-          "name": "Semiconductor cycle recovery breadth",
-          "testable_question": "Q1/2026 net revenues >= $2.95B?",
-          "stage1_verdict": "no_material_mismatch",
-          "driver_timing": "current_quarter_impact"
-        },
-        {
-          "assumption_id": "IR-STM-02",
-          "name": "Automotive/P&D stabilisation",
-          "testable_question": "Q1/2026 P&D segment revenue >= $380M?",
-          "stage1_verdict": "material_mismatch",
-          "stage1_direction": "guidance_too_optimistic",
-          "driver_timing": "current_quarter_impact",
-          "mismatch_drivers": "EU car registrations -3.9% YoY in January, -1.2% YoY YTD February. Infineon remains cautious on automotive. ST started from a weaker base than peers, with P&D -31.6% YoY in Q4."
-        },
-        {
-          "assumption_id": "IR-STM-03",
-          "name": "FX stability around $1.16/EUR",
-          "testable_question": "Q1/2026 gross margin >= 33.2%?",
-          "stage1_verdict": "no_material_mismatch",
-          "driver_timing": "current_quarter_impact"
-        }
-      ],
-      "score_summary": {
-        "assumptions_total": 3,
-        "stage1_mismatches": 1,
-        "independent_mismatches": 1,
-        "overlap_clusters": 0,
-        "effective_mismatch_count": 1,
-        "stage2_signal": "noise",
-        "stage2_note": "Segment share 12.4% scales -20pp P&D mismatch down to -2.5pp at group level. Blind spot is real but mechanically too small to produce a group-level signal."
-      }
-    },
     {
       "entry_id": "2026-q1-vestas",
       "published": "2026-04-19",
@@ -184,59 +79,6 @@
       }
     },
     {
-      "entry_id": "2026-q1-shopify",
-      "published": "2026-04-19",
-      "quarter": "Q1 2026",
-      "subject": "Shopify Inc.",
-      "analysis_date": "2026-04-19",
-      "consensus_date": "2026-04-19",
-      "resolution_date": "2026-05-05",
-      "status": "pending",
-      "stage2": {
-        "consensus_eps": 0.33,
-        "consensus_currency": "USD",
-        "target_metric": "konzern_eps",
-        "surprise_probability_percent": 40,
-        "predicted_direction": "miss",
-        "confidence_label": "signal",
-        "robustness": "robust",
-        "consensus_source": "Yahoo Finance Analysis Page (32 analysts)"
-      },
-      "assumptions": [
-        {
-          "assumption_id": "IR-SHOP-01",
-          "name": "Merchant demand sustainability",
-          "testable_question": "Q1/2026 reported revenue growth >= 30% YoY?",
-          "stage1_verdict": "no_material_mismatch",
-          "driver_timing": "current_quarter_impact"
-        },
-        {
-          "assumption_id": "IR-SHOP-02",
-          "name": "Trade/tariff friction on gross profit",
-          "testable_question": "Q1/2026 gross profit dollar growth >= 28% YoY?",
-          "stage1_verdict": "material_mismatch",
-          "stage1_direction": "guidance_too_optimistic",
-          "driver_timing": "current_quarter_impact",
-          "mismatch_drivers": "De-minimis duty-free suspension continued Feb 2026. Cross-border friction rising for smaller merchants. Shopify names trade measures including tariffs as explicit risk factor."
-        },
-        {
-          "assumption_id": "IR-SHOP-03",
-          "name": "FX impact on reported growth",
-          "testable_question": "Q1/2026 reported revenue growth >= 30% YoY?",
-          "stage1_verdict": "no_material_mismatch",
-          "driver_timing": "current_quarter_impact"
-        }
-      ],
-      "score_summary": {
-        "assumptions_total": 3,
-        "stage1_mismatches": 1,
-        "independent_mismatches": 1,
-        "overlap_clusters": 0,
-        "effective_mismatch_count": 1,
-        "stage2_signal": "signal"
-      }
-    },
-    {
       "entry_id": "2026-q1-ge-vernova",
       "published": "2026-04-12",
       "quarter": "Q1 2026",
@@ -244,13 +86,19 @@
       "analysis_date": "2026-04-12",
       "consensus_date": "2026-04-12",
       "resolution_date": "2026-04-22",
-      "status": "pending",
+      "status": "resolved",
       "stage2": {
         "consensus_eps": 1.79,
         "consensus_currency": "USD",
         "surprise_probability_percent": 45,
         "predicted_direction": "miss",
-        "confidence_label": "noise"
+        "confidence_label": "noise",
+        "actual_eps_gaap": 17.44,
+        "actual_eps_adjusted_estimate_range": "1.97–2.16",
+        "actual_deviation_percent_from_consensus": 10.1,
+        "actual_direction": "above_consensus",
+        "direction_correct": false,
+        "note": "GAAP EPS of $17.44 includes $3.99B pre-tax gain from Prolec GE remeasurement and $330M from Proficy divestiture (non-operating, non-recurring). Adjusted EPS reconstructed from Adjusted EBITDA of $896M, D&A of $341M, non-operating benefit income of $134M, and 272M diluted shares yields approximately $1.97–$2.16 depending on effective tax rate assumption. Beat of roughly 10–20% vs $1.79 consensus. Self-labeled 'noise' at 45% probability — system correctly refrained from claiming a strong signal."
       },
       "assumptions": [
         {
@@ -258,14 +106,21 @@
           "name": "Gas Power demand trajectory",
           "testable_question": "Power segment revenue >= $5.0B in Q1?",
           "stage1_verdict": "no_material_mismatch",
-          "driver_timing": "current_quarter_impact"
+          "driver_timing": "current_quarter_impact",
+          "actual_value": "$4,971M",
+          "condition_met": false,
+          "condition_met_note": "Below threshold by $29M (0.6%) — de minimis deviation, materially aligned with 'no mismatch' call.",
+          "call_correct": true
         },
         {
           "assumption_id": "IR-GEV-02",
           "name": "Electrification growth sustainability",
           "testable_question": "Electrification segment revenue >= $2.8B in Q1?",
           "stage1_verdict": "no_material_mismatch",
-          "driver_timing": "current_quarter_impact"
+          "driver_timing": "current_quarter_impact",
+          "actual_value": "$2,959M",
+          "condition_met": true,
+          "call_correct": true
         },
         {
           "assumption_id": "IR-GEV-03",
@@ -274,13 +129,26 @@
           "stage1_verdict": "material_mismatch",
           "stage1_direction": "guidance_too_optimistic",
           "driver_timing": "current_quarter_impact",
-          "mismatch_drivers": "BOEM suspended Vineyard Wind, Revolution Wind, Sunrise Wind. Weak onshore orders from US policy uncertainty. Tariff impact $300-400M guided for full year."
+          "mismatch_drivers": "BOEM suspended Vineyard Wind, Revolution Wind, Sunrise Wind. Weak onshore orders from US policy uncertainty. Tariff impact $300-400M guided for full year.",
+          "actual_value": "-$382M",
+          "condition_met": false,
+          "call_correct": true,
+          "magnitude_note": "Actual result $232M worse than threshold and $218M worse than guided full-year Wind loss of roughly -$400M after just one quarter — deterioration substantially more severe than anticipated."
         }
       ],
+      "lessons_learned": [
+        "Stage 1 correctly resolved all three assumption calls — two aligned (Power marginally below threshold but de minimis; Electrification clearly above), one material mismatch (Wind) confirmed with severity exceeding expectation.",
+        "Wind mismatch validates the Tetlock-style edge-seeking approach: the analysis identified a blind spot in consensus guidance and was directionally correct with meaningful magnitude.",
+        "Stage 2 miss on direction was correctly self-labeled 'noise' at 45% probability — confidence calibration held. The Prolec-GE remeasurement gain of $3.99B was a bookkeeping event not foreseeable at analysis time and does not materially affect Adjusted EPS comparison.",
+        "GAAP vs. Adjusted EPS distinction is critical for resolution: headline GAAP of $17.44 would falsely suggest a 874% beat; reconstructed Adjusted EPS of ~$2.00 shows a more modest 10–20% beat vs consensus."
+      ],
       "score_summary": {
+        "assumptions_correct": 3,
+        "assumptions_incorrect": 0,
         "assumptions_total": 3,
         "stage1_mismatches": 1,
-        "stage2_signal": "noise"
+        "stage2_direction_correct": false,
+        "stage2_self_label": "noise"
       }
     },
     {
