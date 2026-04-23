@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-04-23T18:00:00+02:00",
+  "last_updated": "2026-04-23T20:00:00+02:00",
   "disclaimer": "Operational observations only. Nothing on this page constitutes investment advice, a trading recommendation, or a securities opinion. Surprise probabilities reflect estimated likelihood of material deviation from analyst consensus on operational metrics — they are not price targets, fair value estimates, or buy/sell/hold signals.",
   "entries": [
     {
@@ -325,6 +325,63 @@
         "stage1_mismatches": 1,
         "stage2_direction_correct": false,
         "stage2_self_label": "noise"
+      }
+    },
+    {
+      "entry_id": "2026-q1-onsemi",
+      "published": "2026-04-23",
+      "quarter": "Q1 2026",
+      "subject": "onsemi (ON Semiconductor Corporation)",
+      "analysis_date": "2026-04-23",
+      "consensus_date": "2026-04-23",
+      "resolution_date": "2026-05-04",
+      "status": "pending",
+      "stage2": {
+        "consensus_eps": 0.62,
+        "consensus_currency": "USD",
+        "target_metric": "konzern_eps",
+        "surprise_probability_percent": 45,
+        "predicted_direction": "miss",
+        "confidence_label": "noise",
+        "consensus_source": "Yahoo Finance Analysis Page (31 analysts)",
+        "consensus_spread": {
+          "low": 0.59,
+          "high": 0.66
+        }
+      },
+      "assumptions": [
+        {
+          "assumption_id": "IR-ON-01",
+          "name": "Automotive demand stability",
+          "testable_question": "Q1/2026 Automotive revenue >= $780M?",
+          "stage1_verdict": "no_material_mismatch",
+          "driver_timing": "current_quarter_impact"
+        },
+        {
+          "assumption_id": "IR-ON-02",
+          "name": "Industrial stabilisation",
+          "testable_question": "Q1/2026 Industrial revenue >= $430M?",
+          "stage1_verdict": "material_mismatch",
+          "stage1_direction": "guidance_too_optimistic",
+          "driver_timing": "current_quarter_impact",
+          "mismatch_drivers": "Infineon Core Industrial GIP -21% sequentially, flat recovery only. ST Industrial still declining in FY25. PMI >50 but decelerating. Microchip and NXP show mixed signals. External evidence points to shallow, uneven industrial recovery insufficient to support near-stable Industrial revenue."
+        },
+        {
+          "assumption_id": "IR-ON-03",
+          "name": "AI/Data Center mix supporting gross margin",
+          "testable_question": "Q1/2026 Non-GAAP Gross Margin >= 38.0%?",
+          "stage1_verdict": "no_material_mismatch",
+          "driver_timing": "current_quarter_impact"
+        }
+      ],
+      "score_summary": {
+        "assumptions_total": 3,
+        "stage1_mismatches": 1,
+        "independent_mismatches": 1,
+        "overlap_clusters": 0,
+        "effective_mismatch_count": 1,
+        "stage2_signal": "noise",
+        "stage2_note": "Industrial segment share 28.9% scales -17pp assumption-level mismatch down to -4.9pp at group level. Blind spot is directionally real but mechanically below signal threshold on consensus EPS."
       }
     },
     {
