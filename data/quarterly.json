@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-04-22T14:00:00+02:00",
+  "last_updated": "2026-04-23T18:00:00+02:00",
   "disclaimer": "Operational observations only. Nothing on this page constitutes investment advice, a trading recommendation, or a securities opinion. Surprise probabilities reflect estimated likelihood of material deviation from analyst consensus on operational metrics — they are not price targets, fair value estimates, or buy/sell/hold signals.",
   "entries": [
     {
@@ -63,7 +63,7 @@
       "analysis_date": "2026-04-20",
       "consensus_date": "2026-04-20",
       "resolution_date": "2026-04-23",
-      "status": "pending",
+      "status": "resolved",
       "stage2": {
         "consensus_revenue_m": 3050,
         "consensus_currency": "USD",
@@ -71,7 +71,12 @@
         "surprise_probability_percent": 50,
         "predicted_direction": "neutral",
         "confidence_label": "noise",
-        "consensus_source": "Yahoo Finance Analysis Page (8 analysts)"
+        "consensus_source": "Yahoo Finance Analysis Page (8 analysts)",
+        "actual_revenue_m": 3095,
+        "actual_deviation_percent": 1.5,
+        "actual_direction": "above_consensus",
+        "direction_correct": true,
+        "note": "Revenue beat of +1.5% vs consensus ($3,095M vs $3,050M). At 50% surprise probability and 'noise' label, the marginal beat is consistent with calibrated uncertainty. Non-GAAP diluted EPS $0.13. No methodology change warranted."
       },
       "assumptions": [
         {
@@ -79,7 +84,10 @@
           "name": "Semiconductor cycle recovery breadth",
           "testable_question": "Q1/2026 net revenues >= $2.95B?",
           "stage1_verdict": "no_material_mismatch",
-          "driver_timing": "current_quarter_impact"
+          "driver_timing": "current_quarter_impact",
+          "actual_value": "$3,095M",
+          "condition_met": true,
+          "call_correct": true
         },
         {
           "assumption_id": "IR-STM-02",
@@ -88,23 +96,35 @@
           "stage1_verdict": "material_mismatch",
           "stage1_direction": "guidance_too_optimistic",
           "driver_timing": "current_quarter_impact",
-          "mismatch_drivers": "EU car registrations -3.9% YoY in January, -1.2% YoY YTD February. Infineon remains cautious on automotive. ST started from a weaker base than peers, with P&D -31.6% YoY in Q4."
+          "mismatch_drivers": "EU car registrations -3.9% YoY in January, -1.2% YoY YTD February. Infineon remains cautious on automotive. ST started from a weaker base than peers, with P&D -31.6% YoY in Q4.",
+          "actual_value": "$389M revenue, -$84M operating loss",
+          "condition_met": true,
+          "call_correct": false,
+          "miss_reason": "Revenue threshold met ($389M >= $380M) despite continued operational weakness. P&D operating loss deepened from -$28M to -$84M YoY, confirming directional concern but not the revenue-based testable question."
         },
         {
           "assumption_id": "IR-STM-03",
           "name": "FX stability around $1.16/EUR",
           "testable_question": "Q1/2026 gross margin >= 33.2%?",
           "stage1_verdict": "no_material_mismatch",
-          "driver_timing": "current_quarter_impact"
+          "driver_timing": "current_quarter_impact",
+          "actual_value": "33.8% GAAP, 34.1% non-GAAP",
+          "condition_met": true,
+          "call_correct": true
         }
       ],
+      "lessons_learned": [
+        "P&D segment revenue threshold was met despite severe operational deterioration (operating loss -$84M vs -$28M YoY). Revenue-based testable questions can miss profitability erosion — noted as observation, no methodology change.",
+        "Skalierungslogik confirmed: P&D at 12.4% segment share correctly scaled mismatch to ~2.5pp at group level, which did not produce a group-level signal. AM&S (+23.2% YoY) and EMP (+31.3% YoY) overcompensated.",
+        "50% probability / 'noise' label produced Brier component of 0.25 — neutral, no calibration damage. Correct restraint."
+      ],
       "score_summary": {
+        "assumptions_correct": 2,
+        "assumptions_incorrect": 1,
         "assumptions_total": 3,
         "stage1_mismatches": 1,
-        "independent_mismatches": 1,
-        "overlap_clusters": 0,
-        "effective_mismatch_count": 1,
-        "stage2_signal": "noise",
+        "stage2_direction_correct": true,
+        "stage2_self_label": "noise",
         "stage2_note": "Segment share 12.4% scales -20pp P&D mismatch down to -2.5pp at group level. Blind spot is real but mechanically too small to produce a group-level signal."
       }
     },
