@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-04-23T20:00:00+02:00",
+  "last_updated": "2026-04-23T21:00:00+02:00",
   "disclaimer": "Operational observations only. Nothing on this page constitutes investment advice, a trading recommendation, or a securities opinion. Surprise probabilities reflect estimated likelihood of material deviation from analyst consensus on operational metrics — they are not price targets, fair value estimates, or buy/sell/hold signals.",
   "entries": [
     {
@@ -382,6 +382,63 @@
         "effective_mismatch_count": 1,
         "stage2_signal": "noise",
         "stage2_note": "Industrial segment share 28.9% scales -17pp assumption-level mismatch down to -4.9pp at group level. Blind spot is directionally real but mechanically below signal threshold on consensus EPS."
+      }
+    },
+    {
+      "entry_id": "2026-q2fy-siemens-energy",
+      "published": "2026-04-23",
+      "quarter": "Q2 FY2026 (H1 FY2026)",
+      "subject": "Siemens Energy AG",
+      "analysis_date": "2026-04-23",
+      "consensus_date": "2026-04-22",
+      "resolution_date": "2026-05-12",
+      "status": "pending",
+      "stage2": {
+        "consensus_eps": 0.99,
+        "consensus_currency": "EUR",
+        "target_metric": "konzern_eps",
+        "surprise_probability_percent": 45,
+        "predicted_direction": "miss",
+        "confidence_label": "noise",
+        "consensus_source": "Siemens Energy Consensus Estimates - Pre Q2 FY26 (13 analysts)",
+        "consensus_spread": {
+          "low": 0.89,
+          "high": 1.07
+        }
+      },
+      "assumptions": [
+        {
+          "assumption_id": "IR-SEN-01",
+          "name": "Gas Services demand conversion",
+          "testable_question": "H1 FY2026 Gas Services comparable revenue growth >= 15%?",
+          "stage1_verdict": "no_material_mismatch",
+          "driver_timing": "current_quarter_impact"
+        },
+        {
+          "assumption_id": "IR-SEN-02",
+          "name": "Grid Technologies investment cycle",
+          "testable_question": "H1 FY2026 Grid Technologies comparable revenue growth >= 18%?",
+          "stage1_verdict": "no_material_mismatch",
+          "driver_timing": "current_quarter_impact"
+        },
+        {
+          "assumption_id": "IR-SEN-03",
+          "name": "Siemens Gamesa break-even path",
+          "testable_question": "H1 FY2026 Siemens Gamesa profit margin before SI >= -1.0%?",
+          "stage1_verdict": "material_mismatch",
+          "stage1_direction": "guidance_too_optimistic",
+          "driver_timing": "current_quarter_impact",
+          "mismatch_drivers": "GE Vernova Wind Q1 2026: -25% revenue, EBITDA loss $382M — US onshore remains weak, tariffs and permitting weigh on sector. Nordex Q1 2026 order intake fell YoY. Siemens Gamesa Q1 positive margin partly attributed to timing effects by management itself. External wind market improving but not broadly enough to support FY2026 break-even path with confidence."
+        }
+      ],
+      "score_summary": {
+        "assumptions_total": 3,
+        "stage1_mismatches": 1,
+        "independent_mismatches": 1,
+        "overlap_clusters": 0,
+        "effective_mismatch_count": 1,
+        "stage2_signal": "noise",
+        "stage2_note": "Gamesa segment share 24.3% scales -20pp assumption-level mismatch down to -4.9pp at group level. Gas Services and Grid Technologies externally well-supported — Gamesa is the isolated blind spot. Strongest assumption-level mismatch in the portfolio (-20pp) but compensated by strong peer segments."
       }
     },
     {
