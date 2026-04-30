@@ -65,7 +65,8 @@
 		{ "date": "2026-04-26", "crowd_probability_percent": 31, "my_probability_percent": 26 },
 		{ "date": "2026-04-27", "crowd_probability_percent": 48, "my_probability_percent": 35 },
 		{ "date": "2026-04-28", "crowd_probability_percent": 52, "my_probability_percent": 42 },
-		{ "date": "2026-04-29", "crowd_probability_percent": 47, "my_probability_percent": 38 }
+		{ "date": "2026-04-29", "crowd_probability_percent": 47, "my_probability_percent": 38 },
+		{ "date": "2026-04-30", "crowd_probability_percent": 63, "my_probability_percent": 50 }
       ]
     },
 	{
@@ -102,6 +103,7 @@
 		{ "date": "2026-04-26", "crowd_probability_percent": 3, "my_probability_percent": 3 },
 		{ "date": "2026-04-27", "crowd_probability_percent": 2, "my_probability_percent": 3 },
 		{ "date": "2026-04-28", "crowd_probability_percent": 1, "my_probability_percent": 1 },
+		{ "date": "2026-04-29", "crowd_probability_percent": 1, "my_probability_percent": 1 },
 		{ "date": "2026-04-29", "crowd_probability_percent": 1, "my_probability_percent": 1 }
       ]
     },
@@ -160,7 +162,8 @@
 		{ "date": "2026-04-26", "crowd_probability_percent": 8, "my_probability_percent": 11 },
 		{ "date": "2026-04-27", "crowd_probability_percent": 7, "my_probability_percent": 6 },
 		{ "date": "2026-04-28", "crowd_probability_percent": 4, "my_probability_percent": 4 },
-		{ "date": "2026-04-29", "crowd_probability_percent": 5, "my_probability_percent": 5 }
+		{ "date": "2026-04-29", "crowd_probability_percent": 5, "my_probability_percent": 5 },
+		{ "date": "2026-04-29", "crowd_probability_percent": 3, "my_probability_percent": 2 }
       ]
     },
 	{
@@ -191,7 +194,8 @@
 		{ "date": "2026-04-26", "crowd_probability_percent": 51, "my_probability_percent": 49 },
 		{ "date": "2026-04-27", "crowd_probability_percent": 51, "my_probability_percent": 47 },
 		{ "date": "2026-04-28", "crowd_probability_percent": 51, "my_probability_percent": 48 },
-		{ "date": "2026-04-29", "crowd_probability_percent": 51, "my_probability_percent": 47 }
+		{ "date": "2026-04-29", "crowd_probability_percent": 51, "my_probability_percent": 47 },
+		{ "date": "2026-04-29", "crowd_probability_percent": 51, "my_probability_percent": 46 }
       ]
     },
 	{
