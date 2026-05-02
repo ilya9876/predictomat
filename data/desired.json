@@ -67,7 +67,8 @@
 		{ "date": "2026-04-28", "crowd_probability_percent": 52, "my_probability_percent": 42 },
 		{ "date": "2026-04-29", "crowd_probability_percent": 47, "my_probability_percent": 38 },
 		{ "date": "2026-04-30", "crowd_probability_percent": 63, "my_probability_percent": 50 },
-		{ "date": "2026-05-01", "crowd_probability_percent": 58, "my_probability_percent": 46 }
+		{ "date": "2026-05-01", "crowd_probability_percent": 58, "my_probability_percent": 46 },
+		{ "date": "2026-05-02", "crowd_probability_percent": 58, "my_probability_percent": 50 }
       ]
     },
 	{
@@ -76,16 +77,18 @@
       "polymarket_url": "https://polymarket.com/event/eurovision-winner-2026",
       "status": "active",
       "snapshots": [
-		{ "date": "2026-05-01", "crowd_probability_percent": 34, "my_probability_percent": 30 }
+		{ "date": "2026-05-01", "crowd_probability_percent": 34, "my_probability_percent": 30 },
+		{ "date": "2026-05-02", "crowd_probability_percent": 34, "my_probability_percent": 32 }
       ]
     },
 	{
       "track_id": "Spirit-liquidation",
       "title": "Spirit-Airlines-shutdown-by-May-31?",
       "polymarket_url": "https://polymarket.com/event/spirit-airlines-shutdownliquidation-by-may-31",
-      "status": "active",
+      "status": "archived",
       "snapshots": [
-		{ "date": "2026-05-01", "crowd_probability_percent": 37, "my_probability_percent": 31 }
+		{ "date": "2026-05-01", "crowd_probability_percent": 37, "my_probability_percent": 31 },
+		{ "date": "2026-05-02", "crowd_probability_percent": 100, "my_probability_percent": 100 }
       ]
     },
 	{
@@ -94,7 +97,8 @@
       "polymarket_url": "https://polymarket.com/event/ecb-interest-rates-june-2026",
       "status": "active",
       "snapshots": [
-		{ "date": "2026-05-01", "crowd_probability_percent": 90, "my_probability_percent": 83 }
+		{ "date": "2026-05-01", "crowd_probability_percent": 85, "my_probability_percent": 81 },
+		{ "date": "2026-05-02", "crowd_probability_percent": 83, "my_probability_percent": 78 }
       ]
     },
 	{
@@ -226,7 +230,8 @@
 		{ "date": "2026-04-28", "crowd_probability_percent": 51, "my_probability_percent": 48 },
 		{ "date": "2026-04-29", "crowd_probability_percent": 51, "my_probability_percent": 47 },
 		{ "date": "2026-04-30", "crowd_probability_percent": 51, "my_probability_percent": 46 },
-		{ "date": "2026-05-01", "crowd_probability_percent": 51, "my_probability_percent": 48 }
+		{ "date": "2026-05-01", "crowd_probability_percent": 51, "my_probability_percent": 48 },
+		{ "date": "2026-05-02", "crowd_probability_percent": 51, "my_probability_percent": 48 }
       ]
     },
 	{
