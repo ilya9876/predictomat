@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-04-23T21:00:00+02:00",
+  "last_updated": "2026-05-05T12:00:00+02:00",
   "disclaimer": "Operational observations only. Nothing on this page constitutes investment advice, a trading recommendation, or a securities opinion. Surprise probabilities reflect estimated likelihood of material deviation from analyst consensus on operational metrics — they are not price targets, fair value estimates, or buy/sell/hold signals.",
   "entries": [
     {
@@ -335,7 +335,7 @@
       "analysis_date": "2026-04-23",
       "consensus_date": "2026-04-23",
       "resolution_date": "2026-05-04",
-      "status": "pending",
+      "status": "resolved",
       "stage2": {
         "consensus_eps": 0.62,
         "consensus_currency": "USD",
@@ -347,7 +347,12 @@
         "consensus_spread": {
           "low": 0.59,
           "high": 0.66
-        }
+        },
+        "actual_eps": 0.64,
+        "actual_deviation_percent": 3.2,
+        "actual_direction": "above_consensus",
+        "direction_correct": false,
+        "note": "Non-GAAP diluted EPS $0.64 vs consensus $0.62 — beat of approximately 3.2%, well within the consensus spread of $0.59–$0.66. Group revenue of $1,513M came in above the guidance midpoint of $1,485M; Non-GAAP gross margin landed at 38.5%. Self-labeled 'noise' at 45% probability with a gap of only 5pp from neutral — system correctly refrained from claiming a directional signal. The marginal beat in the opposite direction is consistent with calibrated uncertainty on a noise-classified call."
       },
       "assumptions": [
         {
@@ -355,7 +360,11 @@
           "name": "Automotive demand stability",
           "testable_question": "Q1/2026 Automotive revenue >= $780M?",
           "stage1_verdict": "no_material_mismatch",
-          "driver_timing": "current_quarter_impact"
+          "driver_timing": "current_quarter_impact",
+          "actual_value": "Not separately reported (segment restructuring)",
+          "condition_met": null,
+          "call_correct": null,
+          "resolution_note": "onsemi reorganised reporting segments to PSG/AMG/ISG; Automotive end-market revenue is no longer disclosed as a standalone figure. AMG (which contains automotive analog and mixed-signal exposure) reported $540M, down 3% QoQ. Management qualitatively cited 900V EV architecture wins with Geely and NIO and continued Treo-based design momentum, with no indication of automotive demand deterioration. Aligned-call cannot be formally resolved against the original threshold but qualitative evidence is consistent with the original verdict."
         },
         {
           "assumption_id": "IR-ON-02",
@@ -364,24 +373,44 @@
           "stage1_verdict": "material_mismatch",
           "stage1_direction": "guidance_too_optimistic",
           "driver_timing": "current_quarter_impact",
-          "mismatch_drivers": "Infineon Core Industrial GIP -21% sequentially, flat recovery only. ST Industrial still declining in FY25. PMI >50 but decelerating. Microchip and NXP show mixed signals. External evidence points to shallow, uneven industrial recovery insufficient to support near-stable Industrial revenue."
+          "mismatch_drivers": "Infineon Core Industrial GIP -21% sequentially, flat recovery only. ST Industrial still declining in FY25. PMI >50 but decelerating. Microchip and NXP show mixed signals. External evidence points to shallow, uneven industrial recovery insufficient to support near-stable Industrial revenue.",
+          "actual_value": "Not separately reported (segment restructuring); group revenue $1,513M above midpoint, Q2 guidance raised to $1,535–1,635M",
+          "condition_met": null,
+          "call_correct": false,
+          "miss_reason": "The material_mismatch could not be formally resolved against the original threshold because onsemi reorganised reporting into PSG/AMG/ISG and no longer discloses Industrial end-market revenue separately. However, the directional thesis (industrial weakness pressuring guidance) was not supported by the broader picture: group revenue exceeded the guidance midpoint, Non-GAAP gross margin came in at 38.5%, AI Data Center revenue more than doubled YoY and grew 30%+ sequentially, Q2 guidance was raised, and management explicitly stated 'demand strengthened through the quarter and we have moved beyond the cyclical trough on a path to recovery.' New design wins in industrial energy storage (Sineng 430kW) further suggest constructive end-market dynamics. The mismatch direction (guidance_too_optimistic) is contradicted by the available qualitative and group-level evidence."
         },
         {
           "assumption_id": "IR-ON-03",
           "name": "AI/Data Center mix supporting gross margin",
           "testable_question": "Q1/2026 Non-GAAP Gross Margin >= 38.0%?",
           "stage1_verdict": "no_material_mismatch",
-          "driver_timing": "current_quarter_impact"
+          "driver_timing": "current_quarter_impact",
+          "actual_value": "38.5% Non-GAAP gross margin",
+          "condition_met": true,
+          "call_correct": true,
+          "resolution_note": "Non-GAAP gross margin of 38.5% cleared the 38.0% threshold by 50bp. AI Data Center revenue more than doubled YoY and grew 30%+ sequentially, validating the AI/Data Center mix thesis as a margin support factor. Q2 guidance of 38.0–40.0% non-GAAP gross margin signals continued sequential margin expansion."
         }
       ],
+      "lessons_learned": [
+        "Stage 2 self-labeled 'noise' at 45% probability — the marginal 3.2% beat in the opposite direction is well within the calibrated uncertainty band of a noise classification. No methodology damage; system correctly avoided a false signal claim.",
+        "The Stage 1 IR-ON-02 material_mismatch was not confirmed at resolution. Diagnostic root cause: peer evidence base used in the analysis (Infineon Q1 FY26, ST Q4'25, NXP Q4'25, Microchip Q3 FY26) was structurally one quarter older than the resolution period. Cyclical recovery turn occurred in the intervening weeks, and aggregate-level peer pessimism overshadowed sub-segment recovery signals (Microchip 'broad-based recovery' language, NXP 'improving demand environment') that were present but underweighted in the F/I/S aggregation.",
+        "The case has been formally documented as the empirical basis for the v1.3.0 protocol patch (Peer Recency Classification and Peer Trajectory Check) and the v2.0.0 architecture revision (introduction of Stage 2 Challenge phase between assumption analysis and consensus scaling).",
+        "Segment reporting reorganisation (Auto/Industrial/Other → PSG/AMG/ISG) made two of three testable questions formally unresolvable against their original thresholds. Future analyses should flag announced segment restructurings ahead of the resolution period and adjust testable question framing accordingly.",
+        "Pipeline behaviour confirmed: the Stage 1 mismatch was directionally incorrect but Stage 2 (segment scaling and noise classification) prevented this from propagating to a public-facing signal. The dampening architecture worked as designed."
+      ],
       "score_summary": {
+        "assumptions_correct": 1,
+        "assumptions_incorrect": 1,
+        "assumptions_unresolvable": 1,
         "assumptions_total": 3,
         "stage1_mismatches": 1,
         "independent_mismatches": 1,
         "overlap_clusters": 0,
         "effective_mismatch_count": 1,
         "stage2_signal": "noise",
-        "stage2_note": "Industrial segment share 28.9% scales -17pp assumption-level mismatch down to -4.9pp at group level. Blind spot is directionally real but mechanically below signal threshold on consensus EPS."
+        "stage2_direction_correct": false,
+        "stage2_self_label": "noise",
+        "stage2_note": "Industrial segment share 28.9% scaled the -17pp assumption-level mismatch down to -4.9pp at group level, producing a 45% surprise probability classified as noise. Group EPS came in at $0.64 vs consensus $0.62 — a 3.2% beat that is directionally opposite to the predicted miss but within calibrated uncertainty for a noise-labeled call. The Stage 1 mismatch direction was not confirmed; the Stage 2 noise classification was correctly restrained. Net: directional miss at Stage 2 with no calibration damage; methodological lesson on peer evidence recency captured in lessons_learned."
       }
     },
     {
