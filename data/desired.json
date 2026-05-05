@@ -70,7 +70,8 @@
 		{ "date": "2026-05-01", "crowd_probability_percent": 58, "my_probability_percent": 46 },
 		{ "date": "2026-05-02", "crowd_probability_percent": 58, "my_probability_percent": 50 },
 		{ "date": "2026-05-03", "crowd_probability_percent": 61, "my_probability_percent": 50 },
-		{ "date": "2026-05-04", "crowd_probability_percent": 60, "my_probability_percent": 49 }
+		{ "date": "2026-05-04", "crowd_probability_percent": 60, "my_probability_percent": 49 },
+		{ "date": "2026-05-05", "crowd_probability_percent": 60, "my_probability_percent": 47 }
       ]
     },
 	{
@@ -82,7 +83,8 @@
 		{ "date": "2026-05-01", "crowd_probability_percent": 34, "my_probability_percent": 30 },
 		{ "date": "2026-05-02", "crowd_probability_percent": 34, "my_probability_percent": 32 },
 		{ "date": "2026-05-03", "crowd_probability_percent": 34, "my_probability_percent": 32 },
-		{ "date": "2026-05-04", "crowd_probability_percent": 35, "my_probability_percent": 33 }
+		{ "date": "2026-05-04", "crowd_probability_percent": 35, "my_probability_percent": 33 },
+		{ "date": "2026-05-05", "crowd_probability_percent": 35, "my_probability_percent": 32 }
       ]
     },
 	{
@@ -104,7 +106,8 @@
 		{ "date": "2026-05-01", "crowd_probability_percent": 85, "my_probability_percent": 81 },
 		{ "date": "2026-05-02", "crowd_probability_percent": 83, "my_probability_percent": 78 },
 		{ "date": "2026-05-03", "crowd_probability_percent": 84, "my_probability_percent": 81 },
-		{ "date": "2026-05-04", "crowd_probability_percent": 85, "my_probability_percent": 82 }
+		{ "date": "2026-05-04", "crowd_probability_percent": 85, "my_probability_percent": 82 },
+		{ "date": "2026-05-05", "crowd_probability_percent": 86, "my_probability_percent": 83 }
       ]
     },
 	{
@@ -140,7 +143,8 @@
 		{ "date": "2026-05-01", "crowd_probability_percent": 44, "my_probability_percent": 44 },
 		{ "date": "2026-05-02", "crowd_probability_percent": 51, "my_probability_percent": 46 },
 		{ "date": "2026-05-03", "crowd_probability_percent": 49, "my_probability_percent": 41 },
-		{ "date": "2026-05-04", "crowd_probability_percent": 49, "my_probability_percent": 42 }
+		{ "date": "2026-05-04", "crowd_probability_percent": 49, "my_probability_percent": 42 },
+		{ "date": "2026-05-05", "crowd_probability_percent": 44, "my_probability_percent": 45 }
       ]
     },
 	{
@@ -275,7 +279,8 @@
 		{ "date": "2026-05-01", "crowd_probability_percent": 51, "my_probability_percent": 48 },
 		{ "date": "2026-05-02", "crowd_probability_percent": 51, "my_probability_percent": 48 },
 		{ "date": "2026-05-03", "crowd_probability_percent": 51, "my_probability_percent": 47 },
-		{ "date": "2026-05-04", "crowd_probability_percent": 51, "my_probability_percent": 47 }
+		{ "date": "2026-05-04", "crowd_probability_percent": 51, "my_probability_percent": 47 },
+		{ "date": "2026-05-05", "crowd_probability_percent": 51, "my_probability_percent": 48 }
       ]
     },
 	{
