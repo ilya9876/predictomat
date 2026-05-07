@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-05-05T12:00:00+02:00",
+  "last_updated": "2026-05-07T12:00:00+02:00",
   "disclaimer": "Operational observations only. Nothing on this page constitutes investment advice, a trading recommendation, or a securities opinion. Surprise probabilities reflect estimated likelihood of material deviation from analyst consensus on operational metrics — they are not price targets, fair value estimates, or buy/sell/hold signals.",
   "entries": [
     {
@@ -136,7 +136,7 @@
       "analysis_date": "2026-04-19",
       "consensus_date": "2026-03-06",
       "resolution_date": "2026-05-06",
-      "status": "pending",
+      "status": "resolved",
       "stage2": {
         "consensus_revenue_m": 3743,
         "consensus_currency": "EUR",
@@ -145,7 +145,12 @@
         "predicted_direction": "miss",
         "confidence_label": "signal",
         "near_zero_eps_fallback": true,
-        "consensus_source": "Vestas public analyst consensus page (cut-off 2026-03-06)"
+        "consensus_source": "Vestas public analyst consensus page (cut-off 2026-03-06)",
+        "actual_revenue_m": 3966,
+        "actual_deviation_percent": 5.96,
+        "actual_direction": "above_consensus",
+        "direction_correct": false,
+        "note": "Revenue beat of +5.96% vs consensus (EUR 3,966M vs EUR 3,743M). Predicted miss bias did not materialize. Three of four assumption-level mismatches were directionally incorrect; only IR-VWS-02 (Group EBIT margin >= 6.0%) was technically correct in absolute terms but conceptually misclassified as a Q1 driver rather than a full-year guidance check. Share price reaction approximately -1.5% intraday on report day, driven by negative free cash flow and high pre-earnings expectation bar — not by an operational miss. The Stage 2 'signal' label was incorrect; this was a calibration miss, not a calibrated noise call."
       },
       "assumptions": [
         {
@@ -156,7 +161,11 @@
           "stage1_direction": "guidance_too_optimistic",
           "driver_timing": "current_quarter_impact",
           "mismatch_drivers": "US policy/tariff uncertainty, offshore FID weakness, 2025 order intake already declining YoY with falling ASP.",
-          "overlap_cluster": "OC-VWS-01"
+          "overlap_cluster": "OC-VWS-01",
+          "actual_value": "EUR 5.2B order intake (4,504 MW, +44% YoY in MW terms)",
+          "condition_met": true,
+          "call_correct": false,
+          "miss_reason": "Q1 2026 marked a clear cycle inflection: strong offshore order intake from UK, Germany, and South Korea reversed the 2025 declining trend. Stage 1 used 2025 trajectory data without applying a peer trajectory check, missing the trend break."
         },
         {
           "assumption_id": "IR-VWS-02",
@@ -166,7 +175,11 @@
           "stage1_direction": "guidance_too_optimistic",
           "driver_timing": "current_quarter_impact",
           "mismatch_drivers": "Report explicitly names tariffs, trade barriers, sanctions as margin risk. Management assumes no significant deterioration — a high stability bar.",
-          "overlap_cluster": "OC-VWS-01"
+          "overlap_cluster": "OC-VWS-01",
+          "actual_value": "3.2% Group EBIT margin before special items (best Q1 since 2018)",
+          "condition_met": false,
+          "call_correct": "technically_correct_conceptually_wrong",
+          "miss_reason": "Threshold of 6.0% formally missed (3.2% < 6.0%), but the testable question conflated full-year guidance (6-8%) with a Q1 hurdle. Q1 is structurally Vestas' weakest quarter due to delivery seasonality. FY guidance was maintained at 6-8%, and 3.2% was explicitly described by management as the best Q1 margin since 2018. driver_timing should have been full_year_impact, not current_quarter_impact. No directional Q1 miss occurred."
         },
         {
           "assumption_id": "IR-VWS-03",
@@ -176,14 +189,22 @@
           "stage1_direction": "guidance_too_optimistic",
           "driver_timing": "current_quarter_impact",
           "mismatch_drivers": "Outlook names lack of grid connections as risk. Revenue recognition only at control transfer. Market design and permitting remain bottlenecks.",
-          "overlap_cluster": "OC-VWS-01"
+          "overlap_cluster": "OC-VWS-01",
+          "actual_value": "EUR 3,966M Group revenue (+14.4% YoY)",
+          "condition_met": true,
+          "call_correct": false,
+          "miss_reason": "Revenue cleared the threshold by EUR 498M. Driven by offshore deliveries (812 MW vs 263 MW prior year, +209%) and improved manufacturing ramp. Stage 1 read forward-looking risk language in the 2025 Annual Report Outlook as base-case Q1 forecasting input, conflating risk-disclosure language with operational headwinds materializing in the reported quarter."
         },
         {
           "assumption_id": "IR-VWS-04",
           "name": "Service segment weather/FX resilience",
           "testable_question": "Q1 Service EBIT margin before special items >= 15.5%?",
           "stage1_verdict": "no_material_mismatch",
-          "driver_timing": "current_quarter_impact"
+          "driver_timing": "current_quarter_impact",
+          "actual_value": "16.3% Service EBIT margin before special items",
+          "condition_met": true,
+          "call_correct": true,
+          "resolution_note": "Service margin of 16.3% cleared the 15.5% threshold despite a 9.2% revenue decline in the segment (lower contract activity in EMEA). Margin discipline of the recovery plan validated. Aligned-call value confirmed."
         }
       ],
       "overlap_clusters": [
@@ -194,13 +215,27 @@
           "overlap_strength": "mittel"
         }
       ],
+      "lessons_learned": [
+        "Three of four Stage 1 mismatches were directionally incorrect. The shared root cause across IR-VWS-01, IR-VWS-02, and IR-VWS-03 is that 2025-cycle priors and forward-looking outlook risk language were used as Q1 base-case inputs without recency or trajectory adjustment. The cycle inflected in the weeks before the report (offshore acceleration in UK, Germany, South Korea), and the Stage 1 evidence base did not capture this turn.",
+        "IR-VWS-02 illustrates a driver_timing classification error: the 6.0% Group EBIT margin question was framed as a Q1 hurdle but is structurally a full-year guidance check. Q1 is seasonally Vestas' weakest quarter; the 6.0% threshold is a full-year midpoint, not a quarterly base case. driver_timing should have been full_year_impact, with FY guidance reaffirmation as the relevant resolution test. FY guidance was maintained at 6-8% and Q1 margin was the best Q1 since 2018.",
+        "IR-VWS-03 illustrates a risk-language vs. base-case-forecast confusion: outlook risk disclosures (grid connection bottlenecks, permitting frictions) were read as operational forecasts for the reported quarter. Risk language in annual reports describes potential headwinds — it is not a probability-weighted Q1 forecast. Future analyses must distinguish risk-disclosure language from base-case operational guidance.",
+        "IR-VWS-01 illustrates a missed peer trajectory check: 2025 order intake decline data were structurally adjacent_cycle relative to Q1 2026, and the offshore order recovery was visible in Q4 2025 / early Q1 2026 peer activity. The peer trajectory (improving) was not applied. This case validates the v2.3.0 peer trajectory check as a necessary protocol element.",
+        "Calibration outcome: Stage 2 issued a 'signal' label at 35% surprise probability with miss bias. Reality was a +5.96% revenue beat with FY guidance maintained and order intake at a record EUR 5.2B. This is a directional miss with high confidence — the most damaging type of calibration error. The share price moved approximately -1.5% intraday, but driven by negative free cash flow and pre-earnings expectation bar (stock +13% YTD into print, +102% over twelve months), not by an operational miss. The 'right direction for the wrong reason' pattern is methodologically more concerning than a clean directional error.",
+        "The case has been formally documented as motivating evidence for the v2.3.0 / Stage 4 v1.1.0 protocol revision, specifically: (a) Peer Trajectory Check as a hard requirement for adjacent_cycle evidence, (b) driver_timing discipline distinguishing current_quarter_impact from full_year_impact, (c) Forward Guidance Coverage Rule treating FY guidance reaffirmation as a separate Stage 4 reaction layer rather than a Stage 3 input, and (d) explicit separation between outlook risk-disclosure language and base-case operational forecasts.",
+        "Public-facing implication: this case will be retained in the resolved log as a documented calibration miss. Future quarterly notes should include a 'reasoning audit' field distinguishing 'direction correct with correct reasoning' from 'direction correct by accident' to prevent post-hoc self-validation when share price coincidentally aligns with a flawed call."
+      ],
       "score_summary": {
+        "assumptions_correct": 1,
+        "assumptions_incorrect": 3,
         "assumptions_total": 4,
         "stage1_mismatches": 3,
         "independent_mismatches": 0,
         "overlap_clusters": 1,
         "effective_mismatch_count": 1,
-        "stage2_signal": "signal"
+        "stage2_signal": "signal",
+        "stage2_direction_correct": false,
+        "stage2_self_label": "signal",
+        "stage2_note": "Stage 2 issued a 'signal' (35% surprise probability, miss bias) that did not materialize. Revenue beat consensus by +5.96%, order intake reached a record EUR 5.2B (+44% YoY in MW), FY guidance of EUR 20-22B and 6-8% EBIT margin was maintained, and a new EUR 100M share buy-back was initiated. Three of four Stage 1 assumption-level mismatches were directionally wrong; the fourth (IR-VWS-02) was a driver_timing classification error. The share price reaction (approximately -1.5% intraday) was driven by negative free cash flow and a high expectation bar after a strong YTD/12M run, not by an operational miss. Net: directional miss at Stage 2 with material calibration damage. The case is the empirical anchor for the v2.3.0 / Stage 4 v1.1.0 protocol revision."
       }
     },
     {
