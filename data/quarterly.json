@@ -246,7 +246,7 @@
       "analysis_date": "2026-04-19",
       "consensus_date": "2026-04-19",
       "resolution_date": "2026-05-05",
-      "status": "pending",
+      "status": "resolved",
       "stage2": {
         "consensus_eps": 0.33,
         "consensus_currency": "USD",
@@ -254,7 +254,13 @@
         "surprise_probability_percent": 40,
         "predicted_direction": "miss",
         "confidence_label": "signal",
-        "consensus_source": "Yahoo Finance Analysis Page (32 analysts)"
+        "consensus_source": "Yahoo Finance Analysis Page (32 analysts)",
+        "actual_eps_adjusted": 0.36,
+        "actual_eps_gaap": -0.45,
+        "actual_deviation_percent_adjusted": 9.1,
+        "actual_direction": "above_consensus_on_adjusted_basis",
+        "direction_correct": false,
+        "note": "Consensus of $0.33 was an adjusted EPS estimate. Adjusted EPS came in at $0.36, beating by approximately 9%. GAAP EPS was -$0.45 due to a $1.08B net loss on equity and equity-method investments (non-operating, non-cash mark-to-market on minority stakes), but this is not directly comparable to the adjusted consensus. On the like-for-like adjusted basis, Shopify beat the $0.33 consensus, contradicting the predicted miss bias. The share price fell approximately -8.7% pre-market on the day of the report, but the cause was Q2 operating profit guidance below analyst expectations and rising transaction/loan loss reserves — not the trade/tariff friction thesis from IR-SHOP-02. Direction of share price reaction coincidentally aligned with the Stage 2 miss prediction, but for entirely different reasons. This is a 'right direction, wrong reasoning' case rather than a calibrated signal."
       },
       "assumptions": [
         {
@@ -262,7 +268,11 @@
           "name": "Merchant demand sustainability",
           "testable_question": "Q1/2026 reported revenue growth >= 30% YoY?",
           "stage1_verdict": "no_material_mismatch",
-          "driver_timing": "current_quarter_impact"
+          "driver_timing": "current_quarter_impact",
+          "actual_value": "+34.3% YoY revenue growth ($3,170M vs $2,360M Q1/2025)",
+          "condition_met": true,
+          "call_correct": true,
+          "resolution_note": "Strongest quarterly revenue growth in over four years. Broad-based across geographies (North America, Europe, Asia Pacific) and merchant sizes. Aligned-call value confirmed."
         },
         {
           "assumption_id": "IR-SHOP-02",
@@ -271,23 +281,45 @@
           "stage1_verdict": "material_mismatch",
           "stage1_direction": "guidance_too_optimistic",
           "driver_timing": "current_quarter_impact",
-          "mismatch_drivers": "De-minimis duty-free suspension continued Feb 2026. Cross-border friction rising for smaller merchants. Shopify names trade measures including tariffs as explicit risk factor."
+          "mismatch_drivers": "De-minimis duty-free suspension continued Feb 2026. Cross-border friction rising for smaller merchants. Shopify names trade measures including tariffs as explicit risk factor.",
+          "actual_value": "+32.2% YoY gross profit growth ($1,546M vs $1,169M Q1/2025)",
+          "condition_met": true,
+          "call_correct": false,
+          "miss_reason": "Gross profit cleared the 28% threshold by 4.2 percentage points. The de-minimis and cross-border tariff thesis did not materialize as a Q1 gross profit headwind. Merchant solutions revenue grew 39% YoY (gross profit margin 39%), Shopify Payments penetration rose to 67%, and broad-based merchant demand offset any cross-border friction at the Q1 aggregate level. Risk-disclosure language about tariffs in 10-K/risk factors was misread as a base-case Q1 forecast input — the same pattern as IR-VWS-03."
         },
         {
           "assumption_id": "IR-SHOP-03",
           "name": "FX impact on reported growth",
           "testable_question": "Q1/2026 reported revenue growth >= 30% YoY?",
           "stage1_verdict": "no_material_mismatch",
-          "driver_timing": "current_quarter_impact"
+          "driver_timing": "current_quarter_impact",
+          "actual_value": "+34.3% YoY revenue growth (same threshold as IR-SHOP-01)",
+          "condition_met": true,
+          "call_correct": true,
+          "resolution_note": "FX did not produce a material headwind to reported growth. Aligned-call confirmed. Note: IR-SHOP-01 and IR-SHOP-03 share the same testable question, which is methodologically suboptimal — both assumptions resolve identically by construction. Future analyses should ensure each assumption has an independent testable question."
         }
       ],
+      "lessons_learned": [
+        "IR-SHOP-02 repeated the same 'risk-disclosure language as base-case forecast' error documented in the Vestas IR-VWS-03 case. Shopify's 10-K listed trade measures and tariffs as risk factors, and de-minimis policy changes were a real macro datapoint. But these were not Q1 gross profit headwinds at the aggregate level. The 28% gross profit growth threshold was cleared by 4.2pp. Future analyses must distinguish risk-factor disclosures (legally required forward-looking risk language) from operational base-case forecasts.",
+        "Two of three testable questions (IR-SHOP-01 and IR-SHOP-03) shared an identical threshold (revenue growth >= 30% YoY). This is a methodological weakness: assumptions should resolve to independent operational questions to avoid double-counting alignment in score_summary. Future analyses must enforce one-question-per-assumption uniqueness as a Stage 1 hard rule.",
+        "Stage 2 issued a 'signal' label at 40% surprise probability with miss bias on adjusted EPS. Reality on the like-for-like adjusted basis was a +9.1% beat ($0.36 vs $0.33 consensus). This is a directional miss at Stage 2 with a 'signal' confidence claim — the same severity pattern as the Vestas case, though smaller in magnitude.",
+        "The share price moved approximately -8.7% pre-market in the predicted direction, but caused by factors entirely outside the Stage 1 thesis: Q2 operating profit guidance below analyst expectations, rising transaction and loan loss reserves, and a $1.08B GAAP equity-investment writedown (non-operating). The Stage 1 trade/tariff thesis (IR-SHOP-02) had no causal link to the realized price move. This is the 'right direction, wrong reasoning' pattern flagged in the Vestas case — methodologically more concerning than a clean directional miss because it invites post-hoc self-validation.",
+        "The Q2 operating profit guidance miss was the actual primary market reaction driver — a forward-guidance signal that Stage 1 / Stage 2 in the v2.2.0 protocol did not score because Forward Guidance was not yet a mandatory Stage 1 assumption category. Under v2.3.0 / Stage 4 v1.1.0, this case would have triggered the Forward Guidance Coverage Rule and required a separate Stage 4 forward-guidance assumption with next_quarter_guidance reaction_driver_type. The case validates the v2.3.0 architecture revision.",
+        "GAAP/adjusted distinction created additional resolution complexity: GAAP EPS of -$0.45 (driven by a $1.08B mark-to-market loss on minority equity investments) is not comparable to the adjusted $0.33 consensus. Future analyses must explicitly state whether the consensus_eps anchor is GAAP or adjusted, and the resolution must use the matching basis. For Shopify and similar companies with material non-operating equity holdings, adjusted EPS is the operationally relevant anchor.",
+        "Public-facing implication: Shopify is the second consecutive case (after Vestas) where the share price moved coincidentally in the predicted direction but for reasons unrelated to the Stage 1 thesis. This pattern strengthens the case for a 'reasoning audit' field in future quarterly notes that explicitly distinguishes 'direction correct with correct reasoning' from 'direction correct by accident'. Without this distinction, two consecutive 'right-direction-wrong-reasoning' cases would falsely register as calibration successes in any aggregate hit-rate statistic."
+      ],
       "score_summary": {
+        "assumptions_correct": 2,
+        "assumptions_incorrect": 1,
         "assumptions_total": 3,
         "stage1_mismatches": 1,
         "independent_mismatches": 1,
         "overlap_clusters": 0,
         "effective_mismatch_count": 1,
-        "stage2_signal": "signal"
+        "stage2_signal": "signal",
+        "stage2_direction_correct": false,
+        "stage2_self_label": "signal",
+        "stage2_note": "Stage 2 issued a 'signal' (40% surprise probability, miss bias) on adjusted EPS. Adjusted EPS came in at $0.36 vs $0.33 consensus, a +9.1% beat — directionally opposite to the prediction. The share price fell approximately -8.7% pre-market, but driven by Q2 operating profit guidance and rising transaction/loan loss reserves, not by the IR-SHOP-02 trade/tariff thesis. Two of three assumption-level calls were correct (IR-SHOP-01 and IR-SHOP-03 both confirmed), but they shared an identical testable question (methodological weakness). The single Stage 1 mismatch (IR-SHOP-02) was directionally wrong; gross profit grew 32.2% YoY, clearing the 28% threshold by 4.2pp. Net: directional miss at Stage 2 on the operational EPS basis with the right share-price direction for the wrong reason — the 'right direction by accident' pattern documented in the Vestas case applies here as well."
       }
     },
     {
