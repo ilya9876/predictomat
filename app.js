@@ -249,6 +249,33 @@ function renderMarkets(markets) {
     const inspector = card.querySelector('.chart-inspector');
     renderMarketChart(canvas, market.snapshots, inspector);
 
+    const zoomGroup = card.querySelector('.chart-zoom');
+    if (zoomGroup) {
+      zoomGroup.addEventListener('click', (event) => {
+        const button = event.target.closest('.chart-zoom-button');
+        if (!button || button.classList.contains('is-active')) return;
+
+        zoomGroup.querySelectorAll('.chart-zoom-button').forEach((b) => {
+          b.classList.remove('is-active');
+          b.setAttribute('aria-pressed', 'false');
+        });
+        button.classList.add('is-active');
+        button.setAttribute('aria-pressed', 'true');
+
+        const mode = button.dataset.zoom;
+        const snapshots = mode === 'recent'
+          ? market.snapshots.slice(-20)
+          : market.snapshots;
+
+        // Replace canvas with a clone to drop stale pointer listeners
+        // from the previous render before re-rendering.
+        const currentCanvas = card.querySelector('canvas');
+        const freshCanvas = currentCanvas.cloneNode(false);
+        currentCanvas.parentNode.replaceChild(freshCanvas, currentCanvas);
+        renderMarketChart(freshCanvas, snapshots, inspector);
+      });
+    }
+
     if (i === 0 && state.view === 'active') {
       elements.marketList.appendChild(createGapExplainerBlock());
     }
@@ -298,6 +325,12 @@ function createMarketCard(market) {
         <span class="legend-item"><span class="legend-swatch mine"></span> Mine</span>
       </div>
       <canvas aria-label="Probability chart for ${escapeAttribute(market.title)}"></canvas>
+      ${snapshotCount > 20 ? `
+      <div class="chart-zoom" role="group" aria-label="Chart zoom for ${escapeAttribute(market.title)}">
+        <button class="chart-zoom-button" type="button" data-zoom="recent" aria-pressed="false">Last 20 days</button>
+        <button class="chart-zoom-button is-active" type="button" data-zoom="all" aria-pressed="true">All ${snapshotCount} days</button>
+      </div>
+      ` : ''}
       <div class="chart-inspector is-idle" role="status" aria-live="polite">
         <span class="inspector-item inspector-date">${prefersHover ? 'Hover a point to inspect' : 'Tap a point to inspect exact values.'}</span>
         <span class="inspector-item inspector-crowd">Crowd: —</span>

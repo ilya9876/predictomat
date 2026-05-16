@@ -338,6 +338,41 @@ a {
   font-weight: 600;
 }
 
+/* ── Chart zoom toggle (per-card) ── */
+
+.chart-zoom {
+  display: flex;
+  gap: var(--space-1);
+  margin-top: var(--space-2);
+}
+
+.chart-zoom-button {
+  appearance: none;
+  border: 2px solid var(--border);
+  background: var(--surface-2);
+  color: var(--text);
+  padding: 6px 10px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  box-shadow: 2px 2px 0 var(--border);
+}
+
+.chart-zoom-button:hover {
+  background: var(--surface);
+}
+
+.chart-zoom-button.is-active {
+  background: var(--accent-active);
+  transform: translate(2px, 2px);
+  box-shadow: none;
+}
+
+.chart-zoom-button.is-active:hover {
+  background: var(--accent-active);
+}
+
 .empty-state {
   padding: var(--space-4);
 }
