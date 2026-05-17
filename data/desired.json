@@ -82,14 +82,24 @@
 		{ "date": "2026-05-13", "crowd_probability_percent": 59, "my_probability_percent": 53 },
 		{ "date": "2026-05-14", "crowd_probability_percent": 59, "my_probability_percent": 48 },
 		{ "date": "2026-05-15", "crowd_probability_percent": 59, "my_probability_percent": 52 },
-		{ "date": "2026-05-16", "crowd_probability_percent": 60, "my_probability_percent": 51 }
+		{ "date": "2026-05-16", "crowd_probability_percent": 60, "my_probability_percent": 51 },
+		{ "date": "2026-05-17", "crowd_probability_percent": 60, "my_probability_percent": 52 }
+      ]
+    },
+	{
+      "track_id": "MicroStrategy-sells-any-Bitcoin",
+      "title": "MicroStrategy-sells-any-Bitcoin-by-June-30?",
+      "polymarket_url": "https://polymarket.com/event/microstrategy-sell-any-bitcoin-in-2025",
+      "status": "active",
+      "snapshots": [
+		{ "date": "2026-05-17", "crowd_probability_percent": 67, "my_probability_percent": 59 }
       ]
     },
 	{
       "track_id": "Eurovision-Winner-2026",
       "title": "Eurovision-Winner-2026-Finland?",
       "polymarket_url": "https://polymarket.com/event/eurovision-winner-2026",
-      "status": "active",
+      "status": "archived",
       "snapshots": [
 		{ "date": "2026-05-01", "crowd_probability_percent": 34, "my_probability_percent": 30 },
 		{ "date": "2026-05-02", "crowd_probability_percent": 34, "my_probability_percent": 32 },
@@ -106,7 +116,8 @@
 		{ "date": "2026-05-13", "crowd_probability_percent": 45, "my_probability_percent": 41 },
 		{ "date": "2026-05-14", "crowd_probability_percent": 44, "my_probability_percent": 41 },
 		{ "date": "2026-05-15", "crowd_probability_percent": 49, "my_probability_percent": 45 },
-		{ "date": "2026-05-16", "crowd_probability_percent": 50, "my_probability_percent": 45 }
+		{ "date": "2026-05-16", "crowd_probability_percent": 50, "my_probability_percent": 45 },
+		{ "date": "2026-05-17", "crowd_probability_percent": 0, "my_probability_percent": 0 }
       ]
     },
 	{
@@ -140,7 +151,8 @@
 		{ "date": "2026-05-13", "crowd_probability_percent": 81, "my_probability_percent": 78 },
 		{ "date": "2026-05-14", "crowd_probability_percent": 83, "my_probability_percent": 82 },
 		{ "date": "2026-05-15", "crowd_probability_percent": 83, "my_probability_percent": 81 },
-		{ "date": "2026-05-16", "crowd_probability_percent": 81, "my_probability_percent": 81 }
+		{ "date": "2026-05-16", "crowd_probability_percent": 81, "my_probability_percent": 81 },
+		{ "date": "2026-05-17", "crowd_probability_percent": 83, "my_probability_percent": 81 }
       ]
     },
 	{
@@ -188,7 +200,8 @@
 		{ "date": "2026-05-13", "crowd_probability_percent": 53, "my_probability_percent": 45 },
 		{ "date": "2026-05-14", "crowd_probability_percent": 51, "my_probability_percent": 42 },
 		{ "date": "2026-05-15", "crowd_probability_percent": 51, "my_probability_percent": 46 },
-		{ "date": "2026-05-16", "crowd_probability_percent": 50, "my_probability_percent": 46 }
+		{ "date": "2026-05-16", "crowd_probability_percent": 50, "my_probability_percent": 46 },
+		{ "date": "2026-05-17", "crowd_probability_percent": 50, "my_probability_percent": 48 }
       ]
     },
 	{
@@ -335,7 +348,8 @@
 		{ "date": "2026-05-13", "crowd_probability_percent": 47, "my_probability_percent": 45 },
 		{ "date": "2026-05-14", "crowd_probability_percent": 46, "my_probability_percent": 44 },
 		{ "date": "2026-05-15", "crowd_probability_percent": 47, "my_probability_percent": 43 },
-		{ "date": "2026-05-16", "crowd_probability_percent": 45, "my_probability_percent": 46 }
+		{ "date": "2026-05-16", "crowd_probability_percent": 45, "my_probability_percent": 46 },
+		{ "date": "2026-05-17", "crowd_probability_percent": 46, "my_probability_percent": 44 }
       ]
     },
 	{
