@@ -107,7 +107,8 @@
 		{ "date": "2026-06-07", "crowd_probability_percent": 28, "my_probability_percent": 24 },
 		{ "date": "2026-06-08", "crowd_probability_percent": 30, "my_probability_percent": 32 },
 		{ "date": "2026-06-09", "crowd_probability_percent": 26, "my_probability_percent": 20 },
-		{ "date": "2026-06-10", "crowd_probability_percent": 26, "my_probability_percent": 20 }
+		{ "date": "2026-06-10", "crowd_probability_percent": 26, "my_probability_percent": 20 },
+		{ "date": "2026-06-11", "crowd_probability_percent": 27, "my_probability_percent": 21 }
       ]
     },
 	{
@@ -174,7 +175,7 @@
       "track_id": "ECB-Interest-Rates-June-11th-2026-25-bps-Increase",
       "title": "ECB-Interest-Rates-June-11th-2026-25-bps-Increase",
       "polymarket_url": "https://polymarket.com/event/ecb-interest-rates-june-2026",
-      "status": "active",
+      "status": "archived",
       "snapshots": [
 		{ "date": "2026-05-01", "crowd_probability_percent": 85, "my_probability_percent": 81 },
 		{ "date": "2026-05-02", "crowd_probability_percent": 83, "my_probability_percent": 78 },
@@ -216,7 +217,8 @@
 		{ "date": "2026-06-07", "crowd_probability_percent": 98, "my_probability_percent": 96 },
 		{ "date": "2026-06-08", "crowd_probability_percent": 99, "my_probability_percent": 97 },
 		{ "date": "2026-06-09", "crowd_probability_percent": 99, "my_probability_percent": 98 },
-		{ "date": "2026-06-10", "crowd_probability_percent": 99, "my_probability_percent": 98 }
+		{ "date": "2026-06-10", "crowd_probability_percent": 99, "my_probability_percent": 98 },
+		{ "date": "2026-06-11", "crowd_probability_percent": 100, "my_probability_percent": 100 }
       ]
     },
 	{
@@ -289,7 +291,8 @@
 		{ "date": "2026-06-07", "crowd_probability_percent": 51, "my_probability_percent": 52 },
 		{ "date": "2026-06-08", "crowd_probability_percent": 50, "my_probability_percent": 52 },
 		{ "date": "2026-06-09", "crowd_probability_percent": 50, "my_probability_percent": 48 },
-		{ "date": "2026-06-10", "crowd_probability_percent": 51, "my_probability_percent": 47 }
+		{ "date": "2026-06-10", "crowd_probability_percent": 51, "my_probability_percent": 47 },
+		{ "date": "2026-06-11", "crowd_probability_percent": 52, "my_probability_percent": 48 }
       ]
     },
 	{
@@ -461,7 +464,8 @@
 		{ "date": "2026-06-07", "crowd_probability_percent": 45, "my_probability_percent": 42 },
 		{ "date": "2026-06-08", "crowd_probability_percent": 45, "my_probability_percent": 47 },
 		{ "date": "2026-06-09", "crowd_probability_percent": 46, "my_probability_percent": 44 },
-		{ "date": "2026-06-10", "crowd_probability_percent": 46, "my_probability_percent": 44 }
+		{ "date": "2026-06-10", "crowd_probability_percent": 46, "my_probability_percent": 44 },
+		{ "date": "2026-06-11", "crowd_probability_percent": 46, "my_probability_percent": 48 }
       ]
     },
 	{
